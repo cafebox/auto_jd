@@ -2,8 +2,7 @@
 name: 同步lxk0301脚本库
 on:
   push:
-  schedule:
-  # Sync repo once every two days
+   # Sync repo once every two days
    # - cron: '1 0,15 * * *'
   workflow_dispatch:
   watch:
