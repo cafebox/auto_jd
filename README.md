@@ -20,17 +20,11 @@
 
 **脚本兼容: [QuantumultX](https://apps.apple.com/us/app/quantumult-x/id1443988620), [Surge](https://apps.apple.com/us/app/surge-4/id1442620678), [Loon](https://apps.apple.com/us/app/loon/id1373567447), JSBox, Node.js**
 **TODO**
-### 方法一：本地安装Node.js，下载本库脚本(不推荐)
+### 方法一：本地安装Node.js，下载本库脚本(不推荐)  - 缺点：需要手动运行脚本，不能自动定时运行脚本
 
-  - 缺点：需要手动运行脚本，不能自动定时运行脚本
-
-### 方法二：云服务器，腾讯云函数等等
-
-  - 需自行有云服务器，云函数等
-  - 腾云云函数使用 [简要说明](iCloud.md)
+### 方法二：云服务器，腾讯云函数等等    - 需自行有云服务器，云函数等    - 腾云云函数使用 [简要说明](iCloud.md)
         
-### 方法三：GitHub action(推荐，iOS/安卓用户都可用)
-
+### 方法三：GitHub action(推荐，iOS/安卓用户都可用) 
  - 使用教程暂且可看 [这里](githubAction.md)
 
 #### 注：以上三种运行机制都是nodejs，故您需仔细阅读下面几点
