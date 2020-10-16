@@ -39,7 +39,6 @@
 使用box可以实现远程订阅助力好友(需订阅此 [链接](https://raw.githubusercontent.com/lxk0301/scripts/master/lxk0301.boxjs.json))
 - [BoxJs使用教程](https://chavyleung.gitbook.io/boxjs/)
 - [BoxJs教程视频](https://youtu.be/eIpBrRxiy0w)
-【用box订阅的好处】
 
  1、脚本也可以远程挂载。京东活动助力功能的分享码只需在box里面填写。以后只需远程更新就行。 2、所有脚本的cookie都可以备份，方便你迁移到其他支持box的软件。 3、box可以支持多账号
 
