@@ -1,7 +1,6 @@
 # File: .github/workflows/repo-sync.yml
 name: 同步lxk0301脚本库
 on:
-  push:
    # Sync repo once every two days
    # - cron: '1 0,15 * * *'
   workflow_dispatch:
