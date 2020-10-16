@@ -32,7 +32,7 @@ http-request ^https:\/\/draw\.jdfcloud\.com\/\/pet\/enterRoom\?reqSource=weapp&i
 https://jdjoy.jd.com/pet/getFriends?itemsPerPage=20&currentPage=1
 **/
 let url = $request.url
-const friendsArr = [ "hajiuhajiu2733","wdovJvWPLhUUqC","q2705322732","wdfxtlDMXHbaHu","wdaABrvfJIjgOl","hajiuhajiu2067","18939824134_p","jd_441027f2a1e0d","jd_747fca41dbd0a","jd_51d9ee19241e2","wdwMJcEGPKgMlq","niujie678","jd_4a2a4cee61c9e","niujie4969",]
+const friendsArr = [ "hajiuhajiu2733","wdovJvWPLhUUqC","q2705322732","wdfxtlDMXHbaHu","wdaABrvfJIjgOl","hajiuhajiu2067","18939824134_p","jd_441027f2a1e0d","jd_747fca41dbd0a","jd_51d9ee19241e2","wdwMJcEGPKgMlq","niujie678","jd_4a2a4cee61c9e","niujie4969"]
 function randomFriendPin(m,n) {
   return Math.floor(Math.random()*(m - n) + n);
 }
