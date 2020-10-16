@@ -50,8 +50,6 @@
 - [BoxJs使用教程](https://chavyleung.gitbook.io/boxjs/)
 
 - [BoxJs教程视频](https://youtu.be/eIpBrRxiy0w)
-
-
 【用box订阅的好处】
 
  1、脚本也可以远程挂载。京东活动助力功能的分享码只需在box里面填写。以后只需远程更新就行。
