@@ -6,7 +6,7 @@ name: jd_joy
 on:
   workflow_dispatch:
   schedule:
-    - cron: '05 1,4,10,15,16 * * *'
+    - cron: '05 2,4,10,15,16 * * *'
   watch:
     types: started
 
