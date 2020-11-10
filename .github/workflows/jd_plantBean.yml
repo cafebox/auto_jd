@@ -6,10 +6,11 @@ name: jd_plantBean
 on:
   workflow_dispatch:
   schedule:
-    - cron: '16, 17,23,3,0-17/4 * * *'
+    - cron: '0 23,0-13/1 * * *'
   watch:
     types: started
-
+  repository_dispatch:
+    types: pantBean
 jobs:
   build:
 
@@ -38,3 +39,4 @@ jobs:
           BARK_SOUND: ${{ secrets.BARK_SOUND }}
           DD_BOT_TOKEN: ${{ secrets.DD_BOT_TOKEN }}
           DD_BOT_SECRET: ${{ secrets.DD_BOT_SECRET }}
+          IGOT_PUSH_KEY: ${{ secrets.IGOT_PUSH_KEY }}

@@ -6,9 +6,11 @@ name: jd_joy_feedPets
 on:
   workflow_dispatch:
   schedule:
-    - cron: '*/60 */1 * * *'
+    - cron: '*/20 */1 * * *'
   watch:
     types: [started]
+  repository_dispatch:
+    types: joy_feedPets
 jobs:
   build:
 
@@ -37,3 +39,4 @@ jobs:
           TG_USER_ID: ${{ secrets.TG_USER_ID }}
           DD_BOT_TOKEN: ${{ secrets.DD_BOT_TOKEN }}
           DD_BOT_SECRET: ${{ secrets.DD_BOT_SECRET }}
+          IGOT_PUSH_KEY: ${{ secrets.IGOT_PUSH_KEY }}
