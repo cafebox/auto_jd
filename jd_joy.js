@@ -2,23 +2,23 @@
 jd宠汪汪 搬的https://github.com/uniqueque/QuantumultX/blob/4c1572d93d4d4f883f483f907120a75d925a693e/Script/jd_joy.js
 脚本兼容: QuantumultX, Surge, Loon, JSBox, Node.js
 IOS用户支持京东双账号,NodeJs用户支持N个京东账号
-更新日期：2020-09-30
+更新时间：2020-11-03
 建议先凌晨0点运行jd_joy.js脚本获取狗粮后，再运行此脚本(jd_joy_steal.js)可偷好友积分，6点运行可偷好友狗粮
 feedCount:自定义 每次喂养数量; 等级只和喂养次数有关，与数量无关
 推荐每次投喂10个，积累狗粮，然后去聚宝盆赌每小时的幸运奖，据观察，投入3000-6000中奖概率大，超过7000基本上注定亏本，即使是第一名
 Combine from Zero-S1/JD_tools(https://github.com/Zero-S1/JD_tools)
-更新时间:2020-09-20
+更新时间:2020-10-20
 注：如果使用Node.js, 需自行安装'crypto-js,got,http-server,tough-cookie'模块. 例: npm install crypto-js http-server tough-cookie got --save
 */
 // quantumultx
 // [task_local]
 // #京东宠汪汪
-// 15 */2 * * * https://raw.githubusercontent.com/lxk0301/scripts/master/jd_joy.js, tag=京东宠汪汪, img-url=https://raw.githubusercontent.com/58xinian/icon/master/jdcww.png, enabled=true
+// 15 */2 * * * https://raw.githubusercontent.com/lxk0301/jd_scripts/master/jd_joy.js, tag=京东宠汪汪, img-url=https://raw.githubusercontent.com/58xinian/icon/master/jdcww.png, enabled=true
 // Loon
 // [Script]
-// cron "15 */2 * * *" script-path=https://raw.githubusercontent.com/lxk0301/scripts/master/jd_joy.js,tag=京东宠汪汪
+// cron "15 */2 * * *" script-path=https://raw.githubusercontent.com/lxk0301/jd_scripts/master/jd_joy.js,tag=京东宠汪汪
 // Surge
-// 京东宠汪汪 = type=cron,cronexp="15 */2 * * *",wake-system=1,timeout=20,script-path=https://raw.githubusercontent.com/lxk0301/scripts/master/jd_joy.js
+// 京东宠汪汪 = type=cron,cronexp="15 */2 * * *",wake-system=1,timeout=20,script-path=https://raw.githubusercontent.com/lxk0301/jd_scripts/master/jd_joy.js
 const $ = new Env('宠汪汪');
 const notify = $.isNode() ? require('./sendNotify') : '';
 //Node.js用户请在jdCookie.js处填写京东ck;
@@ -35,11 +35,11 @@ if ($.isNode()) {
   cookiesArr.push($.getdata('CookieJD'));
   cookiesArr.push($.getdata('CookieJD2'));
 }
-let message = '', subTitle = '', UserName = '';
+let message = '', subTitle = '';
 let FEED_NUM = ($.getdata('joyFeedCount') * 1) || 10;   //每次喂养数量 [10,20,40,80]
 //是否参加宠汪汪双人赛跑（据目前观察，参加双人赛跑不消耗狗粮,如需参加其他多人赛跑，请关闭）
 // 默认 'true' 参加双人赛跑，如需关闭 ，请改成 'false';
-const joyRunFlag = $.getdata('joyRunFlag') || 'true';
+let joyRunFlag = true;
 let jdNotify = true;//是否开启静默运行，默认true开启
 const JD_API_HOST = 'https://jdjoy.jd.com/pet'
 const weAppUrl = 'https://draw.jdfcloud.com//pet';
@@ -51,12 +51,26 @@ const weAppUrl = 'https://draw.jdfcloud.com//pet';
   for (let i = 0; i < cookiesArr.length; i++) {
     if (cookiesArr[i]) {
       cookie = cookiesArr[i];
-      UserName = decodeURIComponent(cookie.match(/pt_pin=(.+?);/) && cookie.match(/pt_pin=(.+?);/)[1])
+      $.UserName = decodeURIComponent(cookie.match(/pt_pin=(.+?);/) && cookie.match(/pt_pin=(.+?);/)[1])
       $.index = i + 1;
-      console.log(`\n开始【京东账号${$.index}】${UserName}\n`);
+      $.isLogin = true;
+      $.nickName = '';
+      await TotalBean();
+      console.log(`\n开始【京东账号${$.index}】${$.nickName || $.UserName}\n`);
+      if (!$.isLogin) {
+        $.msg($.name, `【提示】cookie已失效`, `京东账号${$.index} ${$.nickName || $.UserName}\n请重新登录获取\nhttps://bean.m.jd.com/`, {"open-url": "https://bean.m.jd.com/"});
+
+        if ($.isNode()) {
+          await notify.sendNotify(`${$.name}cookie已失效 - ${$.UserName}`, `京东账号${$.index} ${$.UserName}\n请重新登录获取cookie`);
+        } else {
+          $.setdata('', `CookieJD${i ? i + 1 : "" }`);//cookie失效，故清空cookie。$.setdata('', `CookieJD${i ? i + 1 : "" }`);//cookie失效，故清空cookie。
+        }
+        continue
+      }
       message = '';
       subTitle = '';
       await jdJoy();
+      await showMsg();
       // await joinTwoPeopleRun();
     }
   }
@@ -84,31 +98,38 @@ async function jdJoy() {
       petTask(),
       appPetTask()
     ])
+    await deskGoodsTask();//限时货柜
     await enterRoom();
     await joinTwoPeopleRun()//参加双人赛跑
-    await showMsg();
   } else {
-    if ($.getPetTaskConfigRes.errorCode === 'B0001') {
-      $.msg($.name, `【提示】cookie已失效`, `京东账号${$.index} ${UserName}\n请重新登录获取\nhttps://bean.m.jd.com/`, {"open-url": "https://bean.m.jd.com/"});
-      if ($.index === 1) {
-        $.setdata('', 'CookieJD');//cookie失效，故清空cookie。
-      } else if ($.index === 2){
-        $.setdata('', 'CookieJD2');//cookie失效，故清空cookie。
-      }
-      if ($.isNode()) {
-        await notify.sendNotify(`${$.name}cookie已失效`, `京东账号${$.index} ${UserName}\n请重新登录获取cookie`);
-      }
-      // if ($.isNode()) {
-      //   await notify.BarkNotify(`${$.name}cookie已失效`, `京东账号${$.index} ${UserName}\n请重新登录获取cookie`);
-      // }
-    } else {
-      message += `${$.getPetTaskConfigRes.errorMessage}`;
-    }
+    message += `${$.getPetTaskConfigRes.errorMessage}`;
   }
+}
+//逛商品得100积分奖励任务
+async function deskGoodsTask() {
+ const deskGoodsRes = await getDeskGoodDetails();
+ if (deskGoodsRes && deskGoodsRes.success) {
+   if (deskGoodsRes.data && deskGoodsRes.data.deskGoods) {
+     const { deskGoods, taskChance, followCount = 0 } = deskGoodsRes.data;
+     console.log(`浏览货柜商品 ${followCount ? followCount : 0}/${taskChance}`);
+     if (taskChance === followCount) return
+     for (let item of deskGoods) {
+       if (!item['status'] && item['sku']) {
+         await followScan(item['sku'])
+       }
+     }
+   } else {
+     console.log(`限时商品货架已下架`);
+   }
+ }
 }
 //参加双人赛跑
 async function joinTwoPeopleRun() {
-  if (joyRunFlag && joyRunFlag === 'true') {
+  joyRunFlag = $.getdata('joyRunFlag') ? $.getdata('joyRunFlag') : joyRunFlag;
+  if ($.isNode() && process.env.JOY_RUN_FLAG) {
+    joyRunFlag = process.env.JOY_RUN_FLAG;
+  }
+  if (`${joyRunFlag}` === 'true') {
     console.log(`\n===========以下是双人赛跑信息========\n`)
     await getPetRace();
     if ($.petRaceResult) {
@@ -139,7 +160,7 @@ async function joinTwoPeopleRun() {
         await receiveJoyRunAward();
         console.log(`领取赛跑奖励结果：${JSON.stringify($.receiveJoyRunAwardRes)}`)
         if ($.receiveJoyRunAwardRes.success) {
-          $.msg($.name, '双人赛跑取得获胜', `【京东账号${$.index}】${UserName}\n太棒了,恭喜您获得300积分奖励`)
+          $.msg($.name, '双人赛跑取得获胜', `【京东账号${$.index}】${$.nickName}\n太棒了,恭喜您获得300积分奖励`)
         }
       }
       if (petRaceResult === 'participate') {
@@ -302,6 +323,51 @@ async function appPetTask() {
     }
   }
 }
+function getDeskGoodDetails() {
+  return new Promise(resolve => {
+    const url = `${JD_API_HOST}/getDeskGoodDetails`;
+    const host = `jdjoy.jd.com`;
+    const reqSource = 'h5';
+    $.get(taskUrl(url, host, reqSource), (err, resp, data) => {
+      try {
+        if (err) {
+          console.log('\n京东宠汪汪: API查询请求失败 ‼️‼️')
+        } else {
+          data = JSON.parse(data);
+        }
+      } catch (e) {
+        $.logErr(e, resp);
+      } finally {
+        resolve(data);
+      }
+    })
+  })
+}
+function followScan(sku) {
+  return new Promise(resolve => {
+    const url = `${JD_API_HOST}/scan`;
+    const host = `jdjoy.jd.com`;
+    const reqSource = 'h5';
+    const body = {
+      "taskType": "ScanDeskGood",
+      "reqSource": "h5",
+      sku
+    }
+    $.post(taskPostUrl(url, JSON.stringify(body), reqSource, host, 'application/json'), (err, resp, data) => {
+      try {
+        if (err) {
+          console.log('\n京东宠汪汪: API查询请求失败 ‼️‼️')
+        } else {
+          data = JSON.parse(data);
+        }
+      } catch (e) {
+        $.logErr(e, resp);
+      } finally {
+        resolve(data);
+      }
+    })
+  })
+}
 //小程序逛会场，浏览频道，关注商品API
 function scanMarket(type, body, cType = 'application/json') {
   return new Promise(resolve => {
@@ -406,7 +472,7 @@ function enterRoom() {
          
           $.roomData = JSON.parse(data);
 
-          console.log(`n现有狗粮: ${$.roomData.data.petFood}\n`)
+          console.log(`现有狗粮: ${$.roomData.data.petFood}\n`)
 
           subTitle = `【用户名】${$.roomData.data.pin}`
           message = `现有积分: ${$.roomData.data.petCoin}\n现有狗粮: ${$.roomData.data.petFood}\n喂养次数: ${$.roomData.data.feedCount}\n宠物等级: ${$.roomData.data.petLevel}\n`
@@ -608,11 +674,52 @@ function receiveJoyRunAward() {
   })
 }
 function showMsg() {
-  $.log(`\n${message}\n`);
   jdNotify = $.getdata('jdJoyNotify') ? $.getdata('jdJoyNotify') : jdNotify;
   if (!jdNotify || jdNotify === 'false') {
     $.msg($.name, subTitle, message);
+  } else {
+    $.log(`\n${message}\n`);
   }
+}
+function TotalBean() {
+  return new Promise(async resolve => {
+    const options = {
+      "url": `https://wq.jd.com/user/info/QueryJDUserInfo?sceneval=2`,
+      "headers": {
+        "Accept": "application/json,text/plain, */*",
+        "Content-Type": "application/x-www-form-urlencoded",
+        "Accept-Encoding": "gzip, deflate, br",
+        "Accept-Language": "zh-cn",
+        "Connection": "keep-alive",
+        "Cookie": cookie,
+        "Referer": "https://wqs.jd.com/my/jingdou/my.shtml?sceneval=2",
+        "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 14_0_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0 Mobile/15E148 Safari/604.1"
+      }
+    }
+    $.post(options, (err, resp, data) => {
+      try {
+        if (err) {
+          console.log(`${JSON.stringify(err)}`)
+          console.log(`${$.name} API请求失败，请检查网路重试`)
+        } else {
+          if (data) {
+            data = JSON.parse(data);
+            if (data['retcode'] === 13) {
+              $.isLogin = false; //cookie过期
+              return
+            }
+            $.nickName = data['base'].nickname;
+          } else {
+            console.log(`京东服务器返回空数据`)
+          }
+        }
+      } catch (e) {
+        $.logErr(e, resp)
+      } finally {
+        resolve();
+      }
+    })
+  })
 }
 function taskUrl(url, Host, reqSource) {
   return {

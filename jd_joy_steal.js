@@ -3,19 +3,19 @@ jd宠汪汪偷好友积分与狗粮,及给好友喂食
 偷好友积分上限是20个好友(即获得100积分)，帮好友喂食上限是20个好友(即获得200积分)，偷好友狗粮上限也是20个好友(最多获得120g狗粮)
 IOS用户支持京东双账号,NodeJs用户支持N个京东账号
 脚本兼容: QuantumultX, Surge, Loon, JSBox, Node.js
-更新时间:2020-08-27
+更新时间:2020-11-03
 如果开启了给好友喂食功能，建议先凌晨0点运行jd_joy.js脚本获取狗粮后，再运行此脚本(jd_joy_steal.js)可偷好友积分，6点运行可偷好友狗粮
 注：如果使用Node.js, 需自行安装'crypto-js,got,http-server,tough-cookie'模块. 例: npm install crypto-js http-server tough-cookie got --save
 */
 // quantumultx
 // [task_local]
 // #宠汪汪偷好友积分与狗粮
-// 0 0,6 * * * https://raw.githubusercontent.com/lxk0301/scripts/master/jd_joy_steal.js, tag=宠汪汪偷好友积分与狗粮, img-url=https://raw.githubusercontent.com/58xinian/icon/master/jdcww.png, enabled=true
+// 0 0,6 * * * https://raw.githubusercontent.com/lxk0301/jd_scripts/master/jd_joy_steal.js, tag=宠汪汪偷好友积分与狗粮, img-url=https://raw.githubusercontent.com/58xinian/icon/master/jdcww.png, enabled=true
 // Loon
 // [Script]
-// cron "0 0,6 * * *" script-path=https://raw.githubusercontent.com/lxk0301/scripts/master/jd_joy_steal.js,tag=宠汪汪偷好友积分与狗粮
+// cron "0 0,6 * * *" script-path=https://raw.githubusercontent.com/lxk0301/jd_scripts/master/jd_joy_steal.js,tag=宠汪汪偷好友积分与狗粮
 // Surge
-// 宠汪汪偷好友积分与狗粮 = type=cron,cronexp="0 0,6 * * *",wake-system=1,timeout=320,script-path=https://raw.githubusercontent.com/lxk0301/scripts/master/jd_joy_steal.js
+// 宠汪汪偷好友积分与狗粮 = type=cron,cronexp="0 0,6 * * *",wake-system=1,timeout=320,script-path=https://raw.githubusercontent.com/lxk0301/jd_scripts/master/jd_joy_steal.js
 const $ = new Env('宠汪汪偷好友积分与狗粮');
 const notify = $.isNode() ? require('./sendNotify') : '';
 //Node.js用户请在jdCookie.js处填写京东ck;
@@ -32,10 +32,11 @@ if ($.isNode()) {
   cookiesArr.push($.getdata('CookieJD'));
   cookiesArr.push($.getdata('CookieJD2'));
 }
-let message = '', subTitle = '', UserName = '';
+let message = '', subTitle = '';
 
-const jdNotify = $.getdata('jdJoyNotify');//是否关闭通知，false打开，true通知
-let jdJoyHelpFeed = 'false'//是否给好友喂食，'false'为不给喂食，'true'为给好友喂食，默认不给好友喂食
+let jdNotify = false;//是否开启静默运行，false关闭静默运行(即通知)，true打开静默运行(即不通知)
+let jdJoyHelpFeed = false;//是否给好友喂食，false为不给喂食，true为给好友喂食，默认不给好友喂食
+let jdJoyStealCoin = true;//是否偷好友积分与狗粮，false为否，true为是，默认是偷
 const weAppUrl = 'https://draw.jdfcloud.com//pet';
 const JD_API_HOST = 'https://jdjoy.jd.com/pet'
 !(async () => {
@@ -46,12 +47,26 @@ const JD_API_HOST = 'https://jdjoy.jd.com/pet'
   for (let i = 0; i < cookiesArr.length; i++) {
     if (cookiesArr[i]) {
       cookie = cookiesArr[i];
-      UserName = decodeURIComponent(cookie.match(/pt_pin=(.+?);/) && cookie.match(/pt_pin=(.+?);/)[1])
+      $.UserName = decodeURIComponent(cookie.match(/pt_pin=(.+?);/) && cookie.match(/pt_pin=(.+?);/)[1])
       $.index = i + 1;
-      console.log(`\n开始【京东账号${$.index}】${UserName}\n`);
+      $.isLogin = true;
+      $.nickName = '';
+      await TotalBean();
+      console.log(`\n开始【京东账号${$.index}】${$.nickName || $.UserName}\n`);
+      if (!$.isLogin) {
+        $.msg($.name, `【提示】cookie已失效`, `京东账号${$.index} ${$.nickName || $.UserName}\n请重新登录获取\nhttps://bean.m.jd.com/`, {"open-url": "https://bean.m.jd.com/"});
+
+        if ($.isNode()) {
+          await notify.sendNotify(`${$.name}cookie已失效 - ${$.UserName}`, `京东账号${$.index} ${$.UserName}\n请重新登录获取cookie`);
+        } else {
+          $.setdata('', `CookieJD${i ? i + 1 : "" }`);//cookie失效，故清空cookie。$.setdata('', `CookieJD${i ? i + 1 : "" }`);//cookie失效，故清空cookie。
+        }
+        continue
+      }
       message = '';
       subTitle = '';
       await jdJoySteal();
+      await showMsg();
     }
   }
 })()
@@ -64,7 +79,7 @@ const JD_API_HOST = 'https://jdjoy.jd.com/pet'
 async function jdJoySteal() {
   await getFriends();
   if ($.getFriendsData && $.getFriendsData.success) {
-    message += `【京东账号${$.index}】${UserName}\n`;
+    message += `【京东账号${$.index}】${$.nickName}\n`;
     await getCoinChanges();
     if ($.getFriendsData && $.getFriendsData.datas && $.getFriendsData.datas.length  > 0) {
       const { lastPage } = $.getFriendsData.page;
@@ -90,95 +105,108 @@ async function jdJoySteal() {
         stealFriendsFood(),//偷好友狗粮
         helpFriendsFeed()//给好友喂食
       ])
-      await showMsg();
     }
   } else {
-    if ($.getFriendsData && $.getFriendsData.errorCode === 'B0001') {
-      $.msg($.name, `【提示】cookie已失效`, `京东账号${$.index} ${UserName}\n请重新登录获取\nhttps://bean.m.jd.com/`, {"open-url": "https://bean.m.jd.com/"});
-      if ($.index === 1) {
-        $.setdata('', 'CookieJD');//cookie失效，故清空cookie。
-      } else if ($.index === 2){
-        $.setdata('', 'CookieJD2');//cookie失效，故清空cookie。
-      }
-      if ($.isNode()) {
-        await notify.sendNotify(`${$.name}cookie已失效`, `京东账号${$.index} ${UserName}\n请重新登录获取cookie`);
-      }
-      // if ($.isNode()) {
-      //   await notify.BarkNotify(`${$.name}cookie已失效`, `京东账号${$.index} ${UserName}\n请重新登录获取cookie`);
-      // }
-    } else {
-      message += `${$.getFriendsData && $.getFriendsData.errorMessage}\n`;
-    }
+    message += `${$.getFriendsData && $.getFriendsData.errorMessage}\n`;
   }
 }
 async function stealFriendsFood() {
-  console.log(`开始偷好友狗粮`);
-  for (let friends of $.allFriends) {
-    const { friendPin, status, stealStatus } = friends;
-    console.log(`stealFriendsFood---好友【${friendPin}】--偷食状态：${stealStatus}\n`);
-    // console.log(`stealFriendsFood---好友【${friendPin}】--喂食状态：${status}\n`);
-    if (stealStatus === 'can_steal') {
-      //可偷狗粮
-      //偷好友狗粮
-      console.log(`发现好友【${friendPin}】可偷狗粮\n`)
-      await enterFriendRoom(friendPin);
-      await doubleRandomFood(friendPin);
-      const getRandomFoodRes = await getRandomFood(friendPin);
-      console.log(`偷好友狗粮结果：${JSON.stringify(getRandomFoodRes)}`)
-      if (getRandomFoodRes && getRandomFoodRes.success) {
-        if (getRandomFoodRes.errorCode === 'steal_ok') {
-          $.stealFood += getRandomFoodRes.data;
+  let jdJoyStealCoinTemp;
+  if ($.isNode() && process.env.jdJoyStealCoin) {
+    jdJoyStealCoinTemp = `${process.env.jdJoyStealCoin}` === 'true';
+  } else if ($.getdata('jdJoyStealCoin')) {
+    jdJoyStealCoinTemp = $.getdata('jdJoyStealCoin') === 'true';
+  } else {
+    jdJoyStealCoinTemp = `${jdJoyStealCoin}` === 'true';
+  }
+  if (jdJoyStealCoinTemp) {
+    console.log(`开始偷好友狗粮`);
+    for (let friends of $.allFriends) {
+      const { friendPin, status, stealStatus } = friends;
+      console.log(`stealFriendsFood---好友【${friendPin}】--偷食状态：${stealStatus}\n`);
+      // console.log(`stealFriendsFood---好友【${friendPin}】--喂食状态：${status}\n`);
+      if (stealStatus === 'can_steal') {
+        //可偷狗粮
+        //偷好友狗粮
+        console.log(`发现好友【${friendPin}】可偷狗粮\n`)
+        await enterFriendRoom(friendPin);
+        await doubleRandomFood(friendPin);
+        const getRandomFoodRes = await getRandomFood(friendPin);
+        console.log(`偷好友狗粮结果：${JSON.stringify(getRandomFoodRes)}`)
+        if (getRandomFoodRes && getRandomFoodRes.success) {
+          if (getRandomFoodRes.errorCode === 'steal_ok') {
+            $.stealFood += getRandomFoodRes.data;
+          }
         }
+      } else if (stealStatus === 'chance_full') {
+        console.log('偷好友狗粮已达上限，跳出循环');
+        break;
       }
-    } else if (stealStatus === 'chance_full') {
-      console.log('偷好友狗粮已达上限，跳出循环');
-      break;
     }
   }
 }
 //偷好友积分
 async function stealFriendCoinFun() {
-  if ($.visit_friend !== 100) {
-    console.log('开始偷好友积分')
-    for (let friends of $.allFriends) {
-      const { friendPin } = friends;
-      await stealFriendCoin(friendPin);//领好友积分
-      if ($.stealFriendCoin * 1 === 100) {
-        console.log(`偷好友积分已达上限${$.stealFriendCoin}个，现跳出循环`)
-        break
-      }
-    }
+  let jdJoyStealCoinTemp;
+  if ($.isNode() && process.env.jdJoyStealCoin) {
+    jdJoyStealCoinTemp = `${process.env.jdJoyStealCoin}` === 'true';
+  } else if ($.getdata('jdJoyStealCoin')) {
+    jdJoyStealCoinTemp = $.getdata('jdJoyStealCoin') === 'true';
   } else {
-    console.log('偷好友积分已达上限(已获得100积分)')
-    $.stealFriendCoin = `已达上限(已获得100积分)`
+    jdJoyStealCoinTemp = `${jdJoyStealCoin}` === 'true';
+  }
+  if (jdJoyStealCoinTemp) {
+    if ($.visit_friend !== 100) {
+      console.log('开始偷好友积分')
+      for (let friends of $.allFriends) {
+        const { friendPin } = friends;
+        await stealFriendCoin(friendPin);//领好友积分
+        if ($.stealFriendCoin * 1 === 100) {
+          console.log(`偷好友积分已达上限${$.stealFriendCoin}个，现跳出循环`)
+          break
+        }
+      }
+    } else {
+      console.log('偷好友积分已达上限(已获得100积分)')
+      $.stealFriendCoin = `已达上限(已获得100积分)`
+    }
   }
 }
 //给好友喂食
 async function helpFriendsFeed() {
   if ($.help_feed !== 200) {
     //可给好友喂食
-    jdJoyHelpFeed = $.getdata('jdJoyHelpFeed') ? $.getdata('jdJoyHelpFeed') : jdJoyHelpFeed
-    if (jdJoyHelpFeed && jdJoyHelpFeed === 'true') {
-      console.log(`开始给好友喂食`);
+    let ctrTemp;
+    if ($.isNode() && process.env.JOY_HELP_FEED) {
+      ctrTemp = `${process.env.JOY_HELP_FEED}` === 'true';
+    } else if ($.getdata('jdJoyHelpFeed')) {
+      ctrTemp = $.getdata('jdJoyHelpFeed') === 'true';
+    } else {
+      ctrTemp = `${jdJoyHelpFeed}` === 'true';
+    }
+    if (ctrTemp) {
+      console.log(`\n开始给好友喂食`);
       for (let friends of $.allFriends) {
         const { friendPin, status, stealStatus } = friends;
         // console.log(`\nhelpFriendsFeed---好友【${friendPin}】--偷食状态：${stealStatus}`);
-        console.log(`helpFriendsFeed---好友【${friendPin}】--喂食状态：${status}\n`);
+        console.log(`\nhelpFriendsFeed---好友【${friendPin}】--喂食状态：${status}`);
         if (status === 'not_feed') {
           const helpFeedRes = await helpFeed(friendPin);
+          // console.log(`帮忙喂食结果--${JSON.stringify(helpFeedRes)}`)
           if (helpFeedRes && helpFeedRes.errorCode === 'help_ok' && helpFeedRes.success) {
+            console.log(`帮好友[${friendPin}]喂食10g狗粮成功,你获得10积分\n`);
             $.helpFood += 10;
           } else if (helpFeedRes && helpFeedRes.errorCode === 'chance_full') {
-            console.log('喂食已达上限,不再喂食')
+            console.log('喂食已达上限,不再喂食\n')
             break
           } else if (helpFeedRes && helpFeedRes.errorCode === 'food_insufficient') {
-            console.log('帮好友喂食失败，您的狗粮不足10g')
+            console.log('帮好友喂食失败，您的狗粮不足10g\n')
             break
           } else {
             console.log(JSON.stringify(helpFeedRes))
           }
         } else if (status === 'time_error') {
-          console.log(`好友 ${friendPin} 的汪汪正在食用`)
+          console.log(`帮好友喂食失败,好友[${friendPin}]的汪汪正在食用\n`)
         }
       }
     } else {
@@ -249,7 +277,6 @@ async function stealFriendCoin(friendPin) {
 function enterFriendRoom(friendPin) {
   console.log(`\nfriendPin:: ${friendPin}\n`);
   return new Promise(async resolve => {
-    await $.wait(900);
     $.get(taskUrl('enterFriendRoom', (friendPin)), (err, resp, data) => {
       try {
         if (err) {
@@ -308,7 +335,6 @@ function helpFeed(friendPin) {
           throw new Error(err);
         } else {
           if (data) {
-            console.log(`帮忙喂食结果--${data}`)
             data = JSON.parse(data);
           } else {
             console.log(`京豆api返回数据为空，请检查自身原因`)
@@ -425,13 +451,58 @@ function showMsg() {
   message += $.stealFriendCoin;
   message += $.stealFood;
   message += $.helpFood;
-
-  $.log(`\n${message}\n`);
-  // if (!jdNotify || jdNotify === 'false') {
+  let ctrTemp;
+  if ($.getdata('jdJoyStealNotify')) {
+    ctrTemp = `${$.getdata('jdJoyStealNotify')}` === 'false';
+  } else {
+    ctrTemp = `${jdNotify}` === 'false';
+  }
+  if (ctrTemp) {
     $.msg($.name, '', message);
-  // }
+  } else {
+    $.log(`\n${message}\n`);
+  }
 }
-
+function TotalBean() {
+  return new Promise(async resolve => {
+    const options = {
+      "url": `https://wq.jd.com/user/info/QueryJDUserInfo?sceneval=2`,
+      "headers": {
+        "Accept": "application/json,text/plain, */*",
+        "Content-Type": "application/x-www-form-urlencoded",
+        "Accept-Encoding": "gzip, deflate, br",
+        "Accept-Language": "zh-cn",
+        "Connection": "keep-alive",
+        "Cookie": cookie,
+        "Referer": "https://wqs.jd.com/my/jingdou/my.shtml?sceneval=2",
+        "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 14_0_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0 Mobile/15E148 Safari/604.1"
+      }
+    }
+    $.post(options, (err, resp, data) => {
+      try {
+        if (err) {
+          console.log(`${JSON.stringify(err)}`)
+          console.log(`${$.name} API请求失败，请检查网路重试`)
+        } else {
+          if (data) {
+            data = JSON.parse(data);
+            if (data['retcode'] === 13) {
+              $.isLogin = false; //cookie过期
+              return
+            }
+            $.nickName = data['base'].nickname;
+          } else {
+            console.log(`京东服务器返回空数据`)
+          }
+        }
+      } catch (e) {
+        $.logErr(e, resp)
+      } finally {
+        resolve();
+      }
+    })
+  })
+}
 function taskUrl(functionId, friendPin) {
   return {
     url: `${JD_API_HOST}/${functionId}?friendPin=${encodeURI(friendPin)}`,
