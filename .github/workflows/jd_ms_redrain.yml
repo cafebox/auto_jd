@@ -5,7 +5,7 @@ name: jd_ms_redrain
 on:
   workflow_dispatch:
   schedule:
-    - cron: '03 16 * * *'
+    - cron: '09  7 * * *'
   watch:
     types: started
   repository_dispatch:
