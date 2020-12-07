@@ -5,7 +5,7 @@ name: jd_digital_floor
 on:
   workflow_dispatch:
   schedule:
-    - cron: '03 16 * * *'
+    - cron: '03 7 * * *'
   watch:
     types: started
   repository_dispatch:
