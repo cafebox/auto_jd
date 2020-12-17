@@ -356,7 +356,7 @@ function requireConfig() {
   return new Promise(resolve => {
     console.log(`开始获取${$.name}配置文件\n`);
     //Node.js用户请在jdCookie.js处填写京东ck;
-    const shareCodes = [] //$.isNode() ? require('./jdSplitShareCodes.js') : '';
+    const shareCodes = [`AVWwTxfTFyzIA@ATGER4tfDuEJoczeFgT0@ATGEA1-nMuUhgcDKppTk@ATGEJ2dfWqlV0UAWdnA8@E5mqzExGBdCWn62X0flw`] //$.isNode() ? require('./jdSplitShareCodes.js') : '';
     console.log(`共${cookiesArr.length}个京东账号\n`);
     $.shareCodesArr = [`AVWwTxfTFyzIA@ATGER4tfDuEJoczeFgT0@ATGEA1-nMuUhgcDKppTk@ATGEJ2dfWqlV0UAWdnA8@E5mqzExGBdCWn62X0flw`];
     if ($.isNode()) {
