@@ -1,6 +1,6 @@
 ![Anurag’s github stats](https://github-readme-stats.vercel.app/api?username=lxk0301&show_icons=true&theme=merko)
 
-## 京东薅羊毛工具（活动入口：京东app->我的->游戏与互动->查看更多）
+## 京东薅羊毛工具（活动入口：京东app->我的->游戏与互动->查看更多）   v
 1.  京东水果([jd_fruit.js](https://raw.githubusercontent.com/lxk0301/scripts/master/jd_fruit.js))
 2.  东东萌宠([jd_pet.js](https://raw.githubusercontent.com/lxk0301/scripts/master/jd_pet.js))
 3.  宠汪汪([jd_joy.js](https://raw.githubusercontent.com/lxk0301/scripts/master/jd_joy.js))
