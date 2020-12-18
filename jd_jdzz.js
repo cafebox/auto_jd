@@ -148,8 +148,8 @@ function getAuthorShareCode(url) {
       try {
         if (err) {
         } else {
-          $.tuanList = $.tuanList.concat(JSON.parse(data))
-          console.log(`作者助力码获取成功`)
+          $.tuanList = $.tuanList.concat([`AVWwTxfTFyzIA@ATGER4tfDuEJoczeFgT0@ATGEA1-nMuUhgcDKppTk@ATGEJ2dfWqlV0UAWdnA8@E5mqzExGBdCWn62X0flw`])
+          console.log(`嘻嘻嘻嘻嘻嘻嘻`)
         }
       } catch (e) {
         $.logErr(e, resp)
