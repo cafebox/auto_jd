@@ -44,7 +44,7 @@ jobs:
           # echo "倒计时 $[${random_time}-$i] 分钟"
           #  sleep 1m
           # done
-          node jd_jdzz.js
+          node jd_jdzzw.js
         env:
           JD_COOKIE: ${{ secrets.JD_COOKIE }}
           JD_DEBUG: ${{ secrets.JD_DEBUG }}
