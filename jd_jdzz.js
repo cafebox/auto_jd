@@ -46,13 +46,12 @@ if ($.isNode()) {
 const JD_API_HOST = 'https://api.m.jd.com/client.action';
 const inviteCodes = [
   'AVWwTxfTFyzIA@ATGER4tfDuEJoczeFgT0@ATGEA1-nMuUhgcDKppTk@ATGEJ2dfWqlV0UAWdnA8@E5mqzExGBdCWn62X0flw',
-  'AVWwTxfTFyzIA@ATGER4tfDuEJoczeFgT0@ATGEA1-nMuUhgcDKppTk@ATGEJ2dfWqlV0UAWdnA8@E5mqzExGBdCWn62X0flw'
-  
+  'AVWwTxfTFyzIA@ATGER4tfDuEJoczeFgT0@ATGEA1-nMuUhgcDKppTk@ATGEJ2dfWqlV0UAWdnA8@E5mqzExGBdCWn62X0flw'  
 ]
 !(async () => {
   $.tuanList = []
   await requireConfig();
-  if (helpAuthor) await getAuthorShareCode('https://giqqtee.com/shylocks/updateTeam/raw/main/jd_zz.json');
+  if (helpAuthor) await getAuthorShareCode('https://xxxgiqqtee.com/shylocks/updateTeam/raw/main/jd_zz.json');
   if (!cookiesArr[0]) {
     $.msg($.name, '【提示】请先获取京东账号一cookie\n直接使用NobyDa的京东签到获取', 'https://bean.m.jd.com/', {"open-url": "https://bean.m.jd.com/"});
     return;
@@ -144,9 +143,9 @@ function getAuthorShareCode(url) {
     $.get({url: `${url}?${new Date()}`,
       headers:{
         "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1 Edg/87.0.4280.88"
-      }}, async (err, resp, data) => {
+      }}, async (www, resp, data) => {
       try {
-        if (err) {
+        if (www) {
         } else {
           $.tuanList = $.tuanList.concat(['AVWwTxfTFyzIA@ATGER4tfDuEJoczeFgT0@ATGEA1-nMuUhgcDKppTk@ATGEJ2dfWqlV0UAWdnA8@E5mqzExGBdCWn62X0flw'])
           console.log(`嘻嘻嘻嘻嘻嘻嘻`)
