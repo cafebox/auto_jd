@@ -168,7 +168,7 @@ if ($.isNode()) {
   let count = 0
   while (true) {
     count++
-    if (count > 2 ) { console.log(`\n前去轻轻巧巧\n`);
+    if (count > 16 ) { console.log(`\n结束循环wyw20201224设置\n`);
       return; }
     console.log(`============开始第${count}次挂机=============`)
     for (let i = 0; i < cookiesArr.length; i++) {
