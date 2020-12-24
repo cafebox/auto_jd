@@ -6,7 +6,7 @@ name: jd_crazy_joy_coin
 on:
   workflow_dispatch:
   schedule:
-    - cron: '09 16  * * *'
+    - cron: '20 16,18,20,22,0,2,4,6,8,10,12,14  * * *'
   watch:
     types: started
   repository_dispatch:
@@ -37,7 +37,7 @@ jobs:
           npm install
       - name: '运行 【jd_crazy_joy_coin】'
         run: |
-          random_time=$(($RANDOM % 5))
+          random_time=$(($RANDOM % 2))
           echo "等待 ${random_time} 分钟后开始执行"
           for((i=1; i<=${random_time}; i++));  
           do
