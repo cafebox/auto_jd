@@ -6,7 +6,7 @@ name: jd_lotteryMachine
 on:
   workflow_dispatch:
   schedule:
-    - cron: '11 17 * * *'
+    - cron: '08 1 * * *'
   watch:
     types: started
   repository_dispatch:
@@ -20,7 +20,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         with:
-          repository: duandaxei/jd_scripts
+          repository: hajiuhajiu/jdsign1112
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
@@ -35,24 +35,18 @@ jobs:
       - name: npm install
         run: |
           npm install
-      - name: '运行 【京东抽奖机】'
+      - name: 'jd_lotteryMachine'
         run: |
-          random_time=$(($RANDOM % 10))
-          echo "等待 ${random_time} 分钟后开始执行"
-          for((i=1; i<=${random_time}; i++));  
-          do
-            echo "倒计时 $[${random_time}-$i] 分钟"
-            sleep 1m
-          done
+
           node jd_lotteryMachine.js
         env:
           JD_COOKIE: ${{ secrets.JD_COOKIE }}
           JD_DEBUG: ${{ secrets.JD_DEBUG }}
           PUSH_KEY: ${{ secrets.PUSH_KEY }}
           BARK_PUSH: ${{ secrets.BARK_PUSH }}
-          BARK_SOUND: ${{ secrets.BARK_SOUND }}
           TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
           TG_USER_ID: ${{ secrets.TG_USER_ID }}
+          BARK_SOUND: ${{ secrets.BARK_SOUND }}
           DD_BOT_TOKEN: ${{ secrets.DD_BOT_TOKEN }}
           DD_BOT_SECRET: ${{ secrets.DD_BOT_SECRET }}
           IGOT_PUSH_KEY: ${{ secrets.IGOT_PUSH_KEY }}
