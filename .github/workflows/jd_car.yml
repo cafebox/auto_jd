@@ -5,7 +5,7 @@ name: jd_car
 on:
   workflow_dispatch:
   schedule:
-    - cron: '03 16 * * *'
+    - cron: '59 15 * * *'
   watch:
     types: started
   repository_dispatch:
