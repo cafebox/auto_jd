@@ -6,7 +6,7 @@ name: jd_syj
 on:
   workflow_dispatch:
   schedule:
-    - cron: '10 6 * * *'
+    - cron: '10 20 * * *'
   watch:
     types: [started]
   repository_dispatch:
@@ -20,7 +20,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         with:
-          repository: duandaxei/jd_scripts
+          repository: hajiuhajiu/jdsign1112
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
@@ -37,13 +37,7 @@ jobs:
           npm install
       - name: '运行 【十元街】'
         run: |
-          random_time=$(($RANDOM % 10))
-          echo "等待 ${random_time} 分钟后开始执行"
-          for((i=1; i<=${random_time}; i++));  
-          do
-            echo "倒计时 $[${random_time}-$i] 分钟"
-            sleep 1m
-          done
+
           node jd_syj.js
         env:
           JD_COOKIE: ${{ secrets.JD_COOKIE }}
