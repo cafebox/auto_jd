@@ -92,14 +92,14 @@ if ($.isNode()) {
     }
   }
   if ($.getdata('jd_joy_run_pin')) {
-    run_pins = ["niujie6789","xiangrui99","hajiuhajiu2733","wdovJvWPLhUUqC","q2705322732","wdfxtlDMXHbaHu","wdaABrvfJIjgOl","hajiuhajiu2067","18939824134_p","jd_441027f2a1e0d","jd_747fca41dbd0a","jd_51d9ee19241e2","wdwMJcEGPKgMlq",];
+    run_pins = ["niujie678","wdwMJcEGPKgMlq","hajiuhajiu2733","wdovJvWPLhUUqC","q2705322732","wdfxtlDMXHbaHu","wdaABrvfJIjgOl","hajiuhajiu2067","18939824134_p","jd_441027f2a1e0d","jd_747fca41dbd0a","jd_51d9ee19241e2","wdwMJcEGPKgMlq",];
     run_pins.push($.getdata('jd_joy_run_pin'));
   }
   if ($.getdata('jd2_joy_run_pin')) {
     if (run_pins.length > 0) {
       run_pins.push($.getdata('jd2_joy_run_pin'))
     } else {
-      run_pins = ["xiangrui99","niujie6789","hajiuhajiu2733","wdovJvWPLhUUqC","q2705322732","wdfxtlDMXHbaHu","wdaABrvfJIjgOl","hajiuhajiu2067","18939824134_p","jd_441027f2a1e0d","jd_747fca41dbd0a","jd_51d9ee19241e2","wdwMJcEGPKgMlq",];
+      run_pins = ["niujie678","wdwMJcEGPKgMlq","hajiuhajiu2733","wdovJvWPLhUUqC","q2705322732","wdfxtlDMXHbaHu","wdaABrvfJIjgOl","hajiuhajiu2067","18939824134_p","jd_441027f2a1e0d","jd_747fca41dbd0a","jd_51d9ee19241e2","wdwMJcEGPKgMlq",];
       run_pins.push($.getdata('jd2_joy_run_pin'));
     }
   }
