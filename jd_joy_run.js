@@ -286,6 +286,7 @@ function enterRoom(invitePin) {
   return new Promise(resolve => {
     headers.Cookie = cookie;
     headers.LKYLToken = $.LKYLToken;
+    headers['Content-Type'] = "application/json";
     const options = {
       url: `${JD_BASE_API}/enterRoom?reqSource=weapp&invitePin=${encodeURI(invitePin)}`,
       headers
@@ -296,8 +297,8 @@ function enterRoom(invitePin) {
           $.log('API请求失败')
           $.logErr(JSON.stringify(err));
         } else {
-          data = JSON.parse(data);
-          // console.log('进入房间', data)
+              // console.log('进入房间', data)
+           data = JSON.parse(data);
         }
       } catch (e) {
         $.logErr(e, resp)
