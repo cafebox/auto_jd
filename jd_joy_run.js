@@ -14,25 +14,25 @@ hostname = draw.jdfcloud.com
 
 Surge
 [Script]
-宠汪汪邀请助力与赛跑助力 = type=cron,cronexp="15 10 * * *",wake-system=1,timeout=20,script-path=https://raw.githubusercontent.com/lxk0301/jd_scripts/master/jd_joy_run.js
-宠汪汪助力更新Token = type=http-response,pattern=^https:\/\/draw\.jdfcloud\.com(\/mirror)?\/\/api\/user\/addUser\?code=, requires-body=1, max-size=0, script-path=https://raw.githubusercontent.com/lxk0301/jd_scripts/master/jd_joy_run.js
-宠汪汪助力获取Token = type=http-request,pattern=^https:\/\/draw\.jdfcloud\.com(\/mirror)?\/\/api\/user\/user\/detail\?openId=, requires-body=1, max-size=0, script-path=https://raw.githubusercontent.com/lxk0301/jd_scripts/master/jd_joy_run.js
+宠汪汪邀请助力与赛跑助力 = type=cron,cronexp="15 10 * * *",wake-system=1,timeout=20,script-path=https://raw.githubusercontent.com/LXK9301/jd_scripts/master/jd_joy_run.js
+宠汪汪助力更新Token = type=http-response,pattern=^https:\/\/draw\.jdfcloud\.com(\/mirror)?\/\/api\/user\/addUser\?code=, requires-body=1, max-size=0, script-path=https://raw.githubusercontent.com/LXK9301/jd_scripts/master/jd_joy_run.js
+宠汪汪助力获取Token = type=http-request,pattern=^https:\/\/draw\.jdfcloud\.com(\/mirror)?\/\/api\/user\/user\/detail\?openId=, requires-body=1, max-size=0, script-path=https://raw.githubusercontent.com/LXK9301/jd_scripts/master/jd_joy_run.js
 
 圈X
 [task_local]
 # 宠汪汪邀请助力与赛跑助力
-15 10 * * * https://raw.githubusercontent.com/lxk0301/jd_scripts/master/jd_joy_run.js, tag=宠汪汪邀请助力与赛跑助力, img-url=https://raw.githubusercontent.com/58xinian/icon/master/jdcww.png, enabled=true
+15 10 * * * https://raw.githubusercontent.com/LXK9301/jd_scripts/master/jd_joy_run.js, tag=宠汪汪邀请助力与赛跑助力, img-url=https://raw.githubusercontent.com/58xinian/icon/master/jdcww.png, enabled=true
 [rewrite_local]
 # 宠汪汪助力更新Token
-^https:\/\/draw\.jdfcloud\.com(\/mirror)?\/\/api\/user\/addUser\?code= url script-response-body https://raw.githubusercontent.com/lxk0301/jd_scripts/master/jd_joy_run.js
+^https:\/\/draw\.jdfcloud\.com(\/mirror)?\/\/api\/user\/addUser\?code= url script-response-body https://raw.githubusercontent.com/LXK9301/jd_scripts/master/jd_joy_run.js
 # 宠汪汪助力获取Token
-^https:\/\/draw\.jdfcloud\.com(\/mirror)?\/\/api\/user\/user\/detail\?openId= url script-request-header https://raw.githubusercontent.com/lxk0301/jd_scripts/master/jd_joy_run.js
+^https:\/\/draw\.jdfcloud\.com(\/mirror)?\/\/api\/user\/user\/detail\?openId= url script-request-header https://raw.githubusercontent.com/LXK9301/jd_scripts/master/jd_joy_run.js
 
 *****Loon****
 [Script]
-cron "15 10 * * *" script-path=https://raw.githubusercontent.com/lxk0301/jd_scripts/master/jd_joy_run.js, tag=宠汪汪邀请助力与赛跑助力
-http-response ^https:\/\/draw\.jdfcloud\.com(\/mirror)?\/\/api\/user\/addUser\?code= script-path=https://raw.githubusercontent.com/lxk0301/jd_scripts/master/jd_joy_run.js, requires-body=true, timeout=10, tag=宠汪汪助力更新Token
-http-request ^https:\/\/draw\.jdfcloud\.com(\/mirror)?\/\/api\/user\/user\/detail\?openId= script-path=https://raw.githubusercontent.com/lxk0301/jd_scripts/master/jd_joy_run.js, requires-body=true, timeout=10, tag=宠汪汪助力获取Token
+cron "15 10 * * *" script-path=https://raw.githubusercontent.com/LXK9301/jd_scripts/master/jd_joy_run.js, tag=宠汪汪邀请助力与赛跑助力
+http-response ^https:\/\/draw\.jdfcloud\.com(\/mirror)?\/\/api\/user\/addUser\?code= script-path=https://raw.githubusercontent.com/LXK9301/jd_scripts/master/jd_joy_run.js, requires-body=true, timeout=10, tag=宠汪汪助力更新Token
+http-request ^https:\/\/draw\.jdfcloud\.com(\/mirror)?\/\/api\/user\/user\/detail\?openId= script-path=https://raw.githubusercontent.com/LXK9301/jd_scripts/master/jd_joy_run.js, requires-body=true, timeout=10, tag=宠汪汪助力获取Token
  **/
 const isRequest = typeof $request != "undefined"
 const $ = new Env('宠汪汪赛跑');
@@ -57,7 +57,7 @@ const headers = {
   'Lottery-Access-Signature' : '',
   'Content-Type' : 'application/json',
   'reqSource' : 'weapp',
-  'User-Agent' : $.isNode() ? (process.env.JD_USER_AGENT ? process.env.JD_USER_AGENT : "jdapp;iPhone;9.2.2;14.2;%E4%BA%AC%E4%B8%9C/9.2.2 CFNetwork/1206 Darwin/20.1.0") : ($.getdata('JDUA') ? $.getdata('JDUA') : "jdapp;iPhone;9.2.2;14.2;%E4%BA%AC%E4%B8%9C/9.2.2 CFNetwork/1206 Darwin/20.1.0"),
+  'User-Agent' : $.isNode() ? (process.env.JD_USER_AGENT ? process.env.JD_USER_AGENT : (require('./USER_AGENTS').USER_AGENT)) : ($.getdata('JDUA') ? $.getdata('JDUA') : "jdapp;iPhone;9.2.2;14.2;%E4%BA%AC%E4%B8%9C/9.2.2 CFNetwork/1206 Darwin/20.1.0"),
   'Cookie' : '',
   'openId' : '',
   'Host' : 'draw.jdfcloud.com',
@@ -124,7 +124,7 @@ async function getToken() {
         $.setdata(`${count}`, 'countFlag');
         $.msg($.name, '更新Token: 成功🎉', ``);
         console.log(`开始上传Token`)
-        await $.http.get({url: `http://api.turinglabs.net/api/v1/jd/joy/create/${LKYLToken}/`}).then((resp) => {
+        await $.http.get({url: `http://jd.turinglabs.net/api/v2/jd/joy/create/${LKYLToken}/`}).then((resp) => {
           if (resp.statusCode === 200) {
             let { body } = resp;
             console.log(`Token提交结果:${body}`)
@@ -160,7 +160,7 @@ async function getToken() {
 }
 function readToken() {
   return new Promise(resolve => {
-    $.get({url: `http://api.turinglabs.net/api/v1/jd/joy/read/1/`}, (err, resp, data) => {
+    $.get({url: `http://jd.turinglabs.net/api/v2/jd/joy/read/1/`, 'timeout': 10000}, (err, resp, data) => {
       try {
         if (err) {
           console.log(`${JSON.stringify(err)}`)
@@ -181,7 +181,7 @@ function readToken() {
 }
 async function main() {
   if (!cookiesArr[0]) {
-    $.msg($.name, '【提示】请先获取京东账号一cookie\n直接使用NobyDa的京东签到获取', 'https://bean.m.jd.com/', {"open-url": "https://bean.m.jd.com/"});
+    $.msg($.name, '【提示】请先获取京东账号一cookie\n直接使用NobyDa的京东签到获取', 'https://bean.m.jd.com/bean/signIndex.action', {"open-url": "https://bean.m.jd.com/bean/signIndex.action"});
     return;
   }
   const readTokenRes = await readToken();
@@ -275,7 +275,7 @@ async function invite(invite_pins) {
       } else {
         if (data.errorCode === 'B0001') {
           console.log('京东Cookie失效');
-          $.msg($.name, `【提示】京东cookie已失效`, `京东账号${$.index} ${UserName}\n请重新登录获取\nhttps://bean.m.jd.com/`, {"open-url": "https://bean.m.jd.com/"});
+          $.msg($.name, `【提示】京东cookie已失效`, `京东账号${$.index} ${UserName}\n请重新登录获取\nhttps://bean.m.jd.com/bean/signIndex.action`, {"open-url": "https://bean.m.jd.com/bean/signIndex.action"});
           $.jdLogin = false;
           break
         }
