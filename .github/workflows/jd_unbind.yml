@@ -1,11 +1,13 @@
-name: 炸年兽 2-11
+name: jd_unbind
 
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 0,1,2 * * *'
+    - cron: '0 4 * * *'
+  watch:
+    types: started
   repository_dispatch:
-    types: jd_nian
+    types: jd_unbind
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -14,7 +16,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         with:
-          repository: hajiuhajiu/jdsign1112
+          repository: x1iu/bbaase
           ref: 'main'
           token: ${{ secrets.PAT }}
       - name: Use Node.js ${{ matrix.node-version }}
@@ -31,9 +33,9 @@ jobs:
       - name: npm install
         run: |
           npm install
-      - name: '运行'
+      - name: '运行jd_unbind'
         run: |
-          node jd_nian.js
+          node jd_unbind.js
         env:
           JD_COOKIE: ${{ secrets.JD_COOKIE }}
           JD_DEBUG: ${{ secrets.JD_DEBUG }}
@@ -44,4 +46,4 @@ jobs:
           TG_USER_ID: ${{ secrets.TG_USER_ID }}
           DD_BOT_TOKEN: ${{ secrets.DD_BOT_TOKEN }}
           DD_BOT_SECRET: ${{ secrets.DD_BOT_SECRET }}
-          IGOT_PUSH_KEY: ${{ secrets.IGOT_PUSH_KEY }}
+          UN_BIND_STOP_CARD: ${{ secrets.UN_BIND_STOP_CARD }}

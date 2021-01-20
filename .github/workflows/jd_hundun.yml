@@ -1,20 +1,23 @@
-name: 炸年兽 2-11
+name: jd_hundun
 
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 0,1,2 * * *'
+    - cron: '0 15,16 * * *'
+  watch:
+    types: started
   repository_dispatch:
-    types: jd_nian
+    types: jd_hundun
 jobs:
   build:
+
     runs-on: ubuntu-latest
     if: github.event.repository.owner.id == github.event.sender.id
     steps:
       - name: Checkout
         uses: actions/checkout@v2
         with:
-          repository: hajiuhajiu/jdsign1112
+          repository: x1iu/bbaase
           ref: 'main'
           token: ${{ secrets.PAT }}
       - name: Use Node.js ${{ matrix.node-version }}
@@ -31,9 +34,12 @@ jobs:
       - name: npm install
         run: |
           npm install
-      - name: '运行'
+      - name: '运行hundun脚本'
         run: |
-          node jd_nian.js
+          curl https://raw.githubusercontent.com/whyour/hundun/master/quanx/jx_factory.js -o my_run.js
+          node my_run.js
+          curl https://raw.githubusercontent.com/whyour/hundun/master/quanx/jdzz.js -o my_run.js
+          node my_run.js
         env:
           JD_COOKIE: ${{ secrets.JD_COOKIE }}
           JD_DEBUG: ${{ secrets.JD_DEBUG }}

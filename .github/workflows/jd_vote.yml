@@ -1,11 +1,9 @@
-name: 炸年兽 2-11
+name: 京年团圆
 
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 0,1,2 * * *'
-  repository_dispatch:
-    types: jd_nian
+    - cron: '5 0 19,20 1 *'
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -14,9 +12,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         with:
-          repository: hajiuhajiu/jdsign1112
+          repository: shylocks/Loon
           ref: 'main'
-          token: ${{ secrets.PAT }}
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
@@ -30,10 +27,13 @@ jobs:
           key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('package-lock.json') }} # 使用 package-lock.json 的 Hash 作为缓存的 key。也可以使用 package.json 代替
       - name: npm install
         run: |
+          curl https://raw.githubusercontent.com/LXK9301/jd_scripts/master/package.json -o package.json
           npm install
       - name: '运行'
         run: |
-          node jd_nian.js
+          curl https://raw.githubusercontent.com/x1iu/scripts_jd/master/USER_AGENTS.js -o USER_AGENTS.js
+          curl https://raw.githubusercontent.com/x1iu/jd_scripts/master/jdCookie.js -o jdCookie.js
+          node jd_vote.js
         env:
           JD_COOKIE: ${{ secrets.JD_COOKIE }}
           JD_DEBUG: ${{ secrets.JD_DEBUG }}
