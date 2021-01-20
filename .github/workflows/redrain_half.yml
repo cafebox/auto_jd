@@ -12,7 +12,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         with:
-          repository: shylocks/Loon
+          repository: hajiuhajiu/jdsign1112
           ref: 'main'
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
@@ -28,8 +28,8 @@ jobs:
       - name: npm install
         run: |
           curl https://raw.githubusercontent.com/LXK9301/jd_scripts/master/package.json -o package.json
-          curl https://raw.githubusercontent.com/x1iu/scripts_jd/master/USER_AGENTS.js -o USER_AGENTS.js
-          curl https://raw.githubusercontent.com/x1iu/jd_scripts/master/jdCookie.js -o jdCookie.js
+          curl https://raw.githubusercontent.com/hajiuhajiu/jdsign1112/master/USER_AGENTS.js -o USER_AGENTS.js
+          curl https://raw.githubusercontent.com/hajiuhajiu/jdsign1112/master/jdCookie.js -o jdCookie.js
           npm install
       - name: Set up Python 3.7
         uses: actions/setup-python@v2
@@ -39,14 +39,14 @@ jobs:
         run: |
           curl https://raw.githubusercontent.com/x1iu/jd_scripts/master/accwait.py -o wait.py
           python3 wait.py 0.1 0.1 29
-          curl https://raw.githubusercontent.com/shylocks/Loon/main/jd_live_redrain_half.js -o jd_redrain.js
+          curl https://raw.githubusercontent.com/hajiuhajiu/jdsign1112/main/jd_live_redrain_half.js -o jd_redrain.js
           node jd_redrain.js
-          curl https://raw.githubusercontent.com/shylocks/Loon/main/jd_live_redrain_half.js -o jd_redrain.js
+          curl https://raw.githubusercontent.com/hajiuhajiu/jdsign1112/main/jd_live_redrain_half.js -o jd_redrain.js
           node jd_redrain.js
-          curl https://raw.githubusercontent.com/shylocks/Loon/main/jd_live_redrain_half.js -o jd_redrain.js
+          curl https://raw.githubusercontent.com/hajiuhajiu/jdsign1112/main/jd_live_redrain_half.js -o jd_redrain.js
           node jd_redrain.js
           sleep 1m
-          curl https://raw.githubusercontent.com/shylocks/Loon/main/jd_live_redrain_half.js -o jd_redrain.js
+          curl https://raw.githubusercontent.com/hajiuhajiu/jdsign1112/main/jd_live_redrain_half.js -o jd_redrain.js
           node jd_redrain.js
         env:
           JD_COOKIE: ${{ secrets.JD_COOKIE }}
