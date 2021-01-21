@@ -1,4 +1,4 @@
-name: jd_unbind
+name: 退订会员
 
 on:
   workflow_dispatch:
@@ -16,8 +16,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         with:
-          repository: x1iu/bbaase
-          ref: 'main'
+          repository: hajiuhajiu/jdsign1112
+          ref: master
           token: ${{ secrets.PAT }}
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
