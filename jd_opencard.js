@@ -73,7 +73,7 @@ async function jdBeanHome() {
 }
 function getCardInfo() {
   return new Promise(resolve => {
-    $.post(taskUrl('unioncard/getHomeInfo/',configCode=${configCode}&invitePin=niujie678), async (err, resp, data) => {
+    $.post(taskUrl('unioncard/getHomeInfo/',`configCode=${configCode}&invitePin=niujie678`), async (err, resp, data) => {
       try {
         if (err) {
         } else {
