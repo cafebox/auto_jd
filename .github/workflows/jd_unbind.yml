@@ -1,15 +1,19 @@
+# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
 name: 退订会员
 
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 4 * * *'
+    - cron: '1 7 * * *'
   watch:
     types: started
   repository_dispatch:
-    types: jd_unbind
+    types: 退订会员
 jobs:
   build:
+
     runs-on: ubuntu-latest
     if: github.event.repository.owner.id == github.event.sender.id
     steps:
@@ -17,8 +21,6 @@ jobs:
         uses: actions/checkout@v2
         with:
           repository: hajiuhajiu/jdsign1112
-          ref: master
-          token: ${{ secrets.PAT }}
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
@@ -33,17 +35,21 @@ jobs:
       - name: npm install
         run: |
           npm install
-      - name: '运行jd_unbind'
+      - name: '运行 【退订会员】'
         run: |
+         
           node jd_unbind.js
         env:
           JD_COOKIE: ${{ secrets.JD_COOKIE }}
           JD_DEBUG: ${{ secrets.JD_DEBUG }}
+          JD_BEAN_STOP: ${{secrets.JD_BEAN_STOP}} #自定义延迟签到,单位毫秒. 默认分批并发无延迟. 延迟作用于每个签到接口, 如填入延迟则切换顺序签到(耗时较长)
+          JD_BEAN_SIGN_STOP_NOTIFY: ${{secrets.JD_BEAN_SIGN_STOP_NOTIFY}}
+          JD_BEAN_SIGN_NOTIFY_SIMPLE: ${{secrets.JD_BEAN_SIGN_NOTIFY_SIMPLE}}
           PUSH_KEY: ${{ secrets.PUSH_KEY }}
           BARK_PUSH: ${{ secrets.BARK_PUSH }}
-          BARK_SOUND: ${{ secrets.BARK_SOUND }}
           TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
           TG_USER_ID: ${{ secrets.TG_USER_ID }}
+          BARK_SOUND: ${{ secrets.BARK_SOUND }}
           DD_BOT_TOKEN: ${{ secrets.DD_BOT_TOKEN }}
           DD_BOT_SECRET: ${{ secrets.DD_BOT_SECRET }}
-          UN_BIND_STOP_CARD: ${{ secrets.UN_BIND_STOP_CARD }}
+          IGOT_PUSH_KEY: ${{ secrets.IGOT_PUSH_KEY }}
