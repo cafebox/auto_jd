@@ -1,4 +1,4 @@
-name: 半点红包雨2-5（12~23每个半点无等待111）
+name: 半点红包雨2-5（无等待111）
 
 on:
   workflow_dispatch:
@@ -7,14 +7,14 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    if: github.event.repository.owner.id == github.event.sender.id
+   
     steps:
       - name: Checkout
         uses: actions/checkout@v2
         with:
-          repository: hajiuhajiu/jdsing1112
+          repository: hajiuhajiu/jdsign1112
           ref: master
-          token: ${{ secrets.PAT }}   
+         # token: ${{ secrets.PAT }}   
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
@@ -36,9 +36,9 @@ jobs:
           python-version: 3.7
       - name: '运行领京豆'
         run: |
-          # curl https://raw.githubusercontent.com/x1iu/jd_scripts/master/accwait.py -o wait.py
+          #  curl https://raw.githubusercontent.com/x1iu/jd_scripts/master/accwait.py -o wait.py
           python3 wait.py 0.1 0.1 29
-          sleep 0.2
+          sleep 0.1
           node jd_live_redrain_half.js
 # curl https://raw.githubusercontent.com/shylocks/Loon/main/jd_live_redrain_half.js -o jd_live_redrain_half.js
         env:
