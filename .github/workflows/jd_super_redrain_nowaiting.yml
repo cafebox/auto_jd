@@ -37,7 +37,7 @@ jobs:
       - name: '运行领京豆'
         run: |
           #  curl https://raw.githubusercontent.com/x1iu/jd_scripts/master/accwait.py -o wait.py
-          python3 wait.py 0.1 0.1 29
+          #  python3 wait.py 0.1 0.1 29
           sleep 0.1
           node jd_live_redrain_half.js
 # curl https://raw.githubusercontent.com/shylocks/Loon/main/jd_live_redrain_half.js -o jd_live_redrain_half.js
