@@ -27,9 +27,9 @@ jobs:
           key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('package-lock.json') }} # 使用 package-lock.json 的 Hash 作为缓存的 key。也可以使用 package.json 代替
       - name: npm install
         run: |
-          curl https://raw.githubusercontent.com/LXK9301/jd_scripts/master/package.json -o package.json
-          curl https://raw.githubusercontent.com/x1iu/scripts_jd/master/USER_AGENTS.js -o USER_AGENTS.js
-          curl https://raw.githubusercontent.com/x1iu/jd_scripts/master/jdCookie.js -o jdCookie.js
+          curl https://raw.githubusercontent.com/hajiuhajiu/jdsign1112/master/package.json -o package.json
+          curl https://raw.githubusercontent.com/hajiuhajiu/jdsign1112/master/USER_AGENTS.js -o USER_AGENTS.js
+          curl https://raw.githubusercontent.com/hajiuhajiu/jdsign1112/master/jdCookie.js -o jdCookie.js
           npm install
       - name: Set up Python 3.7
         uses: actions/setup-python@v2
