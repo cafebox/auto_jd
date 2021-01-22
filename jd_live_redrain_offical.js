@@ -7,17 +7,17 @@
 ============Quantumultx===============
 [task_local]
 #官方号直播红包雨
-0 0,9,11,13,15,17,19,20,21,23 * * * https://raw.githubusercontent.com/shylocks/Loon/main/jd_live_redrain_offical.js, tag=官方号直播红包雨, img-url=https://raw.githubusercontent.com/yogayyy/Scripts/master/Icon/shylocks/jd_live_redrain_offical.jpg, enabled=true
+0 0,9,11,13,15,17,19,20,21,22,23 * * * https://raw.githubusercontent.com/shylocks/Loon/main/jd_live_redrain_offical.js, tag=官方号直播红包雨, img-url=https://raw.githubusercontent.com/yogayyy/Scripts/master/Icon/shylocks/jd_live_redrain_offical.jpg, enabled=true
 
 ================Loon==============
 [Script]
-cron "0 0,9,11,13,15,17,19,20,21,23 * * *" script-path=https://raw.githubusercontent.com/shylocks/Loon/main/jd_live_redrain_offical.js, tag=官方号直播红包雨
+cron "0 0,9,11,13,15,17,19,20,21,22,23 * * *" script-path=https://raw.githubusercontent.com/shylocks/Loon/main/jd_live_redrain_offical.js, tag=官方号直播红包雨
 
 ===============Surge=================
-官方号直播红包雨 = type=cron,cronexp="0 0,9,11,13,15,17,19,20,21,23 * * *",wake-system=1,timeout=200,script-path=https://raw.githubusercontent.com/shylocks/Loon/main/jd_live_redrain_offical.js
+官方号直播红包雨 = type=cron,cronexp="0 0,9,11,13,15,17,19,20,21,22,23 * * *",wake-system=1,timeout=200,script-path=https://raw.githubusercontent.com/shylocks/Loon/main/jd_live_redrain_offical.js
 
 ============小火箭=========
-官方号直播红包雨 = type=cron,script-path=https://raw.githubusercontent.com/shylocks/Loon/main/jd_live_redrain_offical.js, cronexpr="0 0,9,11,13,15,17,19,20,21,23 * * *", timeout=200, enable=true
+官方号直播红包雨 = type=cron,script-path=https://raw.githubusercontent.com/shylocks/Loon/main/jd_live_redrain_offical.js, cronexpr="0 0,9,11,13,15,17,19,20,21,22,23 * * *", timeout=200, enable=true
  */
 const $ = new Env('官方号直播红包雨');
 
@@ -32,7 +32,6 @@ if ($.isNode()) {
   })
   if (process.env.JD_DEBUG && process.env.JD_DEBUG === 'false') console.log = () => {
   };
-  if(JSON.stringify(process.env).indexOf('GITHUB')>-1) process.exit(0)
 }else {
   let cookiesData = $.getdata('CookiesJD') || "[]";
   cookiesData = jsonParse(cookiesData);
