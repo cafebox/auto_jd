@@ -32,8 +32,8 @@ if ($.isNode()) {
   })
   if (process.env.JD_DEBUG && process.env.JD_DEBUG === 'false') console.log = () => {
   };
-  if (JSON.stringify(process.env).indexOf('GITHUB') > -1) process.exit(0)
-} else {
+  if(JSON.stringify(process.env).indexOf('GITHUB')>-1) process.exit(0)
+}else {
   let cookiesData = $.getdata('CookiesJD') || "[]";
   cookiesData = jsonParse(cookiesData);
   cookiesArr = cookiesData.map(item => item.cookie);
@@ -43,41 +43,34 @@ if ($.isNode()) {
   cookiesArr = cookiesArr.filter(item => item !== "" && item !== null && item !== undefined);
 }
 const JD_API_HOST = 'https://api.m.jd.com/api';
-let ids = {}
+let ids = {
+  '19': 'RRArq4bmitwjmyDY8nrfASmKhoojen',
+  '20': 'RRA3b7VFEeTmjy2tK2BPySVEqNeeTdA',
+  '21': 'RRA2eQJiEhyy1WPx95M3QusCXkLstjw'
+}
 !(async () => {
   if (!cookiesArr[0]) {
     $.msg($.name, '【提示】请先获取京东账号一cookie\n直接使用NobyDa的京东签到获取', 'https://bean.m.jd.com/', {"open-url": "https://bean.m.jd.com/"});
     return;
   }
-  if ($.isNode() && process.env.QINIU_SK) {
-    const fs = require('fs')
-    let data = fs.readFileSync('/home/shylocks/Projects/updateTeam/jd_live_redRain_half.json')
-    data = JSON.parse(data.toString())
-    $.activityId = data.activityId
-    $.st = data.startTime
-    $.ed = data.endTime
-    console.log(`从本地文件读取，下一场红包雨id：${$.activityId}`)
-    console.log(`下一场红包雨开始时间：${new Date(data.startTime)}`)
-    console.log(`下一场红包雨结束时间：${new Date(data.endTime)}`)
-  }
-  else {
-    await getRedRain();
-  }
+  await getRedRain();
 
+  if(!$.activityId) return
   let nowTs = new Date().getTime()
   if (!($.st <= nowTs && nowTs < $.ed)) {
     $.log(`远程红包雨配置获取错误，从本地读取配置`)
-    let hour = (new Date().getUTCHours() + 8) % 24
-    if (ids[hour]) {
+    let hour = (new Date().getUTCHours() + 8) %24
+    if (ids[hour]){
       $.activityId = ids[hour]
-      $.log(`本地红包雨配置获取成功`)
-    } else {
+      $.log(`本地红包雨配置获取成功，红包雨id${$.activityId}`)
+    } else{
       $.log(`无法从本地读取配置，请检查运行时间`)
       return
     }
-  } else {
+  } else{
     $.log(`远程红包雨配置获取成功`)
   }
+  $.log(`\n`)
   for (let i = 0; i < cookiesArr.length; i++) {
     if (cookiesArr[i]) {
       cookie = cookiesArr[i];
@@ -86,7 +79,7 @@ let ids = {}
       $.isLogin = true;
       $.nickName = '';
       message = '';
-      //await TotalBean();
+      await TotalBean();
       console.log(`\n******开始【京东账号${$.index}】${$.nickName || $.UserName}*********\n`);
       if (!$.isLogin) {
         $.msg($.name, `【提示】cookie已失效`, `京东账号${$.index} ${$.nickName || $.UserName}\n请重新登录获取\nhttps://bean.m.jd.com/`, {"open-url": "https://bean.m.jd.com/"});
@@ -120,10 +113,9 @@ function showMsg() {
 }
 
 function getRedRain() {
+  let body = 'body=%7B%22liveId%22%3A%223314375%22%7D&build=167490&client=apple&clientVersion=9.3.2&openudid=53f4d9c70c1c81f1c8769d2fe2fef0190a3f60d2&sign=ce25e00d25be2b0c57979d219b6ef79e&st=1610883598579&sv=122'
   return new Promise(resolve => {
-    $.get({
-      url: "http://qn6l5d6wm.hn-bkt.clouddn.com/jd_live_redRain.json?" + Date.now(),
-    }, (err, resp, data) => {
+    $.post(taskPostUrl('liveActivityV842', body), (err, resp, data) => {
       try {
         if (err) {
           console.log(`${JSON.stringify(err)}`)
@@ -131,12 +123,22 @@ function getRedRain() {
         } else {
           if (safeGet(data)) {
             data = JSON.parse(data);
-            $.activityId = data.activityId
-            $.st = data.startTime
-            $.ed = data.endTime
-            console.log(`下一场红包雨id：${$.activityId}`)
-            console.log(`下一场红包雨开始时间：${new Date(data.startTime)}`)
-            console.log(`下一场红包雨结束时间：${new Date(data.endTime)}`)
+            if (data.data && data.data.iconArea) {
+              let act = data.data.iconArea.filter(vo=>vo['type']==="platform_red_packege_rain")[0]
+              if (act) {
+                let url = act.data.activityUrl
+                $.activityId = url.substr(url.indexOf("id=") + 3)
+                $.st = act.startTime
+                $.ed = act.endTime
+                console.log(`下一场红包雨id：${$.activityId}`)
+                console.log(`下一场红包雨开始时间：${new Date($.st)}`)
+                console.log(`下一场红包雨结束时间：${new Date($.ed)}`)
+              } else {
+                console.log(`暂无红包雨`)
+              }
+            } else {
+              console.log(`暂无红包雨`)
+            }
           }
         }
       } catch (e) {
@@ -162,13 +164,13 @@ function receiveRedRain() {
             if (data.subCode === '0') {
               console.log(`领取成功，获得${JSON.stringify(data.lotteryResult)}`)
               // message+= `领取成功，获得${JSON.stringify(data.lotteryResult)}\n`
-              message += `领取成功，获得 ${(data.lotteryResult.jPeasList[0].quantity)}京豆`
+              message += `领取成功，获得 ${(data.lotteryResult.jPeasList[0].quantity)} 京豆`
 
             } else if (data.subCode === '8') {
               console.log(`今日次数已满`)
-              message += `领取失败，本场已领过`;
+              message += `领取失败，本场已领取`;
             } else {
-              message += `${data.msg}`;
+              console.log(`异常：${JSON.stringify(data)}`)
             }
           }
         }
