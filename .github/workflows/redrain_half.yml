@@ -12,8 +12,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         with:
-          repository: x1iu/looooon
-          ref: 'main'
+          repository: hajiuhajiu/jdsing1112
+          ref: master
          # token: ${{ secrets.PAT }}   
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
