@@ -38,10 +38,7 @@ jobs:
           npm install
             - name: npm install
         run: |
-          curl https://raw.githubusercontent.com/LXK9301/jd_scripts/master/package.json -o package.json
-          curl https://raw.githubusercontent.com/x1iu/scripts_jd/master/USER_AGENTS.js -o USER_AGENTS.js
-          curl https://raw.githubusercontent.com/x1iu/jd_scripts/master/jdCookie.js -o jdCookie.js
-          npm install
+                npm install
       - name: Set up Python 3.7
         uses: actions/setup-python@v2
         with:
