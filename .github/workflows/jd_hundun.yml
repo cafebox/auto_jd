@@ -17,8 +17,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         with:
-          repository: x1iu/bbaase
-          ref: 'main'
+          repository: hajiuhajiu/jdsign1112
+          ref: master
           
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
@@ -38,8 +38,7 @@ jobs:
         run: |
           curl https://raw.githubusercontent.com/whyour/hundun/master/quanx/jx_factory.js -o my_run.js
           node my_run.js
-          curl https://raw.githubusercontent.com/whyour/hundun/master/quanx/jdzz.js -o my_run.js
-          node my_run.js
+
         env:
           JD_COOKIE: ${{ secrets.JD_COOKIE }}
           JD_DEBUG: ${{ secrets.JD_DEBUG }}
