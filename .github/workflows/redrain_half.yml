@@ -3,7 +3,7 @@ name: 半点红包雨2-5oo
 on:
   workflow_dispatch:
   schedule:
-    - cron: '30 3-14 * * *'
+    - cron: '18 3-14 * * *'
 jobs:
   build:
     runs-on: ubuntu-latest
