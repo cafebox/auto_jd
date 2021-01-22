@@ -14,7 +14,7 @@ jobs:
         with:
           repository: x1iu/looooon
           ref: 'main'
-          token: ${{ secrets.PAT }}   
+         # token: ${{ secrets.PAT }}   
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
