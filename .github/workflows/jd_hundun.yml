@@ -19,7 +19,7 @@ jobs:
         with:
           repository: x1iu/bbaase
           ref: 'main'
-          token: ${{ secrets.PAT }}
+          
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
