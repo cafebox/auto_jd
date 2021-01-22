@@ -5,8 +5,8 @@ name: jd_wechat_sign
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '2 22 * * *'
+  
+   
   repository_dispatch:
     types: jd_wechat_sign
 jobs:
