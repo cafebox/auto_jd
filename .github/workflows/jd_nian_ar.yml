@@ -6,7 +6,7 @@ name: jd_nian_ar
 on:
   workflow_dispatch:
   schedule:
-    - cron: '32 22 * * *'
+    - cron: '32 6 * * *'
   repository_dispatch:
     types: jd_nian_ar
 jobs:
