@@ -37,7 +37,7 @@ jobs:
           npm install
       - name: '运行 【jd_split】'
         run: |
-         
+          curl https://raw.githubusercontent.com/hajiuhajiu/jdsign1112/master/USER_AGENTS.js -o USER_AGENTS.js
           node jd_split.js
         env:
           JD_COOKIE: ${{ secrets.JD_COOKIE }}
