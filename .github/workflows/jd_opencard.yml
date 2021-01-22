@@ -5,8 +5,7 @@ name: 开卡
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '1 7 * * *'
+ 
   watch:
     types: started
   repository_dispatch:
