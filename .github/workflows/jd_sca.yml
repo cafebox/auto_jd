@@ -1,14 +1,14 @@
 # This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
 
-name: jd_shareCode_auto
+name: jd_sca
 
 on:
   workflow_dispatch:
   schedule:
     - cron: '2 16 * * *'
   repository_dispatch:
-    types: jd_shareCode_auto
+    types: jd_sca
 jobs:
   build:
 
@@ -34,9 +34,9 @@ jobs:
       - name: npm install
         run: |
           npm install
-      - name: 'jd_shareCode_auto'
+      - name: 'jd_sca'
         run: |
-          node jd_shareCode_auto.js
+          node jd_sca.js
         env:
           JD_COOKIE: ${{ secrets.JD_COOKIE }}
           JD_USER_AGENT: ${{ secrets.JD_USER_AGENT }}
