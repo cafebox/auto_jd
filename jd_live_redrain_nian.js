@@ -1,26 +1,25 @@
 /*
-超级直播间红包雨
-每天20-23半点可领
-活动时间：2021年1月19日
-更新地址：https://raw.githubusercontent.com/shylocks/Loon/main/jd_live_redrain.js
+年货直播红包雨
+活动时间：2021年1月20日-2021年1月30日、2月3日、2月5日每天0,9,11,13,15,17,19,20,21,23点可领
+更新地址：https://raw.githubusercontent.com/shylocks/Loon/main/jd_live_redrain_nian.js
 已支持IOS双京东账号, Node.js支持N个京东账号
 脚本兼容: QuantumultX, Surge, Loon, 小火箭，JSBox, Node.js
 ============Quantumultx===============
 [task_local]
-#超级直播间红包雨
-30,31 20-23/1 19 1 * https://raw.githubusercontent.com/shylocks/Loon/main/jd_live_redrain.js, tag=超级直播间红包雨, img-url=https://raw.githubusercontent.com/yogayyy/Scripts/master/Icon/shylocks/jd_live_redrain2.jpg, enabled=true
+#年货直播红包雨
+0 0,9,11,13,15,17,19,20,21,23 3,5,20-30/1 1,2 * https://raw.githubusercontent.com/shylocks/Loon/main/jd_live_redrain_nian.js, tag=年货直播红包雨, img-url=https://raw.githubusercontent.com/yogayyy/Scripts/master/Icon/shylocks/jd_live_redrain_nian.jpg, enabled=true
 
 ================Loon==============
 [Script]
-cron "30,31 20-23/1 19 1 *" script-path=https://raw.githubusercontent.com/shylocks/Loon/main/jd_live_redrain.js, tag=超级直播间红包雨
+cron "0 0,9,11,13,15,17,19,20,21,23 3,5,20-30/1 1,2 *" script-path=https://raw.githubusercontent.com/shylocks/Loon/main/jd_live_redrain_nian.js, tag=年货直播红包雨
 
 ===============Surge=================
-超级直播间红包雨 = type=cron,cronexp="30,31 20-23/1 19 1 *",wake-system=1,timeout=200,script-path=https://raw.githubusercontent.com/shylocks/Loon/main/jd_live_redrain.js
+年货直播红包雨 = type=cron,cronexp="0 0,9,11,13,15,17,19,20,21,23 3,5,20-30/1 1,2 *",wake-system=1,timeout=200,script-path=https://raw.githubusercontent.com/shylocks/Loon/main/jd_live_redrain_nian.js
 
 ============小火箭=========
-超级直播间红包雨 = type=cron,script-path=https://raw.githubusercontent.com/shylocks/Loon/main/jd_live_redrain.js, cronexpr="30,31 20-23/1 19 1 *", timeout=200, enable=true
+年货直播红包雨 = type=cron,script-path=https://raw.githubusercontent.com/shylocks/Loon/main/jd_live_redrain_nian.js, cronexpr="0 0,9,11,13,15,17,19,20,21,23 3,5,20-30/1 1,2 *", timeout=200, enable=true
  */
-const $ = new Env('超级直播间红包雨');
+const $ = new Env('年货直播红包雨');
 
 const notify = $.isNode() ? require('./sendNotify') : '';
 //Node.js用户请在jdCookie.js处填写京东ck;
@@ -45,10 +44,12 @@ if ($.isNode()) {
 }
 const JD_API_HOST = 'https://api.m.jd.com/api';
 let ids = {
+  '11': 'RRAnabmRSnpzSSZicXUhSFGBvFXs5c',
   '20': 'RRA3q6FQPT9BKg4C6EyhA99TcA9K7SL',
   '21': 'RRA42SucXFqAPggaoYP4c3JYZLHGbkG',
   '22': 'RRAPZRA9mVCzpjH38RUBPseJiZ6oj8',
   '23': 'RRA4AmPxr1Qv1vTDpFgNS57rjn1mjGQ',
+  '9':'RRA3vyGH4MRwCJELDwV7p24mNAByiSk'
 }
 !(async () => {
   if (!cookiesArr[0]) {
@@ -113,33 +114,23 @@ function showMsg() {
 }
 
 function getRedRain() {
-  let body = 'body=%7B%22liveId%22%3A%223354354%22%7D&build=167515&client=apple&clientVersion=9.3.5&openudid=53f4d9c70c1c81f1c8769d2fe2fef0190a3f60d2&sign=df0c0e02fa47742fd4a1ffe69649554b&st=1611057936144&sv=121'
   return new Promise(resolve => {
-    $.post(taskPostUrl('liveActivityV842', body), (err, resp, data) => {
+    $.get({
+      url: "http://qn6l5d6wm.hn-bkt.clouddn.com/jd_live_redRain_nian.json?" + Date.now(),
+    }, (err, resp, data) => {
       try {
         if (err) {
-          console.log(`${JSON.stringify(err)}`)
+          console.log(`1111${JSON.stringify(err)}`)
           console.log(`${$.name} API请求失败，请检查网路重试`)
         } else {
           if (safeGet(data)) {
             data = JSON.parse(data);
-            if (data.data && data.data.iconArea) {
-              let act = data.data.iconArea.filter(vo=>vo['type']==="platform_red_packege_rain")[0]
-              if (act) {
-                let url = act.data.activityUrl
-                $.activityId = url.substr(url.indexOf("id=") + 3)
-                $.st = act.startTime
-                $.ed = act.endTime
-                console.log($.activityId)
-
-                console.log(`下一场红包雨开始时间：${new Date($.st)}`)
-                console.log(`下一场红包雨结束时间：${new Date($.ed)}`)
-              } else {
-                console.log(`暂无红包雨`)
-              }
-            } else {
-              console.log(`暂无红包雨`)
-            }
+            $.activityId = data.activityId
+            $.st = data.startTime
+            $.ed = data.endTime
+            console.log(`下一场红包雨id：${$.activityId}`)
+            console.log(`下一场红包雨开始时间：${new Date(data.startTime)}`)
+            console.log(`下一场红包雨结束时间：${new Date(data.endTime)}`)
           }
         }
       } catch (e) {
