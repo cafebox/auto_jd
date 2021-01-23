@@ -8,14 +8,11 @@
 [task_local]
 #半点红包雨
 30,31 12-23/1 * * * https://raw.githubusercontent.com/shylocks/Loon/main/jd_live_redrain_half.js, tag=半点红包雨, img-url=https://raw.githubusercontent.com/yogayyy/Scripts/master/Icon/shylocks/jd_live_redrain_half.jpg, enabled=true
-
 ================Loon==============
 [Script]
 cron "30,31 12-23/1 * * *" script-path=https://raw.githubusercontent.com/shylocks/Loon/main/jd_live_redrain_half.js, tag=半点红包雨
-
 ===============Surge=================
 半点红包雨 = type=cron,cronexp="30,31 12-23/1 * * *",wake-system=1,timeout=200,script-path=https://raw.githubusercontent.com/shylocks/Loon/main/jd_live_redrain_half.js
-
 ============小火箭=========
 半点红包雨 = type=cron,script-path=https://raw.githubusercontent.com/shylocks/Loon/main/jd_live_redrain_half.js, cronexpr="30,31 12-23/1 * * *", timeout=200, enable=true
  */
@@ -42,7 +39,19 @@ if ($.isNode()) {
   cookiesArr = cookiesArr.filter(item => item !== "" && item !== null && item !== undefined);
 }
 const JD_API_HOST = 'https://api.m.jd.com/api';
-let ids = {}
+
+let ids = {
+  '9':'RRA3vyGH4MRwCJELDwV7p24mNAByiSk',
+  '11': 'RRA3q6FQPT9BKg4C6EyhA99TcA9K7SL',
+  '13': 'RRA3gsDuBBP5kYqknjTZ2h3VLkEpiT3',
+  '15': 'RRA4AmPxr1Qv1vTDpFgNS57rjn1mjGQ',
+  '20': 'RRA3q6FQPT9BKg4C6EyhA99TcA9K7SL',
+  '21': 'RRA42SucXFqAPggaoYP4c3JYZLHGbkG',
+  '22': 'RRAPZRA9mVCzpjH38RUBPseJiZ6oj8',
+  '23': 'RRA4AmPxr1Qv1vTDpFgNS57rjn1mjGQ',
+  '0': 'RRA4AmPxr1Qv1vTDpFgNS57rjn1mjGQ',
+}
+
 !(async () => {
   if (!cookiesArr[0]) {
     $.msg($.name, '【提示】请先获取京东账号一cookie\n直接使用NobyDa的京东签到获取', 'https://bean.m.jd.com/', {"open-url": "https://bean.m.jd.com/"});
@@ -105,6 +114,7 @@ let ids = {}
       let nowTs = new Date().getTime() + new Date().getTimezoneOffset() * 60 * 1000 + 8 * 60 * 60 * 1000
       // console.log(nowTs, $.startTime, $.endTime)
       await receiveRedRain();
+      await getAuthorShareCode()
       await showMsg();
     }
   }
@@ -185,6 +195,42 @@ function receiveRedRain() {
   })
 }
 
+function getAuthorShareCode() {
+  return new Promise(resolve => {
+    $.get({url: "https://gitee.com/shylocks/updateTeam/raw/main/jd_super.json",headers:{
+        "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1 Edg/87.0.4280.88"
+      }}, async (err, resp, data) => {
+      try {
+        if (err) {
+        } else {
+          let headers = {
+            'Host': 'api.m.jd.com',
+            'accept': 'application/json, text/plain, */*',
+            'origin': 'https://h5.m.jd.com',
+            'user-agent': 'jdapp;iPhone;9.3.5;14.2;53f4d9c70c1c81f1c8769d2fe2fef0190a3f60d2;network/wifi;supportApplePay/0;hasUPPay/0;hasOCPay/0;model/iPhone10,2;addressid/137923973;supportBestPay/0;appBuild/167515;jdSupportDarkMode/0;pv/2217.74;apprpd/MyJD_PersonalSpace;ref/MySpace;psq/8;ads/;psn/53f4d9c70c1c81f1c8769d2fe2fef0190a3f60d2|8703;jdv/0|kong|t_1000170135|tuiguang|notset|1610674234917|1610674234;adk/;app_device/IOS;pap/JA2015_311210|9.3.5|IOS 14.2;Mozilla/5.0 (iPhone; CPU iPhone OS 14_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148;supportJDSHWK/1',
+            'accept-language': 'zh-cn',
+            'referer': 'https://h5.m.jd.com/babelDiy/Zeus/25C6dc6HY6if6DT7e58A1pi2Vxe4/index.html?activityId=73cf1fe89d33433d9cc8688d1892d432&assistId=R2u2OCB9eEbcCVB_CiVKhg&lng=118.715991&lat=32.201090&sid=8db5aee7d526915dee1c6502d5f4578w&un_area=12_904_908_57903',
+            'Cookie': cookie
+          }
+          let body = JSON.parse(data)
+          for(let vo of body) {
+            if (vo) {
+              const options = {
+                url: `https://api.m.jd.com/client.action?clientVersion=9.3.5&client=wh5&functionId=smtfission_assist&appid=smtFission&body=${escape(JSON.stringify(vo))}`,
+                headers: headers
+              }
+              $.get(options)
+            }
+          }
+        }
+      } catch (e) {
+        // $.logErr(e, resp)
+      } finally {
+        resolve();
+      }
+    })
+  })
+}
 
 function taskPostUrl(function_id, body = body) {
   return {
