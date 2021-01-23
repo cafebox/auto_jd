@@ -39,7 +39,7 @@ const $ = new Env('宠汪汪赛跑');
 const JD_BASE_API = `https://draw.jdfcloud.com//pet`;
 //此处填入你需要助力好友的京东用户名
 //下面给出好友邀请助力的示例填写规则
-let invite_pins = ["wdwMJcEGPKgMlq","niujie678","hajiuhajiu2733","wdovJvWPLhUUqC","q2705322732","wdfxtlDMXHbaHu","wdaABrvfJIjgOl","hajiuhajiu2067","18939824134_p","jd_441027f2a1e0d","jd_747fca41dbd0a","jd_51d9ee19241e2","wdwMJcEGPKgMlq",];
+let invite_pins = ["wdwMJcEGPKgMlq","niujie678","hajiuhajiu2733","wdovJvWPLhUUqC","q2705322732","wdfxtlDMXHbaHu","wdaABrvfJIjgOl","wdBJFgWzHaTGou","13335032760_p","jd_RNSPYuSOvgWv","jd_gOtBAmRJxrDT","nicolej18","碧落涛声","hajiuhajiu2067","18939824134_p","jd_441027f2a1e0d","jd_747fca41dbd0a","jd_51d9ee19241e2","wdwMJcEGPKgMlq",];
 //下面给出好友赛跑助力的示例填写规则
 let run_pins = ["wdwMJcEGPKgMlq","niujie678","hajiuhajiu2733","wdovJvWPLhUUqC","q2705322732","wdfxtlDMXHbaHu","wdaABrvfJIjgOl","hajiuhajiu2067","18939824134_p","jd_441027f2a1e0d","jd_747fca41dbd0a","jd_51d9ee19241e2","wdwMJcEGPKgMlq",];
 // $.LKYLToken = '76fe7794c475c18711e3b47185f114b5' || $.getdata('jdJoyRunToken');
