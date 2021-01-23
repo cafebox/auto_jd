@@ -5,8 +5,7 @@ name: jd_sca
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '2 16 * * *'
+
   repository_dispatch:
     types: jd_sca
 jobs:
