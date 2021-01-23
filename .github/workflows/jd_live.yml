@@ -49,8 +49,7 @@ jobs:
           python3 wait.py 
       - name: '运行jd_live'
         run: |
-
-          node jd_live.js
+        node jd_live.js
         env:
           JD_COOKIE: ${{ secrets.JD_COOKIE }}
           JD_DEBUG: ${{ secrets.JD_DEBUG }}
