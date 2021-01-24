@@ -28,10 +28,10 @@ const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
 let appId = '1EFRRxA' , homeDataFunPrefix = 'interact_template', collectScoreFunPrefix = 'harmony', message = ''
 let lotteryResultFunPrefix = homeDataFunPrefix, browseTime = 6
 const inviteCodes = [
-  'T019-aknAFRllhyoQlyI46gCjVWmIaW5kRrbA',
-  'T019-aknAFRllhyoQlyI46gCjVWmIaW5kRrbA'
+  'T0124KQ2GkdM81PfCjVWmIaW5kRrbA',
+  'T011'
 ];
-const randomCount = $.isNode() ? 20 : 5;
+const randomCount = $.isNode() ? 2 : 1;
 const notify = $.isNode() ? require('./sendNotify') : '';
 let merge = {}
 //IOS等用户直接用NobyDa的jd cookie
@@ -318,7 +318,7 @@ function readShareCode() {
   console.log(`开始`)
   return new Promise(async resolve => {
     $.get({
-      url: `http://jd.turinglabs.net/api/v2/jd/sgmh/read/${randomCount}/`,
+      url: `http://jd11.turinglabs.net/api/v2/jd/sgmh/read/${randomCount}/`,
       'timeout': 10000
     }, (err, resp, data) => {
       try {
