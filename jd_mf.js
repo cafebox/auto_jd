@@ -518,34 +518,18 @@ function taskPostUrl(function_id, body = {}) {
 }
 
 function taskUrl(function_id, body = {}) {
-  const t = getTs()
-  let n = {
-    t: t,
-    ...body
-  }
-  let str = ''
-  for (let key in body) {
-    if (str !== "") {
-      str += "&";
-    }
-    str += key + "=" + encodeURIComponent(body[key]);
-  }
   return {
-    url: `${JD_API_HOST}${function_id}?t=${t}&${str}`,
+    url: `${JD_API_HOST}?functionId=${function_id}&body=${escape(JSON.stringify(body))}&client=wh5&clientVersion=1.0.0&_=${new Date().getTime() + new Date().getTimezoneOffset() * 60 * 1000 + 8 * 60 * 60 * 1000}`,
     headers: {
       "Accept": "*/*",
       "Accept-Encoding": "gzip, deflate, br",
       "Accept-Language": "zh-cn",
       "Connection": "keep-alive",
       "Content-Type": "application/x-www-form-urlencoded",
-      "Host": "shopping-festival.m.jd.com",
-      "Referer": "https://shopping-festival.m.jd.com/",
+      "Host": "api.m.jd.com",
+      "Referer": "https://h5.m.jd.com/active/redrain/index.html",
       "Cookie": cookie,
-      'dnt': '1',
-      'pragma': 'no-cache',
-      'sign': sign(n, `d55b480bed0545839dbd8b78b6cffdb1${t}`, `/sf/${function_id}`),
-      'timestamp': t,
-      "User-Agent": $.isNode() ? (process.env.JD_USER_AGENT ? process.env.JD_USER_AGENT : (require('./USER_AGENTS').USER_AGENT)) : ($.getdata('JDUA') ? $.getdata('JDUA') : "jdapp;iPhone;9.2.2;14.2;%E4%BA%AC%E4%B8%9C/9.2.2 CFNetwork/1206 Darwin/20.1.0")
+      "User-Agent": $.isNode() ? (process.env.JD_USER_AGENT ? process.env.JD_USER_AGENT : "jdapp;iPhone;9.2.2;14.2;%E4%BA%AC%E4%B8%9C/9.2.2 CFNetwork/1206 Darwin/20.1.0") : ($.getdata('JDUA') ? $.getdata('JDUA') : "jdapp;iPhone;9.2.2;14.2;%E4%BA%AC%E4%B8%9C/9.2.2 CFNetwork/1206 Darwin/20.1.0"),
     }
   }
 }
