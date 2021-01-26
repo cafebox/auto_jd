@@ -3,7 +3,7 @@ name: jd_mf
 on:
   workflow_dispatch:
   schedule:
-    - cron: '59 15,21,3,9  * * *'
+    - cron: '59 15,9  * * *'
 jobs:
   build:
     runs-on: ubuntu-latest
