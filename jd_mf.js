@@ -29,7 +29,7 @@ const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
 let cookiesArr = [], cookie = '', message;
 
 const inviteCodes = [
-`605755ad-5ec5-48a9-932a-17545bc9ea28@1`,`1@1`];
+`89e0a99a-ffda-4039-8c1b-d921d39e80d4@c81809b7-2af0-451e-955f-11734ec097eb@b68f13c0-d957-4d73-b781-05935298f3a6@a2402e4a-6297-4541-b8f0-aac8f7403b5a`,`c81809b7-2af0-451e-955f-11734ec097eb@b68f13c0-d957-4d73-b781-05935298f3a6@a2402e4a-6297-4541-b8f0-aac8f7403b5a@89e0a99a-ffda-4039-8c1b-d921d39e80d4`,`b68f13c0-d957-4d73-b781-05935298f3a6@a2402e4a-6297-4541-b8f0-aac8f7403b5a@89e0a99a-ffda-4039-8c1b-d921d39e80d4@c81809b7-2af0-451e-955f-11734ec097eb`,`a2402e4a-6297-4541-b8f0-aac8f7403b5a@89e0a99a-ffda-4039-8c1b-d921d39e80d4@c81809b7-2af0-451e-955f-11734ec097eb@b68f13c0-d957-4d73-b781-05935298f3a6`,`a2402e4a-6297-4541-b8f0-aac8f7403b5a@89e0a99a-ffda-4039-8c1b-d921d39e80d4@c81809b7-2af0-451e-955f-11734ec097eb@b68f13c0-d957-4d73-b781-05935298f3a6`];
 
 if ($.isNode()) {
   Object.keys(jdCookieNode).forEach((item) => {
@@ -679,7 +679,7 @@ function readShareCode() {
   console.log(`开始`)
   return new Promise(async resolve => {
     $.get({
-      url: `https://raw.githubusercontent.com/shuye72/RandomShareCode/master/JD_Festival.json`,
+      url: `https://rawqq.githubusercontent.com/shuye72/RandomShareCode/master/JD_Festival.json`,
       'timeout': 10000
     }, (err, resp, data) => {
       try {
