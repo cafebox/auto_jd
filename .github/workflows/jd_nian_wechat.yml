@@ -6,7 +6,7 @@ name: jd_nian_wechat
 on:
   workflow_dispatch:
   schedule:
-    - cron: '12 22 * * *'
+    - cron: '32 19,22,2 * * *'
   repository_dispatch:
     types: jd_nian_wechat
 jobs:
