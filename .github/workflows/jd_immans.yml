@@ -33,6 +33,17 @@ jobs:
         run: |
     
           node jd_immans.js
+          node jd_immans.js
+          node jd_immans.js
+          node jd_immans.js
+          node jd_immans.js
+          node jd_immans.js
+          node jd_immans.js
+          node jd_immans.js
+          node jd_immans.js
+          node jd_immans.js
+          node jd_immans.js
+          node jd_immans.js
         env:
           JD_COOKIE: ${{ secrets.JD_COOKIE }}
           JD_DEBUG: ${{ secrets.JD_DEBUG }}
