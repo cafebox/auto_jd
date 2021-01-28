@@ -6,7 +6,7 @@ name: jd_car_exchange
 on:
   workflow_dispatch:
   schedule:
-    - cron: '59 16 * * *'
+    - cron: '50 15 * * *'
   watch:
     types: started
   repository_dispatch:
@@ -35,10 +35,18 @@ jobs:
       - name: npm install
         run: |
           npm install
-      - name: '运行 【jjd_car_exchange】'
+      - name: Set up Python 3.7
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.7
+      - name: 'jd_car_exchange'
         run: |
-         
+              python3 wait24.py 0.1 0.1 29
+      - name: '运行'
+        run: |
           node jd_car_exchange.js
+         
+          
         env:
           JD_COOKIE: ${{ secrets.JD_COOKIE }}
           JD_DEBUG: ${{ secrets.JD_DEBUG }}
