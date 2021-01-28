@@ -3,7 +3,7 @@ name: jd_immans
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 2 * * *'
+    - cron: '02 18 * * *'
 jobs:
   build:
     runs-on: ubuntu-latest
