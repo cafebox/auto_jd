@@ -1,7 +1,7 @@
 /*
 京东手机年终奖
 活动时间：2021年1月26日～2021年2月8日
-更新地址：https://raw.githubusercontent.com/shylocks/Loon/main/jd_ee.js
+更新地址：https://raw.githubusercontent.com/shylocks/Loon/main/jd_festival.js
 活动入口：https://shopping-festival.m.jd.com
 已支持IOS双京东账号, Node.js支持N个京东账号
 脚本兼容: QuantumultX, Surge, Loon, 小火箭，JSBox, Node.js
@@ -9,14 +9,11 @@
 [task_local]
 #京东手机年终奖
 30 9 * * * https://raw.githubusercontent.com/shylocks/Loon/main/jd_festival.js, tag=京东手机年终奖, img-url=https://raw.githubusercontent.com/yogayyy/Scripts/master/Icon/shylocks/jd_festival2.jpg, enabled=true
-
 ================Loon==============
 [Script]
 cron "30 9 * * *" script-path=https://raw.githubusercontent.com/shylocks/Loon/main/jd_festival.js, tag=京东手机年终奖
-
 ===============Surge=================
 京东手机年终奖 = type=cron,cronexp="30 9 * * *",wake-system=1,timeout=3600,script-path=https://raw.githubusercontent.com/shylocks/Loon/main/jd_festival.js
-
 ============小火箭=========
 京东手机年终奖 = type=cron,script-path=https://raw.githubusercontent.com/shylocks/Loon/main/jd_festival.js, cronexpr="30 9 * * *", timeout=3600, enable=true
  */
@@ -29,7 +26,8 @@ const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
 let cookiesArr = [], cookie = '', message;
 
 const inviteCodes = [
-`89e0a99a-ffda-4039-8c1b-d921d39e80d4@c81809b7-2af0-451e-955f-11734ec097eb@b68f13c0-d957-4d73-b781-05935298f3a6@a2402e4a-6297-4541-b8f0-aac8f7403b5a`,`c81809b7-2af0-451e-955f-11734ec097eb@b68f13c0-d957-4d73-b781-05935298f3a6@a2402e4a-6297-4541-b8f0-aac8f7403b5a@89e0a99a-ffda-4039-8c1b-d921d39e80d4`,`b68f13c0-d957-4d73-b781-05935298f3a6@a2402e4a-6297-4541-b8f0-aac8f7403b5a@89e0a99a-ffda-4039-8c1b-d921d39e80d4@c81809b7-2af0-451e-955f-11734ec097eb`,`a2402e4a-6297-4541-b8f0-aac8f7403b5a@89e0a99a-ffda-4039-8c1b-d921d39e80d4@c81809b7-2af0-451e-955f-11734ec097eb@b68f13c0-d957-4d73-b781-05935298f3a6`,`a2402e4a-6297-4541-b8f0-aac8f7403b5a@89e0a99a-ffda-4039-8c1b-d921d39e80d4@c81809b7-2af0-451e-955f-11734ec097eb@b68f13c0-d957-4d73-b781-05935298f3a6`];
+`89e0a99a-ffda-4039-8c1b-d921d39e80d4@c81809b7-2af0-451e-955f-11734ec097eb@b68f13c0-d957-4d73-b781-05935298f3a6@a2402e4a-6297-4541-b8f0-aac8f7403b5a`,`c81809b7-2af0-451e-955f-11734ec097eb@b68f13c0-d957-4d73-b781-05935298f3a6@a2402e4a-6297-4541-b8f0-aac8f7403b5a@89e0a99a-ffda-4039-8c1b-d921d39e80d4`,`b68f13c0-d957-4d73-b781-05935298f3a6@a2402e4a-6297-4541-b8f0-aac8f7403b5a@89e0a99a-ffda-4039-8c1b-d921d39e80d4@c81809b7-2af0-451e-955f-11734ec097eb`,`a2402e4a-6297-4541-b8f0-aac8f7403b5a@89e0a99a-ffda-4039-8c1b-d921d39e80d4@c81809b7-2af0-451e-955f-11734ec097eb@b68f13c0-d957-4d73-b781-05935298f3a6`,`a2402e4a-6297-4541-b8f0-aac8f7403b5a@89e0a99a-ffda-4039-8c1b-d921d39e80d4@c81809b7-2af0-451e-955f-11734ec097eb@b68f13c0-d957-4d73-b781-05935298f3a6`
+];
 
 if ($.isNode()) {
   Object.keys(jdCookieNode).forEach((item) => {
@@ -679,7 +677,7 @@ function readShareCode() {
   console.log(`开始`)
   return new Promise(async resolve => {
     $.get({
-      url: `https://rawqq.githubusercontent.com/shuye72/RandomShareCode/master/JD_Festival.json`,
+      url: `https://raw.githubusercontent.com/shuye72/RandomShareCode/master/JD_Festival.json`,
       'timeout': 10000
     }, (err, resp, data) => {
       try {
