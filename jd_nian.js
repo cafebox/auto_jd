@@ -87,18 +87,18 @@ async function jdNian() {
   try {
     await getHomeData()
     if(!$.secretp) return
-    await $.wait(2000)
+    await $.wait(3000)
     await killCouponList()
-    await $.wait(2000)
+    await $.wait(3000)
     await map()
-    await $.wait(2000)
+    await $.wait(3000)
     await queryMaterials()
     await getTaskList()
-    await $.wait(1000)
+    await $.wait(3000)
     await doTask()
-    await $.wait(2000)
+    await $.wait(3000)
     await helpFriends()
-    await $.wait(2000)
+    await $.wait(3000)
     await getHomeData(true)
     await showMsg()
   } catch (e) {
@@ -223,7 +223,7 @@ function getFeedDetail(body={}) {
                     {
                       let bo = vo.productInfoVos[i]
                       await collectScore(vo['taskId'],bo['itemId'])
-                      await $.wait(2000)
+                      await $.wait(4000)
                     }
                   }
                 }
@@ -270,7 +270,7 @@ function getHomeData(info=false) {
             }
             if(parseInt($.userInfo.raiseInfo.remainScore) >= parseInt($.userInfo.raiseInfo.curLevelStartScore)){
               console.log(`去升级`)
-              await $.wait(2000)
+              await $.wait(4000)
               await raise()
             }
           }
@@ -550,7 +550,7 @@ function queryMaterials() {
                 nameList.push(vo.name)
                 console.log(`去做${vo.name}店铺任务`)
                 await shopLotteryInfo(vo.desc)
-                await $.wait(2000)
+                await $.wait(4000)
               }
             }
           }
@@ -580,7 +580,7 @@ function shopLotteryInfo(shopSign) {
                 if(vo.status===1){
                   if(vo.taskType===12){
                     console.log(`去做${vo.taskName}任务`)
-                    await $.wait(2000)
+                    await $.wait(4000)
                     await collectScore(vo.taskId,vo.simpleRecordInfoVo.itemId,null,null,shopSign)
                   }
                   else if (vo.taskType === 3 || vo.taskType === 26) {
@@ -589,7 +589,7 @@ function shopLotteryInfo(shopSign) {
                         console.log(`准备做此任务：${vo.taskName}`)
                         for (let task of vo.shoppingActivityVos) {
                           if (task.status === 1) {
-                            await $.wait(2000)
+                            await $.wait(4000)
                             await collectScore(vo.taskId, task.advId,null,null,shopSign);
                           }
                         }
@@ -602,7 +602,7 @@ function shopLotteryInfo(shopSign) {
               }
               for(let i=0;i<data.data.result.lotteryNum;++i){
                 console.log(`去抽奖：${i+1}/${data.data.result.lotteryNum}`)
-                await $.wait(2000)
+                await $.wait(5000)
                 await doShopLottery(shopSign)
               }
             }
@@ -758,12 +758,12 @@ function killCouponList() {
           if (safeGet(data)) {
             data = JSON.parse(data);
             if (data.data && data.data.bizCode === 0) {
-              await $.wait(2000)
+              await $.wait(4000)
               for(let vo of data.data.result){
                 if(!vo.status){
                   console.log(`去领取${vo['productName']}优惠券`)
                   await killCoupon(vo['skuId'])
-                  await $.wait(2000)
+                  await $.wait(4000)
                 }
               }
             }
@@ -836,7 +836,7 @@ function readShareCode() {
         resolve(data);
       }
     })
-    await $.wait(2000);
+    await $.wait(4000);
     resolve()
   })
 }
