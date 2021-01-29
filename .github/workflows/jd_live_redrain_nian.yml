@@ -39,10 +39,8 @@ jobs:
           python3 wait.py 
       - name: '运行'
         run: |
-          node jd_live_redrain_nian.js
           node jd_live_redrain_offical.js
           sleep 1m
-          node jd_live_redrain_nian.js
           node jd_live_redrain_offical.js
         env:
           JD_COOKIE: ${{ secrets.JD_COOKIE }}
