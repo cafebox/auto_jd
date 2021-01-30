@@ -1,6 +1,6 @@
 /*
 京东抽奖机
-更新时间：2021-01-23 13:28
+更新时间：2021-01-29 19:41
 脚本说明：抽奖活动,有新活动可以@我或者提Issues
 脚本兼容: QuantumultX, Surge, Loon, JSBox, Node.js
 // quantumultx
@@ -19,12 +19,13 @@ const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
 const STRSPLIT = "|";
 const needSum = false;            //是否需要显示汇总
 const printDetail = false;        //是否显示出参详情
-const appIdArr = ['1EFRRxA','1EFRQwA','1EFRTyg','1EFRSxA','1EFRSyw','1EFRVxA','1EFRUwg','1EFRVyg','1EFRUww','1EFRVxg','1EFRVxw','1EFRUxw','1EFRUxA']
-const shareCodeArr = ['P04z54XCjVWmIaW5m9cZ2f433tIlJz4FjX2kfk','P04z54XCjVXnIaW5m9cZ2f433tIlLKXiUijZw4','P04z54XCjVUloaW5m9cZ2f433tIlNDtvQURO58','T0225KkcRx4b8lbWJU72wvZZcwCjVVmIaW5kRrbA','T0225KkcRx4b8lbWJU72wvZZcwCjVVl4aW5kRrbA','T0225KkcRx4b8lbWJU72wvZZcwCjVSmIaW5kRrbA','T0225KkcRx4b8lbWJU72wvZZcwCjVTnoaW5kRrbA','T0225KkcRx4b8lbWJU72wvZZcwCjVSloaW5kRrbA','T0225KkcRx4b8lbWJU72wvZZcwCjVTn4aW5kRrbA','T0225KkcRx4b8lbWJU72wvZZcwCjVSmoaW5kRrbA','T0225KkcRx4b8lbWJU72wvZZcwCjVSm4aW5kRrbA','T0225KkcRx4b8lbWJU72wvZZcwCjVTm4aW5kRrbA','T0225KkcRx4b8lbWJU72wvZZcwCjVTmIaW5kRrbA']
-const homeDataFunPrefixArr = ['','','healthyDay','wfh','healthyDay','healthyDay','healthyDay','healthyDay','healthyDay','healthyDay','healthyDay','healthyDay']
-const collectScoreFunPrefixArr = ['','','','wfh','','','','','','','','']
-const lotteryResultFunPrefixArr = ['','','interact_template','','interact_template','interact_template','interact_template','interact_template','interact_template','interact_template','interact_template','interact_template']
-const browseTimeArr = ['','','','','','10','10','10','15','','','15','15']
+const appIdArr = ['1EFRRxA','1EFRQwA','1EFRTyg','1EFRSxA','1EFRSyw','1EFRVxA','1EFRUwg','1EFRVyg','1EFRUww','1EFRVxg','1EFRVxw','1EFRUxA','1EFRUxg','1EFRUyw','1EFRVyw']
+const shareCodeArr = [''
+]
+const homeDataFunPrefixArr = ['','','healthyDay','wfh','healthyDay','healthyDay','healthyDay','healthyDay','healthyDay','healthyDay','healthyDay','healthyDay','healthyDay','healthyDay']
+const collectScoreFunPrefixArr = ['','','','wfh','','','','','','','','','','']
+const lotteryResultFunPrefixArr = ['','','interact_template','','interact_template','interact_template','interact_template','interact_template','interact_template','interact_template','interact_template','interact_template','interact_template','interact_template']
+const browseTimeArr = ['','','','','','10','10','10','15','','','15','10','10','']
 let merge = {}
 //IOS等用户直接用NobyDa的jd cookie
 let cookiesArr = [], cookie = '';
@@ -168,9 +169,9 @@ function interact_template_getHomeData(timeout = 0) {
             for (let k = data.data.result.taskVos[i].times; k < data.data.result.taskVos[i].maxTimes; k++) {
               for (let j in list) {
                 if (list[j].status === 1) {
-                  //console.log(list[j].simpleRecordInfoVo||list[j].assistTaskDetailVo)
+                 // console.log(list[j].simpleRecordInfoVo||list[j].assistTaskDetailVo)
                   console.log("\n" + (list[j].title || list[j].shopName||list[j].skuName))
-                  //console.log(list[j].itemId)
+                 // console.log(list[j].itemId)
                   if (list[j].itemId) {
                     await harmony_collectScore(list[j].taskToken,data.data.result.taskVos[i].taskId,list[j].itemId,1);
                     if (k === data.data.result.taskVos[i].maxTimes - 1) await interact_template_getLotteryResult(data.data.result.taskVos[i].taskId);
