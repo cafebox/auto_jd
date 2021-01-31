@@ -6,7 +6,7 @@ name: jd_nian
 on:
   workflow_dispatch:
   schedule:
-    - cron: '11 19,22,4 * * *'
+    - cron: '6 19,22,4,13 * * *'
   watch:
     types: started
   repository_dispatch:
