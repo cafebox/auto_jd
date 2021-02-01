@@ -28,7 +28,7 @@ const notify = $.isNode() ? require('./sendNotify') : '';
 //Node.js用户请在jdCookie.js处填写京东ck;
 const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
 let jdNotify = true;//是否关闭通知，false打开通知推送，true关闭通知推送
-const randomCount = $.isNode() ? 20 : 5;
+const randomCount = 0;
 
 //IOS等用户直接用NobyDa的jd cookie
 let cookiesArr = [], cookie = '', message;
@@ -48,7 +48,8 @@ if ($.isNode()) {
 }
 const JD_API_HOST = 'https://api.m.jd.com/client.action';
 const inviteCodes = [
-  `1@1`,];
+`pMt0Ab8dpoxfT659N_w8syziKGCvkeKdBEVpRk0@vcZ2Jpwb1fw3eLVMa_E8s30msRO8luPf1mq_Jtz_oFSkQQ@vcZuHZwOx-srW4dUdsM8sztjKccL_phkak8NghKJTFGTEw@oMZeXuccqd4CAuszM7El_dqv6obH_hAjYsoGJwc1YKBndTpO@vcZnE6IU1PY_e7BgT_U8sw2w9DhQ9YE3B4Vo9-UU_CofZg`,`pMt0Ab8dpoxfT659N_w8syziKGCvkeKdBEVpRk0@vcZ2Jpwb1fw3eLVMa_E8s30msRO8luPf1mq_Jtz_oFSkQQ@vcZuHZwOx-srW4dUdsM8sztjKccL_phkak8NghKJTFGTEw@oMZeXuccqd4CAuszM7El_dqv6obH_hAjYsoGJwc1YKBndTpO@vcZnE6IU1PY_e7BgT_U8sw2w9DhQ9YE3B4Vo9-UU_CofZg`,`pMt0Ab8dpoxfT659N_w8syziKGCvkeKdBEVpRk0@vcZ2Jpwb1fw3eLVMa_E8s30msRO8luPf1mq_Jtz_oFSkQQ@vcZuHZwOx-srW4dUdsM8sztjKccL_phkak8NghKJTFGTEw@oMZeXuccqd4CAuszM7El_dqv6obH_hAjYsoGJwc1YKBndTpO@vcZnE6IU1PY_e7BgT_U8sw2w9DhQ9YE3B4Vo9-UU_CofZg`,`pMt0Ab8dpoxfT659N_w8syziKGCvkeKdBEVpRk0@vcZ2Jpwb1fw3eLVMa_E8s30msRO8luPf1mq_Jtz_oFSkQQ@vcZuHZwOx-srW4dUdsM8sztjKccL_phkak8NghKJTFGTEw@oMZeXuccqd4CAuszM7El_dqv6obH_hAjYsoGJwc1YKBndTpO@vcZnE6IU1PY_e7BgT_U8sw2w9DhQ9YE3B4Vo9-UU_CofZg`,`pMt0Ab8dpoxfT659N_w8syziKGCvkeKdBEVpRk0@vcZ2Jpwb1fw3eLVMa_E8s30msRO8luPf1mq_Jtz_oFSkQQ@vcZuHZwOx-srW4dUdsM8sztjKccL_phkak8NghKJTFGTEw@oMZeXuccqd4CAuszM7El_dqv6obH_hAjYsoGJwc1YKBndTpO@vcZnE6IU1PY_e7BgT_U8sw2w9DhQ9YE3B4Vo9-UU_CofZg`,`pMt0Ab8dpoxfT659N_w8syziKGCvkeKdBEVpRk0@vcZ2Jpwb1fw3eLVMa_E8s30msRO8luPf1mq_Jtz_oFSkQQ@vcZuHZwOx-srW4dUdsM8sztjKccL_phkak8NghKJTFGTEw@oMZeXuccqd4CAuszM7El_dqv6obH_hAjYsoGJwc1YKBndTpO@vcZnE6IU1PY_e7BgT_U8sw2w9DhQ9YE3B4Vo9-UU_CofZg`
+];
 !(async () => {
   await requireConfig();
   if (!cookiesArr[0]) {
@@ -293,8 +294,8 @@ function readShareCode() {
   console.log(`开始`)
   return new Promise(async resolve => {
     $.get({
-      url: `https://code111.chiang.fun/api/v1/jd/year/read/${randomCount}/`,
-      'timeout': 10000
+      url: `https://raw111.githubusercontent.com/shuye72/RandomShareCode/master/JD_NewYearMoney.json`,
+      'timeout': 1000
     }, (err, resp, data) => {
       try {
         if (err) {
@@ -302,7 +303,7 @@ function readShareCode() {
           console.log(`${$.name} API请求失败，请检查网路重试`)
         } else {
           if (data) {
-            console.log(`随机取${randomCount}个码放到您固定的互助码后面(不影响已有固定互助)`)
+            console.log(`随机取助力码放到您固定的互助码后面(不影响已有固定互助)`)
             data = JSON.parse(data);
           }
         }
