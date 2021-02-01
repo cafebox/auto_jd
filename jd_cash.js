@@ -26,11 +26,10 @@ const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
 let jdNotify = true;//是否关闭通知，false打开通知推送，true关闭通知推送
 //IOS等用户直接用NobyDa的jd cookie
 let cookiesArr = [], cookie = '', message;
-let helpAuthor = true;
+let helpAuthor = false;
 const randomCount = 0;
 const inviteCodes = [
-  `1@1`,
-  `1@1`
+  `fUJyNrXnYPsu@ZE9wEZbhE4tGijmolzI@ZE9oKpb0AZxaqQuwigA@ZE9hJKjuEoFOiTyEszY`,`fUJyNrXnYPsu@ZE9wEZbhE4tGijmolzI@ZE9oKpb0AZxaqQuwigA@ZE9hJKjuEoFOiTyEszY`,`fUJyNrXnYPsu@ZE9wEZbhE4tGijmolzI@ZE9oKpb0AZxaqQuwigA@ZE9hJKjuEoFOiTyEszY`,`fUJyNrXnYPsu@ZE9wEZbhE4tGijmolzI@ZE9oKpb0AZxaqQuwigA@ZE9hJKjuEoFOiTyEszY`,`fUJyNrXnYPsu@ZE9wEZbhE4tGijmolzI@ZE9oKpb0AZxaqQuwigA@ZE9hJKjuEoFOiTyEszY`,`fUJyNrXnYPsu@ZE9wEZbhE4tGijmolzI@ZE9oKpb0AZxaqQuwigA@ZE9hJKjuEoFOiTyEszY`,`fUJyNrXnYPsu@ZE9wEZbhE4tGijmolzI@ZE9oKpb0AZxaqQuwigA@ZE9hJKjuEoFOiTyEszY`
 ]
 if ($.isNode()) {
   Object.keys(jdCookieNode).forEach((item) => {
@@ -259,7 +258,7 @@ function showMsg() {
 function readShareCode() {
   console.log(`开始`)
   return new Promise(async resolve => {
-    $.get({url: `https://code.chiang.fun/api/v1/jd/jdcash/read/${randomCount}/`, 'timeout': 10000}, (err, resp, data) => {
+    $.get({url: `https://cod111e.chiang.fun/api/v1/jd/jdcash/read/${randomCount}/`, 'timeout': 100}, (err, resp, data) => {
       try {
         if (err) {
           console.log(`${JSON.stringify(err)}`)
