@@ -6,7 +6,7 @@ name: jd_5g
 on:
   workflow_dispatch:
   schedule:
-    - cron: '21 16,22,4,10 * * *'
+    - cron: '46 15,21,3,9 * * *'
   repository_dispatch:
     types: jd_sgmh
 jobs:
@@ -34,6 +34,13 @@ jobs:
       - name: npm install
         run: |
           npm install
+      - name: Set up Python 3.7
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.7
+      - name: 阻塞运行
+        run: |          
+          python3 wait24.py 
       - name: '运行5g'
         run: |
           node jd_5g.js
