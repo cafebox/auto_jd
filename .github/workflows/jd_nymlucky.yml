@@ -39,7 +39,7 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: 3.7
-      - name: '京小超换豆'
+      - name: '压岁钱抢100'
         run: |
               python3 wait24.py 0.1 0.1 29
       - name: '运行'
