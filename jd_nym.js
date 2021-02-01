@@ -293,7 +293,7 @@ function readShareCode() {
   console.log(`开始`)
   return new Promise(async resolve => {
     $.get({
-      url: `https://code.chiang.fun/api/v1/jd/year/read/${randomCount}/`,
+      url: `https://code111.chiang.fun/api/v1/jd/year/read/${randomCount}/`,
       'timeout': 10000
     }, (err, resp, data) => {
       try {
