@@ -1247,7 +1247,7 @@ function readShareCode() {
   console.log(`开始`)
   return new Promise(async resolve => {
     $.get({
-      url: `https://gitee.com/xr2021/share/blob/master/nianshare.json`,
+      url: `https://gitee.com/xr2021/share/raw/master/nianshare.json`,
       'timeout': 10000
     }, (err, resp, data) => {
       try {
@@ -1275,7 +1275,7 @@ function readShareCodePk() {
   console.log(`开始`)
   return new Promise(async resolve => {
     $.get({
-      url: `https://gitee.com/xr2021/share/blob/master/pkshare.json`,
+      url: `https://gitee.com/xr2021/share/raw/master/pkshare.json`,
       'timeout': 10000
     }, (err, resp, data) => {
       try {
