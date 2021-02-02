@@ -27,7 +27,7 @@ const notify = $.isNode() ? require('./sendNotify') : '';
 //Node.js用户请在jdCookie.js处填写京东ck;
 const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
 let jdNotify = true;//是否关闭通知，false打开通知推送，true关闭通知推送
-const randomCount = $.isNode() ? 2 : 1;
+const randomCount = $.isNode() ? 20 : 5;
 //IOS等用户直接用NobyDa的jd cookie
 let cookiesArr = [], cookie = '', message, superAssist = [];
 if ($.isNode()) {
@@ -46,13 +46,9 @@ if ($.isNode()) {
 }
 const JD_API_HOST = 'https://api.m.jd.com/client.action';
 const inviteCodes = [
- '',
- '',
-];
-const pkInviteCodes = [
- '',
- '',
-]
+  `cg@cB`];
+const pkInviteCodes = [`cg@cB`
+  ]
 !(async () => {
   await requireConfig();
   if (!cookiesArr[0]) {
@@ -286,7 +282,7 @@ function getFeedDetail(body = {}) {
       try {
         if (err) {
           console.log(`${JSON.stringify(err)}`)
-          console.log(`${$.name} API请求失败，nian_getFeedDetail请检查网路重试`)
+          console.log(`${$.name} API请求失败，请检查网路重试`)
         } else {
           if (safeGet(data)) {
             data = JSON.parse(data);
@@ -344,7 +340,7 @@ function getHomeData(info = false) {
               $.secretp = null
               return
             }
-            console.log(`当前爆竹${$.userInfo.raiseInfo.remainScore}🧨，下一关需要${$.userInfo.raiseInfo.nextLevelScore - $.userInfo.raiseInfo.curLevelStartScore}🧨`)
+            console.log(`\n\n当前等级:${$.userInfo.raiseInfo.curMaxLevel}\n当前爆竹${$.userInfo.raiseInfo.remainScore}🧨，下一关需要${$.userInfo.raiseInfo.nextLevelScore - $.userInfo.raiseInfo.curLevelStartScore}🧨\n\n`)
 
             if (info) {
               message += `当前爆竹${$.userInfo.raiseInfo.remainScore}🧨\n`
@@ -619,7 +615,7 @@ function getTaskList(body = {}) {
             if (data.data.bizCode === 0) {
               if (JSON.stringify(body) === "{}") {
                 $.taskVos = data.data.result.taskVos;//任务列表
-                console.log(`您的好友助力码为${data.data.result.inviteId}`)
+                console.log(`\n\n您的好友助力码为${data.data.result.inviteId}\n\n`)
               }
               // $.userInfo = data.data.result.userInfo;
             }
@@ -838,7 +834,7 @@ function pkInfo() {
           if (safeGet(data)) {
             data = JSON.parse(data);
             if (data.code === 0 && data.data && data.data.bizCode === 0) {
-              console.log(`\n您的好友PK助力码为${data.data.result.groupInfo.groupAssistInviteId}\n注：此pk邀请码每天都变！`)
+              console.log(`\n\n您的好友PK助力码为${data.data.result.groupInfo.groupAssistInviteId}\n注：此pk邀请码每天都变！\n\n`)
               let info = data.data.result.groupPkInfo
               console.log(`预计分得:${data.data.result.groupInfo.personalAward}红包`)
               if (info.dayAward)
@@ -1247,7 +1243,7 @@ function readShareCode() {
   console.log(`开始`)
   return new Promise(async resolve => {
     $.get({
-      url: `https://gitee.com/xr2021/share/raw/master/nianshare.json`,
+      url: `https://gitee.com/xr2021/share/blob/master/nianshare.json`,
       'timeout': 10000
     }, (err, resp, data) => {
       try {
@@ -1256,7 +1252,7 @@ function readShareCode() {
           console.log(`${$.name} API请求失败，请检查网路重试`)
         } else {
           if (data) {
-            console.log(`随机取助力码放到您固定的互助码后面(不影响已有固定互助)`)
+            console.log(`随机取${randomCount}个码放到您固定的互助码后面(不影响已有固定互助)`)
             data = JSON.parse(data);
           }
         }
@@ -1284,7 +1280,7 @@ function readShareCodePk() {
           console.log(`${$.name} API请求失败，请检查网路重试`)
         } else {
           if (data) {
-            console.log(`随机取PK助力码放到您固定的互助码后面(不影响已有固定互助)`)
+            console.log(`随机取${randomCount}个PK助力码放到您固定的互助码后面(不影响已有固定互助)`)
             data = JSON.parse(data);
           }
         }
@@ -1332,7 +1328,7 @@ function shareCodesFormatPk() {
       $.newShareCodesPk = pkInviteCodes[tempIndex].split('@');
     }
     let readShareCodeRes = null
-    //if (new Date().getUTCHours() >= 12)
+    if (new Date().getUTCHours() >= 12)
       readShareCodeRes = await readShareCodePk();
     if (readShareCodeRes && readShareCodeRes.code === 200) {
       $.newShareCodesPk = [...new Set([...$.newShareCodesPk, ...(readShareCodeRes.data || [])])];
