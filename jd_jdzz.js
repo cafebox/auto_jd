@@ -210,6 +210,10 @@ function getUserTuanInfo() {
                 "channel": "FISSION_BEAN"
               }
               $.tuanActId = data.data.id
+              console.log(data.data.id)
+              console.log(data.data.assistStartRecordId)
+              console.log(data.data.encPin)
+              
             }
           }
         }
