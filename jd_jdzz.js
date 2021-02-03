@@ -214,7 +214,9 @@ function getUserTuanInfo() {
               }
               $.tuanActId = data.data.id;
 		           console.log(data.data.id);
-			  console.log({`团信息：{data.data.id}`};)
+		        console.log(data.data.assistStartRecordId);
+		        console.log(data.data.encPin);
+			  console.log({`团信息：{data.data.id}`})
 			  
             }
           }
