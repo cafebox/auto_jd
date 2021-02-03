@@ -151,7 +151,7 @@ function getAuthorShareCode(url) {
         if (err) {
         } else {
           $.tuanList = $.tuanList.concat(JSON.parse(data))
-          console.log(`作者助力码获取成功`)
+          console.log(`作者助力码获取成功99999`)
         }
       } catch (e) {
         $.logErr(e, resp)
@@ -178,7 +178,7 @@ function helpFriendTuan(body) {
               else if (data.resultCode === '9200011') console.log('已经助力过')
               else if (data.resultCode === '2400205') console.log('团已满')
               else if (data.resultCode === '2400203') {console.log('助力次数已耗尽');$.canHelp = false}
-              else console.log(`未知错误`)
+              else console.log(data.resultCode)
             }
           }
         }
@@ -198,7 +198,7 @@ function getUserTuanInfo() {
       try {
         if (err) {
           console.log(`${JSON.stringify(err)}`)
-          console.log(`${$.name} API请求失败，请检查网路重试`)
+          console.log(`${$.name} API请求失败1111111，请检查网路重试`)
         } else {
           if (safeGet(data)) {
             data = JSON.parse(data);
@@ -233,7 +233,7 @@ function openTuan() {
       try {
         if (err) {
           console.log(`${JSON.stringify(err)}`)
-          console.log(`${$.name} API请求失败，请检查网路重试`)
+          console.log(`${$.name} API用户开团请求失败，请检查网路重试`)
         } else {
           if (safeGet(data)) {
             data = JSON.parse(data);
