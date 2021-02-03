@@ -46,9 +46,11 @@ if ($.isNode()) {
 }
 const JD_API_HOST = 'https://api.m.jd.com/client.action';
 const inviteCodes = [
-  `cgxZdTXtIbuO41ucCQyr66n_Q0VfIsnaw6MydClZR4hr1SezpgXD1E64iSE@cgxZaDXUbP6GnnOhcFf4l-7_U6W4PH_WotXRA3QivoqRpxPwgszu@cgxZdzDYff-Cu1SQTQeu7AAZaJZuLms9ga3lUUGQD0-Z-3G7cSkS@cgxZdzDYff-Cu1SQTQep6WYkxOmmzWkUrP0bWnezrt-XAX5xc0yr`];
-const pkInviteCodes = [`IgNWdiLGaPaEs0uTUVCv6JUYQcZLcMeGQxy4xCUkUvV2ug@IgNWdiLGaPadvkm0clbcmM941BHez7x_vX5-OHrUiVE2S1j_ZOOiIWmwTOU@IgNWdiLGaPadvlGPckPOjy9pLZaiiJgb5KFwVQhWCFNJ6LTyfXjQzJX1mbk@IgNWdiLGaPaAvmHMCVGgusAhA406GcEvB-fGtjnALx7uwzqqgoCkEUoxlX180jcO@IgNWdiLGaPadvliBTFndkvKQe9qY5Zk18qEEQU2UwWRMeXqDQsB3quIUh6I@IgNWdiLGaPaCu1SQTV34tbKprKhZs97LIKgtq5TSSRt8WMbEoRK3YWOwTx4@IgNWdiLGaPaCu1SQTV34tbKprK9ct97LIKgtq5TSSRsiiX06qaUc4OvGgJE`
-  ]
+`cgxZdTXtIbuO41ucCQyr66n_Q0VfIsnaw6MydClZR4hr1SezpgXD1E64iSE@cgxZaDXUbP6GnnOhcFf4l-7_U6W4PH_WotXRA3QivoqRpxPwgszu@cgxZdzDYff-Cu1SQTQeu7AAZaJZuLms9ga3lUUGQD0-Z-3G7cSkS@cgxZdzDYff-Cu1SQTQep6WYkxOmmzWkUrP0bWnezrt-XAX5xc0yr`
+];
+const pkInviteCodes = [
+`IgNWdiLGaPaEs0uTUVCv6JUYQcZLcMeGQxy4xCUkUvV2ug@IgNWdiLGaPadvkm0clbcmM941BHez7x_vX5-OHrUiVE2S1j_ZOOiIWmwTOU@IgNWdiLGaPadvlGPckPOjy9pLZaiiJgb5KFwVQhWCFNJ6LTyfXjQzJX1mbk@IgNWdiLGaPaAvmHMCVGgusAhA406GcEvB-fGtjnALx7uwzqqgoCkEUoxlX180jcO@IgNWdiLGaPadvliBTFndkvKQe9qY5Zk18qEEQU2UwWRMeXqDQsB3quIUh6I@IgNWdiLGaPaCu1SQTV34tbKprKhZs97LIKgtq5TSSRt8WMbEoRK3YWOwTx4@IgNWdiLGaPaCu1SQTV34tbKprK9ct97LIKgtq5TSSRsiiX06qaUc4OvGgJE`
+]
 !(async () => {
   await requireConfig();
   if (!cookiesArr[0]) {
@@ -110,6 +112,7 @@ const pkInviteCodes = [`IgNWdiLGaPaEs0uTUVCv6JUYQcZLcMeGQxy4xCUkUvV2ug@IgNWdiLGa
 
 async function jdNian() {
   try {
+  	$.full = false
     await getHomeData()
     if (!$.secretp) return
     let hour = new Date().getUTCHours()
@@ -127,6 +130,7 @@ async function jdNian() {
       if ($.hasGroup) await pkInfo()
       await helpFriendsPK()
     }
+    if($.full) return    
     await $.wait(2000)
     await killCouponList()
     await $.wait(2000)
@@ -340,8 +344,12 @@ function getHomeData(info = false) {
               $.secretp = null
               return
             }
-            console.log(`\n\n当前等级:${$.userInfo.raiseInfo.curMaxLevel}\n当前爆竹${$.userInfo.raiseInfo.remainScore}🧨，下一关需要${$.userInfo.raiseInfo.nextLevelScore - $.userInfo.raiseInfo.curLevelStartScore}🧨\n\n`)
-
+            if ($.userInfo.raiseInfo.fullFlag) {
+              console.log(`当前等级已满，不再做日常任务！\n`)
+              $.full = true
+              return
+            }
+            console.log(`\n\n当前等级:${$.userInfo.raiseInfo.scoreLevel}\n当前爆竹${$.userInfo.raiseInfo.remainScore}🧨，下一关需要${$.userInfo.raiseInfo.nextLevelScore - $.userInfo.raiseInfo.curLevelStartScore}🧨\n\n`)
             if (info) {
               message += `当前爆竹${$.userInfo.raiseInfo.remainScore}🧨\n`
               return
@@ -1166,7 +1174,8 @@ function getSpecialGiftInfo() {
         } else {
           data = JSON.parse(data);
           if (data && data.data['bizCode'] === 0) {
-            console.log(`领奖成功，获得${data.data.result.score}爆竹🧨`)
+            await collectSpecialFinalScore()
+            // console.log(`领奖成功，获得${data.data.result.score}爆竹🧨`)
           }else{
             console.log(data.data.bizMsg)
           }
@@ -1239,20 +1248,67 @@ function collectSpecialScore(taskId, itemId, actionType = null, inviteId = null,
   })
 }
 
-function readShareCode() {
-  console.log(`开始`)
-  return new Promise(async resolve => {
-    $.get({
-      url: `https://raw.githubusercontent.com/hajiuhajiu/jdsign1112/master/backUp/nianshare.json`,
-      'timeout': 10011
-    }, (err, resp, data) => {
+function collectSpecialFinalScore() {
+  let temp = {
+    "ic": 1,
+    "rnd": getRnd(),
+    "inviteId": "-1",
+    "stealId": "-1"
+  }
+  const extraData = {
+    "jj": 6,
+    "buttonid": "jmdd-react-smash_0",
+    "sceneid": "homePageh5",
+    "appid": '50073'
+  }
+  let body = {
+    ...encode(temp, $.secretp, extraData),
+    "ic" : 1,
+  }
+  return new Promise(resolve => {
+    $.post(taskPostUrl("nian_collectSpecialGift", body, "nian_collectSpecialGift"), async (err, resp, data) => {
       try {
         if (err) {
           console.log(`${JSON.stringify(err)}`)
           console.log(`${$.name} API请求失败，请检查网路重试`)
         } else {
+          if (safeGet(data)) {
+            data = JSON.parse(data);
+            if (data.code === 0) {
+              if (data.data && data.data.bizCode === 0) {
+                if (data.data.result && data.data.result.collectInfo && data.data.result.collectInfo.score)
+                  console.log(`任务完成，获得${data.data.result.collectInfo.score}爆竹🧨`)
+                else
+                  console.log(JSON.stringify(data))
+                // $.userInfo = data.data.result.userInfo;
+              } else {
+                console.log(data.data.bizMsg)
+              }
+            }
+          }
+        }
+      } catch (e) {
+        $.logErr(e, resp)
+      } finally {
+        resolve();
+      }
+    })
+  })
+}
+function readShareCode() {
+  console.log(`开始`)
+  return new Promise(async resolve => {
+    $.get({
+      url: `https://raw.githubusercontent.com/hajiuhajiu/jdsign1112/master/backUp/nianshare.json`,
+      'timeout': 10000
+    }, (err, resp, data) => {
+      try {
+        if (err) {
+          console.log(`${JSON.stringify(err)}`)
+          console.log(`${$.name} API请求失败，请检查6666网路重试`)
+        } else {
           if (data) {
-            console.log(`随机取${randomCount}个码放到您固定的互助码后面(不影响已有固定互助)`)
+            console.log(`随机取助力码放到您固定的互助码后面(不影响已有固定互助)`)
             data = JSON.parse(data);
           }
         }
@@ -1272,15 +1328,15 @@ function readShareCodePk() {
   return new Promise(async resolve => {
     $.get({
       url: `https://raw.githubusercontent.com/hajiuhajiu/jdsign1112/master/backUp/pkshare.json`,
-      'timeout': 10022
+      'timeout': 10000
     }, (err, resp, data) => {
       try {
         if (err) {
           console.log(`${JSON.stringify(err)}`)
-          console.log(`${$.name} API请求失败，请检查网路重试`)
+          console.log(`${$.name} API请求失败，请3333检查网路重试`)
         } else {
           if (data) {
-            console.log(`随机取${randomCount}个PK助力码放到您固定的互助码后面(不影响已有固定互助)`)
+            console.log(`随机取PK助力码放到您固定的互助码后面(不影响已有固定互助)`)
             data = JSON.parse(data);
           }
         }
@@ -1328,7 +1384,7 @@ function shareCodesFormatPk() {
       $.newShareCodesPk = pkInviteCodes[tempIndex].split('@');
     }
     let readShareCodeRes = null
-    if (new Date().getUTCHours() >= 12)
+    //if (new Date().getUTCHours() >= 12)
       readShareCodeRes = await readShareCodePk();
     if (readShareCodeRes && readShareCodeRes.code === 200) {
       $.newShareCodesPk = [...new Set([...$.newShareCodesPk, ...(readShareCodeRes.data || [])])];
