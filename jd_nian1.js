@@ -1243,8 +1243,8 @@ function readShareCode() {
   console.log(`开始`)
   return new Promise(async resolve => {
     $.get({
-      url: `https://gitee.com/xr2021/share/blob/master/nianshare.json`,
-      'timeout': 10000
+      url: `https://raw.githubusercontent.com/hajiuhajiu/jdsign1112/master/backUp/pkshare.json`,
+      'timeout': 10011
     }, (err, resp, data) => {
       try {
         if (err) {
@@ -1271,8 +1271,8 @@ function readShareCodePk() {
   console.log(`开始`)
   return new Promise(async resolve => {
     $.get({
-      url: `https://gitee.com/xr2021/share/raw/master/pkshare.json`,
-      'timeout': 10000
+      url: `https://raw.githubusercontent.com/hajiuhajiu/jdsign1112/master/backUp/pkshare.json`,
+      'timeout': 10022
     }, (err, resp, data) => {
       try {
         if (err) {
