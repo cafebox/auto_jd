@@ -1243,7 +1243,7 @@ function readShareCode() {
   console.log(`开始`)
   return new Promise(async resolve => {
     $.get({
-      url: `https://raw.githubusercontent.com/hajiuhajiu/jdsign1112/master/backUp/pkshare.json`,
+      url: `https://raw.githubusercontent.com/hajiuhajiu/jdsign1112/master/backUp/nianshare.json`,
       'timeout': 10011
     }, (err, resp, data) => {
       try {
