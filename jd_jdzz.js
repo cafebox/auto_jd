@@ -213,7 +213,8 @@ function getUserTuanInfo() {
                 "channel": "FISSION_BEAN"
               }
               $.tuanActId = data.data.id;
-			  console.log({$.tuan})
+		           console.log(data.data.id);
+			  console.log({`团信息：{data.data.id}`};)
 			  
             }
           }
