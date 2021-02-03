@@ -707,11 +707,11 @@ function taskUrl(functionId, body = '') {
 function readShareCode() {
   console.log(`开始`)
   return new Promise(async resolve => {
-    $.get({url: 'https://gitee.com/xr2021/share/raw/master/crazyjoy.json', 'timeout': 10099}, (err, resp, data) => {
+    $.get({url: `https://gitee.com/xr2021/share/raw/master/crazyjoy.json`, 'timeout': 10099}, (err, resp, data) => {
       try {
         if (err) {
           console.log(`${JSON.stringify(err)}`)
-          console.log(`${$.name} APIaaaa请求失败，请检查网路重试`)
+          console.log(`${$.name} 9999999999999请求失败，请检查网路重试`)
         } else {
           if (data) {
             console.log(`随机取${randomCount}个码放到您固定的互助码后面(不影响已有固定互助)`)
