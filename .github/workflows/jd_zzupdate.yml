@@ -1,4 +1,4 @@
-name: jd_nym
+name: jd_zzupdate
 
 on:
   workflow_dispatch:
@@ -32,7 +32,7 @@ jobs:
       - name: '运行'
         run: |
     
-          node jd_nym.js
+          node jd_zzupdate.js
           
         env:
           JD_COOKIE: ${{ secrets.JD_COOKIE }}
