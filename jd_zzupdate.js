@@ -96,14 +96,22 @@ function getUserTuanInfo(channel="FISSION_BEAN") {
         } else {
           if (safeGet(data)) {
             data = JSON.parse(data);
-            if (!data.data.canStartNewAssist)
-              $.tuan = {
-                "activityIdEncrypted": data.data.id,
-                "assistStartRecordId": data.data.assistStartRecordId,
-                "assistedPinEncrypted": data.data.encPin,
-                "channel": channel
+            if (data.success) {
+              $.log(`\n\n能否再次开团: ${data.data.canStartNewAssist ? '可以' : '否'}\n\n`)
+              if (!data.data.canStartNewAssist) {
+                //已开团(未达上限)且人未满 assistStatus=1,canStartNewAssist=false
+                //开团(未达上限)且人已满 assistStatus=3,canStartNewAssist=true
+                //开团已达上限,人已满 assistStatus=3,canStartNewAssist=false
+                $.tuan = {
+                  "activityIdEncrypted": data.data.id,
+                  "assistStartRecordId": data.data.assistStartRecordId,
+                  "assistedPinEncrypted": data.data.encPin,
+                  "channel": channel
+                }
               }
-            $.tuanActId = data.data.id
+              $.assistStatus = data['data']['assistStatus'];
+              $.tuanActId = data.data.id
+            }
           }
         }
       } catch (e) {
