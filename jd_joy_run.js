@@ -159,13 +159,15 @@ async function getToken() {
     $.done()
   }
 }
+//https://raw.githubusercontent.com/shuye72/RandomShareCode/master/JD_JOY_Run_Token.json
+//http://jd.turinglabs.net/api/v2/jd/joy/read/1/
 function readToken() {
   return new Promise(resolve => {
-    $.get({url: `https://raw.githubusercontent.com/shuye72/RandomShareCode/master/JD_JOY_Run_Token.json`, 'timeout': 10000}, (err, resp, data) => {
+    $.get({url: `http://jd.turinglabs.net/api/v2/jd/joy/read/1/`, 'timeout': 10666}, (err, resp, data) => {
       try {
         if (err) {
           console.log(`${JSON.stringify(err)}`)
-          console.log(`${$.name} API请求失败，请检查网路重试`)
+          console.log(`${$.name} API请求失败，请turinglab检查网路重试`)
         } else {
           if (data) {
             console.log(data)
