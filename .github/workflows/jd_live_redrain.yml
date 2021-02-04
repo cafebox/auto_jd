@@ -12,8 +12,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         with:
-          repository: shylocks/Loon
-          ref: 'main'
+          repository: hajiuhajiu/jdsign1112
+          ref: master
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
