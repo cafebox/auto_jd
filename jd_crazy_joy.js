@@ -1,7 +1,7 @@
 /*
 crazyJoy任务
 
-每天运行一次即可
+每天运行一次即可sy
 
 
 已支持IOS双京东账号,Node.js支持N个京东账号
@@ -29,8 +29,8 @@ const JD_API_HOST = 'https://api.m.jd.com/';
 
 const notify = $.isNode() ? require('./sendNotify') : '';
 let jdNotify = true;//是否关闭通知，false打开通知推送，true关闭通知推送
-let helpSelf = true // 循环助力，默认关闭
-let applyJdBean = 2000; //疯狂的JOY京豆兑换，目前最小值为2000京豆，默认为 0 不开启京豆兑换
+let helpSelf = false // 循环助力，默认关闭
+let applyJdBean = 0; //疯狂的JOY京豆兑换，目前最小值为2000京豆，默认为 0 不开启京豆兑换
 let cookiesArr = [], cookie = '', message = '';
 const inviteCodes = [
   'cfV24-2DImG1_DjO3Ma5Mg==@j4aIibI_eAy4YBMMIEVVqQ==@JvTmSdvhYB3M5gCdjPr6Og==@KmwK04URjVaKP3JyCdAMyg==@lh8483lT0qJ46lL_aJiA8Kt9zd5YaBeE',
@@ -178,7 +178,7 @@ if ($.isNode()) {
   $.selfCodes = []
   for (let i = 0; i < cookiesArr.length; i++) {
     if (i%2===0) {
-      $.nextCode = ["cfV24-2DImG1_DjO3Ma5Mg==", "j4aIibI_eAy4YBMMIEVVqQ=="];
+      $.nextCode = ["EdLPh8A6X5G1iWXu-uPYfA==", "nCQQXQHKGjPCb7jkd8q2U-aCTjZMxL3s"];
       $.nextCode = $.nextCode[randomNumber(0, $.nextCode.length)];
     }
     if (cookiesArr[i]) {
@@ -319,7 +319,7 @@ function doApplyJdBean(bean = 1000) {
     })
   })
 }
-function getUserInfo(code = "cfV24-2DImG1_DjO3Ma5Mg==") {
+function getUserInfo(code = "EdLPh8A6X5G1iWXu-uPYfA==") {
   let body = {"paramData": {"inviter": code}}
   return new Promise(async resolve => {
     $.get(taskUrl('crazyJoy_user_gameState', JSON.stringify(body)), async (err, resp, data) => {
@@ -707,11 +707,11 @@ function taskUrl(functionId, body = '') {
 function readShareCode() {
   console.log(`开始`)
   return new Promise(async resolve => {
-    $.get({url: `https://raw.githubusercontent.com/hajiuhajiu/jdsign1112/master/backUp/crazyjoy.json`, 'timeout': 10099}, (err, resp, data) => {
+    $.get({url: `https://raw.githubusercontent.com/hajiuhajiu/jdsign1112/master/backUp/crazyjoy.json`, 'timeout': 10111}, (err, resp, data) => {
       try {
         if (err) {
           console.log(`${JSON.stringify(err)}`)
-          console.log(`${$.name} 9999999999999请求失败，请检查网路重试`)
+          console.log(`${$.name} API请求失败github，请检查网路重试`)
         } else {
           if (data) {
             console.log(`随机取${randomCount}个码放到您固定的互助码后面(不影响已有固定互助)`)
