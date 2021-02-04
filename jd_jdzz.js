@@ -103,7 +103,7 @@ async function jdWish() {
   $.hasOpen = false
   await getUserTuanInfo()
   if (!$.tuan) {
-    await openTuan()
+    //await openTuan()
     if ($.hasOpen) await getUserTuanInfo()
   }
   if ($.tuan) $.tuanList.push($.tuan)
