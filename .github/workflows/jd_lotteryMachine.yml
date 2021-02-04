@@ -6,7 +6,7 @@ name: jd_lotteryMachine
 on:
   workflow_dispatch:
   schedule:
-    - cron: '08 1 * * *'
+    - cron: '28 18,4 * * *'
   watch:
     types: started
   repository_dispatch:
