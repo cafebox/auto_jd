@@ -130,6 +130,7 @@ async function jdNian() {
       if ($.hasGroup) await pkInfo()
       await helpFriendsPK()
     }
+     await helpFriends()
     if($.full) return    
     await $.wait(2000)
     await killCouponList()
