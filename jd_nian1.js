@@ -128,25 +128,12 @@ async function jdNian() {
       $.hasGroup = false
       await pkTaskStealDetail()
       if ($.hasGroup) await pkInfo()
-      await helpFriendsPK()
-    }
+        }
+    await helpFriends()
     if($.full) return    
     await $.wait(2000)
-    await killCouponList()
-    await $.wait(2000)
-    await map()
-    await $.wait(2000)
-    await queryMaterials()
-    await getTaskList()
-    await $.wait(1000)
-    await doTask()
-    await $.wait(2000)
     await helpFriends()
-    await $.wait(2000)
-    await getSpecialGiftDetail()
-    await $.wait(2000)
-    await getHomeData(true)
-    await showMsg()
+
   } catch (e) {
     $.logErr(e)
   }
