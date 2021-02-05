@@ -112,16 +112,12 @@ const pkInviteCodes = [
 
 async function jdNian() {
   try {
-  	$.full = false
+  	$.full = true
     await getHomeData()
     if (!$.secretp) return
     let hour = new Date().getUTCHours()
     if (1 <= hour && hour < 12) {
-      // 北京时间9点-20点
-      $.hasGroup = false
-      await pkTaskDetail()
-      if ($.hasGroup) await pkInfo()
-      await helpFriendsPK()
+      await helpFriends()
     }
     if (12 <= hour && hour < 14) {
       // 北京时间20点-22点
@@ -130,7 +126,7 @@ async function jdNian() {
       if ($.hasGroup) await pkInfo()
       await helpFriendsPK()
     }
-     await helpFriends()
+    await helpFriends()
     if($.full) return    
     await $.wait(2000)
     await killCouponList()
@@ -141,8 +137,6 @@ async function jdNian() {
     await getTaskList()
     await $.wait(1000)
     await doTask()
-    await $.wait(2000)
-    await helpFriends()
     await $.wait(2000)
     await getSpecialGiftDetail()
     await $.wait(2000)
