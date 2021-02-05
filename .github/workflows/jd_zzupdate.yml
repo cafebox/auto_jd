@@ -45,7 +45,6 @@ jobs:
           IGOT_PUSH_KEY: ${{ secrets.IGOT_PUSH_KEY }}
       - name: commit
         run: |
-         # git config --global user.email ${{ secrets.EMAIL }}
           git config --global user.name hajiuhajiu
           git add .
           git commit -m "update by  Github Action" -a || echo "Nothing to update"
