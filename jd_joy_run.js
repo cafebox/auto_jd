@@ -45,9 +45,7 @@ let invite_pins =[ "wdwMJcEGPKgMlq","niujie678","hajiuhajiu2733","wdovJvWPLhUUqC
 let run_pins = [  "wdwMJcEGPKgMlq","niujie678","hajiuhajiu2733","wdovJvWPLhUUqC","q2705322732","wdfxtlDMXHbaHu","wdaABrvfJIjgOl","hajiuhajiu2067","18939824134_p","jd_441027f2a1e0d","jd_747fca41dbd0a","jd_51d9ee19241e2","wdwMJcEGPKgMlq"];
 // $.LKYLToken = '76fe7794c475c18711e3b47185f114b5' || $.getdata('jdJoyRunToken');
 // $.LKYLToken = $.getdata('jdJoyRunToken');
-const friendsArr = [ "wdwMJcEGPKgMlq","niujie678","hajiuhajiu2733","wdovJvWPLhUUqC","q2705322732","wdfxtlDMXHbaHu","wdaABrvfJIjgOl","hajiuhajiu2067","18939824134_p","jd_441027f2a1e0d","jd_747fca41dbd0a","jd_51d9ee19241e2","wdwMJcEGPKgMlq","ningbormb""jd_DcDTMOblJHiM", "jd_553ea3a6ef2f4", "yhr_19820404"];
-
-
+const friendsArr = [ "wdwMJcEGPKgMlq","niujie678","hajiuhajiu2733","wdovJvWPLhUUqC","q2705322732","wdfxtlDMXHbaHu","wdaABrvfJIjgOl","hajiuhajiu2067","18939824134_p","jd_441027f2a1e0d","jd_747fca41dbd0a","jd_51d9ee19241e2","wdwMJcEGPKgMlq","ningbormb","jd_DcDTMOblJHiM", "jd_553ea3a6ef2f4", "yhr_19820404"];
 
 //Node.js用户请在jdCookie.js处填写京东ck;
 const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
