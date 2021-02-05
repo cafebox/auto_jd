@@ -38,7 +38,7 @@ jobs:
       - name: '运行jd_zz1'
         run: |
 
-          node jd_jdzz1.js
+          node jd_zzupdate.js.js
         env:
           JD_COOKIE: ${{ secrets.JD_COOKIE }}
           JD_DEBUG: ${{ secrets.JD_DEBUG }}
