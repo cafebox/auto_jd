@@ -6,17 +6,17 @@
 ============Quantumultx===============
 [task_local]
 #口袋书店
-1 8,12,18 * * * https://raw.githubusercontent.com/lxk0301/jd_scripts/master/jd_bookshop.js, tag=口袋书店, enabled=true
+1 8,12,18 * * * https://gitee.com/lxk0301/jd_scripts/raw/master/jd_bookshop.js, tag=口袋书店, img-url=https://raw.githubusercontent.com/Orz-3/task/master/jd.png, enabled=true
 
 ================Loon==============
 [Script]
-cron "1 8,12,18 * * *" script-path=https://raw.githubusercontent.com/lxk0301/jd_scripts/master/jd_bookshop.js,tag=口袋书店
+cron "1 8,12,18 * * *" script-path=https://gitee.com/lxk0301/jd_scripts/raw/master/jd_bookshop.js,tag=口袋书店
 
 ===============Surge=================
-口袋书店 = type=cron,cronexp="1 8,12,18 * * *",wake-system=1,timeout=20,script-path=https://raw.githubusercontent.com/lxk0301/jd_scripts/master/jd_bookshop.js
+口袋书店 = type=cron,cronexp="1 8,12,18 * * *",wake-system=1,timeout=3600,script-path=https://gitee.com/lxk0301/jd_scripts/raw/master/jd_bookshop.js
 
 ============小火箭=========
-口袋书店 = type=cron,script-path=https://raw.githubusercontent.com/lxk0301/jd_scripts/master/jd_bookshop.js, cronexpr="1 8,12,18* * *", timeout=200, enable=true
+口袋书店 = type=cron,script-path=https://gitee.com/lxk0301/jd_scripts/raw/master/jd_bookshop.js, cronexpr="1 8,12,18* * *", timeout=3600, enable=true
  */
 const $ = new Env('口袋书店');
 const notify = $.isNode() ? require('./sendNotify') : '';
@@ -25,10 +25,13 @@ const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
 //IOS等用户直接用NobyDa的jd cookie
 let cookiesArr = [], cookie = '', message;
 const ACT_ID = 'dz2010100034444201', shareUuid = '28a699ac78d74aa3b31f7103597f8927'
+let ADD_CART = false
+ADD_CART = $.isNode() ? (process.env.PURCHASE_SHOPS ? process.env.PURCHASE_SHOPS : ADD_CART) : ($.getdata("ADD_CART") ? $.getdata("ADD_CART") : ADD_CART);
+// 加入购物车开关，与东东小窝共享
 
 let inviteCodes = [
 '7ead799c8fdf4396b41af83e53aafd23@b44ed5c2c6d24cca91578a0287f7b8f0@47ee54da86fa4e22929990ba95418627@de81fc39c11c42919d23a17f3defc277@4e8a8e33bf5f442fbcde4194c2293bd5@b44ed5c2c6d24cca91578a0287f7b8f0@47ee54da86fa4e22929990ba95418627@de81fc39c11c42919d23a17f3defc277@4e8a8e33bf5f442fbcde4194c2293bd5','b44ed5c2c6d24cca91578a0287f7b8f0@47ee54da86fa4e22929990ba95418627@de81fc39c11c42919d23a17f3defc277@4e8a8e33bf5f442fbcde4194c2293bd5@b44ed5c2c6d24cca91578a0287f7b8f0@47ee54da86fa4e22929990ba95418627@de81fc39c11c42919d23a17f3defc277@4e8a8e33bf5f442fbcde4194c2293bd5', 'b44ed5c2c6d24cca91578a0287f7b8f0@47ee54da86fa4e22929990ba95418627@de81fc39c11c42919d23a17f3defc277@4e8a8e33bf5f442fbcde4194c2293bd5@b44ed5c2c6d24cca91578a0287f7b8f0@47ee54da86fa4e22929990ba95418627@de81fc39c11c42919d23a17f3defc277@4e8a8e33bf5f442fbcde4194c2293bd5','b44ed5c2c6d24cca91578a0287f7b8f0@47ee54da86fa4e22929990ba95418627@de81fc39c11c42919d23a17f3defc277@4e8a8e33bf5f442fbcde4194c2293bd5@b44ed5c2c6d24cca91578a0287f7b8f0@47ee54da86fa4e22929990ba95418627@de81fc39c11c42919d23a17f3defc277@4e8a8e33bf5f442fbcde4194c2293bd5','b44ed5c2c6d24cca91578a0287f7b8f0@47ee54da86fa4e22929990ba95418627@de81fc39c11c42919d23a17f3defc277@4e8a8e33bf5f442fbcde4194c2293bd5@b44ed5c2c6d24cca91578a0287f7b8f0@47ee54da86fa4e22929990ba95418627@de81fc39c11c42919d23a17f3defc277@4e8a8e33bf5f442fbcde4194c2293bd5','b44ed5c2c6d24cca91578a0287f7b8f0@47ee54da86fa4e22929990ba95418627@de81fc39c11c42919d23a17f3defc277@4e8a8e33bf5f442fbcde4194c2293bd5@b44ed5c2c6d24cca91578a0287f7b8f0@47ee54da86fa4e22929990ba95418627@de81fc39c11c42919d23a17f3defc277@4e8a8e33bf5f442fbcde4194c2293bd5','b44ed5c2c6d24cca91578a0287f7b8f0@47ee54da86fa4e22929990ba95418627@de81fc39c11c42919d23a17f3defc277@4e8a8e33bf5f442fbcde4194c2293bd5@b44ed5c2c6d24cca91578a0287f7b8f0@47ee54da86fa4e22929990ba95418627@de81fc39c11c42919d23a17f3defc277@4e8a8e33bf5f442fbcde4194c2293bd5', 'b44ed5c2c6d24cca91578a0287f7b8f0@47ee54da86fa4e22929990ba95418627@de81fc39c11c42919d23a17f3defc277@4e8a8e33bf5f442fbcde4194c2293bd5@b44ed5c2c6d24cca91578a0287f7b8f0@47ee54da86fa4e22929990ba95418627@de81fc39c11c42919d23a17f3defc277@4e8a8e33bf5f442fbcde4194c2293bd5',
-  '7ead799c8fdf4396b41af83e53aafd23@47ee54da86fa4e22929990ba95418627@7ead799c8fdf4396b41af83e53aafd23@de81fc39c11c42919d23a17f3defc277@4e8a8e33bf5f442fbcde4194c2293bd5@b44ed5c2c6d24cca91578a0287f7b8f0@47ee54da86fa4e22929990ba95418627@de81fc39c11c42919d23a17f3defc277@4e8a8e33bf5f442fbcde4194c2293bd5'
+'7ead799c8fdf4396b41af83e53aafd23@47ee54da86fa4e22929990ba95418627@7ead799c8fdf4396b41af83e53aafd23@de81fc39c11c42919d23a17f3defc277@4e8a8e33bf5f442fbcde4194c2293bd5@b44ed5c2c6d24cca91578a0287f7b8f0@47ee54da86fa4e22929990ba95418627@de81fc39c11c42919d23a17f3defc277@4e8a8e33bf5f442fbcde4194c2293bd5'
 ]
 
 if ($.isNode()) {
@@ -68,8 +71,6 @@ if ($.isNode()) {
         $.msg($.name, `【提示】cookie已失效`, `京东账号${$.index} ${$.nickName || $.UserName}\n请重新登录获取\nhttps://bean.m.jd.com/`, {"open-url": "https://bean.m.jd.com/"});
         if ($.isNode()) {
           await notify.sendNotify(`${$.name}cookie已失效 - ${$.UserName}`, `京东账号${$.index} ${$.UserName}\n请重新登录获取cookie`);
-        } else {
-          $.setdata('', `CookieJD${i ? i + 1 : ""}`);//cookie失效，故清空cookie。$.setdata('', `CookieJD${i ? i + 1 : "" }`);//cookie失效，故清空cookie。
         }
         continue
       }
@@ -128,7 +129,6 @@ function getIsvToken() {
     $.post(jdUrl('genToken', body), async (err, resp, data) => {
       try {
         if (err) {
-          console.log(`${err},${jsonParse(resp.body)['message']}`)
           console.log(`${$.name} API请求失败，请检查网路重试`)
         } else {
           if (safeGet(data)) {
@@ -152,7 +152,6 @@ function getIsvToken2() {
     $.post(jdUrl('isvObfuscator', body), async (err, resp, data) => {
       try {
         if (err) {
-          console.log(`${err},${jsonParse(resp.body)['message']}`)
           console.log(`${$.name} API请求失败，请检查网路重试`)
         } else {
           if (safeGet(data)) {
@@ -175,7 +174,6 @@ function getActCk() {
     $.get(taskUrl("dingzhi/book/develop/activity", `activityId=${ACT_ID}`), (err, resp, data) => {
       try {
         if (err) {
-          console.log(`${err},${jsonParse(resp.body)['message']}`)
           console.log(`${$.name} API请求失败，请检查网路重试`)
         } else {
           if($.isNode())
@@ -203,7 +201,6 @@ function getActInfo() {
     $.post(taskPostUrl('dz/common/getSimpleActInfoVo', `activityId=${ACT_ID}`), async (err, resp, data) => {
       try {
         if (err) {
-          console.log(`${err},${jsonParse(resp.body)['message']}`)
           console.log(`${$.name} API请求失败，请检查网路重试`)
         } else {
           if (safeGet(data)) {
@@ -229,7 +226,6 @@ function getToken() {
     $.post(taskPostUrl('customer/getMyPing', body), async (err, resp, data) => {
       try {
         if (err) {
-          console.log(`${err},${jsonParse(resp.body)['message']}`)
           console.log(`${$.name} API请求失败，请检查网路重试`)
         } else {
           if (safeGet(data)) {
@@ -253,7 +249,6 @@ function getUserInfo() {
     $.post(taskPostUrl('wxActionCommon/getUserInfo', body), async (err, resp, data) => {
       try {
         if (err) {
-          console.log(`${err},${jsonParse(resp.body)['message']}`)
           console.log(`${$.name} API请求失败，请检查网路重试`)
         } else {
           if (safeGet(data)) {
@@ -282,10 +277,9 @@ function getActContent(info = false, shareUuid = '') {
     $.post(taskPostUrl('dingzhi/book/develop/activityContent', body), async (err, resp, data) => {
       try {
         if (err) {
-          console.log(`${err},${jsonParse(resp.body)['message']}`)
           console.log(`${$.name} API请求失败，请检查网路重试`)
         } else {
-          if (safeGet(data)) {
+          if (data && safeGet(data)) {
             data = JSON.parse(data);
             if (data.data) {
               $.userInfo = data.data
@@ -300,7 +294,7 @@ function getActContent(info = false, shareUuid = '') {
               if (!info) {
                 const tasks = data.data.settingVo
                 for (let task of tasks) {
-                  if (['关注店铺', '加购商品'].includes(task.title)) {
+                  if (['关注店铺'].includes(task.title)) {
                     if (task.okNum < task.dayMaxNum) {
                       console.log(`去做${task.title}任务`)
                       await doTask(task.settings[0].type, task.settings[0].value)
@@ -323,6 +317,11 @@ function getActContent(info = false, shareUuid = '') {
                         await $.wait(500)
                       }
                     }
+                  } else if (ADD_CART && ['加购商品'].includes(task.title)) {
+                    if (task.okNum < task.dayMaxNum) {
+                      console.log(`去做${task.title}任务`)
+                      await doTask(task.settings[0].type, task.settings[0].value)
+                    }
                   }
                 }
               }
@@ -343,7 +342,6 @@ function doHelpList(taskType, value) {
     $.post(taskPostUrl('dingzhi/taskact/common/getDayShareRecord', body), async (err, resp, data) => {
       try {
         if (err) {
-          console.log(`${err},${jsonParse(resp.body)['message']}`)
           console.log(`${$.name} API请求失败，请检查网路重试`)
         } else {
           if (safeGet(data)) {
@@ -367,7 +365,6 @@ function doTask(taskType, value) {
     $.post(taskPostUrl('dingzhi/book/develop/saveTask', body), async (err, resp, data) => {
       try {
         if (err) {
-          console.log(`${err},${jsonParse(resp.body)['message']}`)
           console.log(`${$.name} API请求失败，请检查网路重试`)
         } else {
           if (safeGet(data)) {
@@ -397,10 +394,9 @@ function draw() {
     $.post(taskPostUrl('dingzhi/book/develop/startDraw', body), async (err, resp, data) => {
       try {
         if (err) {
-          console.log(`${err},${jsonParse(resp.body)['message']}`)
           console.log(`${$.name} API请求失败，请检查网路重试`)
         } else {
-          if (safeGet(data)) {
+          if (data && safeGet(data)) {
             data = JSON.parse(data);
             if (data.result && data.data) {
               if (data.data.name) {
@@ -429,7 +425,6 @@ function getAllBook() {
     $.post(taskPostUrl('dingzhi/book/develop/getAllBook', body), async (err, resp, data) => {
       try {
         if (err) {
-          console.log(`${err},${jsonParse(resp.body)['message']}`)
           console.log(`${$.name} API请求失败，请检查网路重试`)
         } else {
           if (safeGet(data)) {
@@ -461,7 +456,6 @@ function buyBook(bookUuid, num) {
     $.post(taskPostUrl('dingzhi/book/develop/buyBook', body), async (err, resp, data) => {
       try {
         if (err) {
-          console.log(`${err},${jsonParse(resp.body)['message']}`)
           console.log(`${$.name} API请求失败，请检查网路重试`)
         } else {
           if (safeGet(data)) {
@@ -486,7 +480,6 @@ function getMyBook() {
     $.post(taskPostUrl('dingzhi/book/develop/getMyBook', body), async (err, resp, data) => {
       try {
         if (err) {
-          console.log(`${err},${jsonParse(resp.body)['message']}`)
           console.log(`${$.name} API请求失败，请检查网路重试`)
         } else {
           if (safeGet(data)) {
@@ -516,7 +509,6 @@ function upBook(bookUuid) {
     $.post(taskPostUrl('dingzhi/book/develop/upBook', body), async (err, resp, data) => {
       try {
         if (err) {
-          console.log(`${err},${jsonParse(resp.body)['message']}`)
           console.log(`${$.name} API请求失败，请检查网路重试`)
         } else {
           if (safeGet(data)) {
@@ -543,7 +535,6 @@ function chargeGold() {
     $.post(taskPostUrl('dingzhi/book/develop/chargeGold', body), async (err, resp, data) => {
       try {
         if (err) {
-          console.log(`${err},${jsonParse(resp.body)['message']}`)
           console.log(`${$.name} API请求失败，请检查网路重试`)
         } else {
           if (safeGet(data)) {
@@ -633,7 +624,7 @@ function TotalBean() {
         "Connection": "keep-alive",
         "Cookie": cookie,
         "Referer": "https://wqs.jd.com/my/jingdou/my.shtml?sceneval=2",
-        "User-Agent": $.isNode() ? (process.env.JD_USER_AGENT ? process.env.JD_USER_AGENT : "jdapp;iPhone;9.2.2;14.2;%E4%BA%AC%E4%B8%9C/9.2.2 CFNetwork/1206 Darwin/20.1.0") : ($.getdata('JDUA') ? $.getdata('JDUA') : "jdapp;iPhone;9.2.2;14.2;%E4%BA%AC%E4%B8%9C/9.2.2 CFNetwork/1206 Darwin/20.1.0")
+        "User-Agent": $.isNode() ? (process.env.JD_USER_AGENT ? process.env.JD_USER_AGENT : (require('./USER_AGENTS').USER_AGENT)) : ($.getdata('JDUA') ? $.getdata('JDUA') : "jdapp;iPhone;9.2.2;14.2;%E4%BA%AC%E4%B8%9C/9.2.2 CFNetwork/1206 Darwin/20.1.0")
       }
     }
     $.post(options, (err, resp, data) => {
@@ -686,10 +677,18 @@ function requireConfig() {
   return new Promise(resolve => {
     console.log(`开始获取${$.name}配置文件\n`);
     //Node.js用户请在jdCookie.js处填写京东ck;
-    const shareCodes = []
+    let shareCodes = []
     console.log(`共${cookiesArr.length}个京东账号\n`);
     $.shareCodesArr = [];
     if ($.isNode()) {
+      //自定义助力码
+      if (process.env.BOOKSHOP_SHARECODES) {
+        if (process.env.BOOKSHOP_SHARECODES.indexOf('\n') > -1) {
+          shareCodes = process.env.BOOKSHOP_SHARECODES.split('\n');
+        } else {
+          shareCodes = process.env.BOOKSHOP_SHARECODES.split('&');
+        }
+      }
       Object.keys(shareCodes).forEach((item) => {
         if (shareCodes[item]) {
           $.shareCodesArr.push(shareCodes[item])
