@@ -37,13 +37,6 @@ jobs:
           npm install
       - name: '运行jd_zz'
         run: |
-          # random_time=$(($RANDOM % 20))
-          # echo "等待 ${random_time} 分钟后开始执行"
-          # for((i=1; i<=${random_time}; i++));  
-          # do
-          # echo "倒计时 $[${random_time}-$i] 分钟"
-          #  sleep 1m
-          # done
           node jd_jdzz.js
         env:
           JD_COOKIE: ${{ secrets.JD_COOKIE }}
