@@ -60,7 +60,7 @@ $.answer = 3;
 $.drip = 0;
 $.maxHelpNum = $.isNode() ? 8 : 4; // 随机助力最大执行次数
 $.helpNum = 0; // 当前账号 随机助力次数
-let assistUserShareCode = 0; // 随机助力用户 share code
+let assistUserShareCode = 2; // 随机助力用户 share code
 
 !(async () => {
     await requireConfig();
@@ -511,7 +511,7 @@ function submitInviteId(userName) {
 function getAssistUser() {
     return new Promise(resolve => {
         try {
-            $.get({url: `https://11api.ninesix.cc/api/jx-nc?active=${$.info.active}`, timeout: 10000}, async (err, resp, _data) => {
+            $.get({url: `https://11api.ninesix11.cc/api/jx-nc?active=${$.info.active}`, timeout: 10000}, async (err, resp, _data) => {
                 try {
                     const {code, data: {value, extra = {}} = {}} = JSON.parse(_data);
                     if (value && extra.active) { //  && extra.joinnum 截止 2021-01-22 16:39:09 API 线上还未部署新的 joinnum 参数代码，暂时默认 1 兼容
