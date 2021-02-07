@@ -6,7 +6,7 @@ name: jd_jxfactory gong 场
 on:
   workflow_dispatch:
   schedule:
-    - cron: '21 0-24/1 * * *'
+    - cron: '21 0-23/1 * * *'
   repository_dispatch:
     types: jd_jxfactory
 jobs:
