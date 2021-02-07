@@ -61,7 +61,7 @@ $.maxHelpNum = $.isNode() ? 8 : 3; // 助力 ret 1011 错误最大计数
 $.helpNum = 0; // 当前账号 助力 ret 1011 次数
 $.maxHelpSelfNum = 3; // 助力 自身 ret 1021 cannot help self 最大次数限制（防止随机API不停返回自身 code 导致死循环）
 $.helpSelfNum = 0; // 当前账号 助力 ret 1021 cannot help self 次数
-let assistUserShareCode = 0; // 随机助力用户 share code
+let assistUserShareCode = 2; // 随机助力用户 share code
 
 !(async () => {
     await requireConfig();
@@ -117,6 +117,7 @@ function requireConfig() {
         const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
         const jdTokenNode = $.isNode() ? require('./jdJxncTokens.js') : '';
         const jdJxncShareCodeNode = $.isNode() ? require('./jdJxncShareCodes.js') : '';
+        const currentShareCode = ['4c092872f737bfd225c1567e4d64261d@3700043571dc118e7178928b60859389'];
         //IOS等用户直接用NobyDa的jd cookie
         if ($.isNode()) {
             Object.keys(jdCookieNode).forEach((item) => {
