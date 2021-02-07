@@ -7,7 +7,7 @@
 // github action用户的好友互助码填写到Action->Settings->Secrets->new Secret里面(Name填写 DREAM_FACTORY_SHARE_CODES(此处的Name必须按此来写,不能随意更改),内容处填写互助码,填写规则如下)
 // 同一个京东账号的好友互助码用@符号隔开,不同京东账号之间用&符号或者换行隔开,下面给一个示例
 // 如: 京东账号1的shareCode1@京东账号1的shareCode2&京东账号2的shareCode1@京东账号2的shareCode2
-let shareCodes = ['']
+let shareCodes = ['LAxdowQnMU3ox65OdwNwZA==@N8QdMHreY_pd7rIHq9zlFw==@7UFJoyEFc-k42Yrnh_-gEA==']
 // 判断github action里面是否有京喜工厂互助码
 if (process.env.DREAM_FACTORY_SHARE_CODES) {
   if (process.env.DREAM_FACTORY_SHARE_CODES.indexOf('&') > -1) {
