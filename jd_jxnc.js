@@ -1,36 +1,6 @@
 /*
 特别声明：
 本脚本搬运自 https://github.com/whyour/hundun/blob/master/quanx/jx_nc.js    20210207 lxk 感谢 @whyour 大佬
-
-京喜农场:脚本更新地址 https://gitee.com/lxk0301/jd_scripts/raw/master/jd_jxnc.js
-更新时间：2021-01-10 22:47:51
-活动入口：京喜APP我的-京喜农场
-东东农场活动链接：https://wqsh.jd.com/sns/201912/12/jxnc/detail.html?ptag=7155.9.32&smp=b47f4790d7b2a024e75279f55f6249b9&active=jdnc_1_chelizi1205_2
-已支持IOS双京东账号,Node.js支持N个京东账号
-理论上脚本兼容: QuantumultX, Surge, Loon, JSBox, Node.js
-助力码shareCode请先手动运行脚本查看打印可看到
-
-hostname = wq.jd.com
-
-==========================Quantumultx=========================
-[task_local]
-0 9,12,18 * * * https://gitee.com/lxk0301/jd_scripts/raw/master/jd_jxnc.js, tag=京喜农场, img-url=https://raw.githubusercontent.com/58xinian/icon/master/jxnc.png, enabled=true
-[rewrite_local]
-# 京喜农场APP种子Token
-^https\:\/\/wq\.jd\.com\/cubeactive\/farm\/dotask url script-request-header https://raw.githubusercontent.com/whyour/hundun/master/quanx/jx_tokens.js
-=========================Loon=============================
-[Script]
-http-request ^https\:\/\/wq\.jd\.com\/cubeactive\/farm\/dotask script-path=https://raw.githubusercontent.com/whyour/hundun/master/quanx/jx_tokens.js, requires-body=false, timeout=3600, tag=京喜农场cookie
-cron "0 9,12,18 * * *" script-path=https://gitee.com/lxk0301/jd_scripts/raw/master/jd_jxnc.js,tag=京喜农场
-
-=========================Surge============================
-京喜农场 = type=cron,cronexp="0 9,12,18 * * *",timeout=3600,script-path=https://gitee.com/lxk0301/jd_scripts/raw/master/jd_jxnc.js
-京喜农场cookie = type=http-request,pattern=^https\:\/\/wq\.jd\.com\/cubeactive\/farm\/dotask,requires-body=0,max-size=0,script-path= https://raw.githubusercontent.com/whyour/hundun/master/quanx/jx_tokens.js
- 
-=========================小火箭===========================
-京喜农场 = type=cron,script-path=https://gitee.com/lxk0301/jd_scripts/raw/master/jd_jxnc.js, cronexpr="0 9,12,18 * * *", timeout=3600, enable=true
-京喜农场APP种子cookie = type=http-request,script-path=https://raw.githubusercontent.com/whyour/hundun/master/quanx/jx_tokens.js,pattern=^https\:\/\/wq\.jd\.com\/cubeactive\/farm\/dotask,max-size=131072,timeout=3600,enable=true
-
 特别说明：
 脚本运行必须填写种子token，iOS用户使用代理可以直接获取；Android用户需要抓包获取种子token，手动做京喜农场任意任务即可获取种子token，推荐使用elecV2P（使用设置类似iOS用户的代理软件）或者HttpCanary，搜索关键字"farm_jstoken"，token按照{"farm_jstoken":"xxx","timestamp":"xxx","phoneid":"xxx-xxx"}格式填写即可
 
@@ -48,7 +18,7 @@ let currentToken = {}; // 当前用户 token
 let shareCode = ['3700043571dc118e7178928b60859389@4c092872f737bfd225c1567e4d64261d']; // 内置助力码
 let jxncShareCodeArr = []; // 用户 助力码 数组
 let currentShareCode = []; // 当前用户 要助力的助力码
-const openUrl = `openjd://virtual?params=${encodeURIComponent('{ "category": "jump", "des": "m", "url": "https://wqsh.jd.com/sns/201912/12/jxnc/detail.html?ptag=7155.9.32&smp=b47f4790d7b2a024e75279f55f6249b9&active=jdnc_1_chelizi1205_2"}',)}`; // 打开京喜农场
+const openUrl = `openjd://virtual?params=${encodeURIComponent('{ "category": "jump", "des": "m", "url": "https://wqsh.jd.com/sns/11111111111201912/12/jxnc/detail.html?ptag=7155.9.32&smp=b47f4790d7b2a024e75279f55f6249b9&active=jdnc_1_chelizi1205_2"}',)}`; // 打开京喜农场
 let subTitle = '', message = '', option = {'open-url': openUrl}; // 消息副标题，消息正文，消息扩展参数
 const JXNC_API_HOST = 'https://wq.jd.com/';
 
