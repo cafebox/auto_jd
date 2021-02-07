@@ -1,6 +1,6 @@
 /*
 特别声明：
-本脚本搬运自 https://github.com/whyour/hundun/blob/master/quanx/jx_nc.js    20210207 lxk 感谢 @whyour 大佬
+本脚本搬运自 https://github.com/whyour/hundun/blob/master/quanx/jx_nc.js    20210207 153 lxk 感谢 @whyour 大佬
 特别说明：
 脚本运行必须填写种子token，iOS用户使用代理可以直接获取；Android用户需要抓包获取种子token，手动做京喜农场任意任务即可获取种子token，推荐使用elecV2P（使用设置类似iOS用户的代理软件）或者HttpCanary，搜索关键字"farm_jstoken"，token按照{"farm_jstoken":"xxx","timestamp":"xxx","phoneid":"xxx-xxx"}格式填写即可
 
@@ -15,7 +15,7 @@ let currentCookie = ''; // 当前用户 cookie
 let tokenNull = {'farm_jstoken': '', 'phoneid': '', 'timestamp': ''}; // 内置一份空的 token
 let tokenArr = ['' ]; // 用户 token 数组
 let currentToken = {}; // 当前用户 token
-let shareCode = ['3700043571dc118e7178928b60859389@4c092872f737bfd225c1567e4d64261d']; // 内置助力码
+let shareCode = ['']; // 内置助力码
 let jxncShareCodeArr = []; // 用户 助力码 数组
 let currentShareCode = []; // 当前用户 要助力的助力码
 const openUrl = `openjd://virtual?params=${encodeURIComponent('{ "category": "jump", "des": "m", "url": "https://wqsh.jd.com/sns/201912/12/jxnc/detail.html?ptag=7155.9.32&smp=b47f4790d7b2a024e75279f55f6249b9&active=jdnc_1_chelizi1205_2"}',)}`; // 
