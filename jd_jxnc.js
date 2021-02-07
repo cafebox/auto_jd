@@ -1,6 +1,5 @@
 /*
-特别声明：
-本脚本搬运自 https://github.com/whyour/hundun/blob/master/quanx/jx_nc.js    20210207 153 lxk 感谢 @whyour 大佬
+特别声明：本脚本搬运自 https://github.com/whyour/hundun/blob/master/quanx/jx_nc.js    20210207 153 lxk 感谢 @whyour 大佬
 特别说明：
 脚本运行必须填写种子token，iOS用户使用代理可以直接获取；Android用户需要抓包获取种子token，手动做京喜农场任意任务即可获取种子token，推荐使用elecV2P（使用设置类似iOS用户的代理软件）或者HttpCanary，搜索关键字"farm_jstoken"，token按照{"farm_jstoken":"xxx","timestamp":"xxx","phoneid":"xxx-xxx"}格式填写即可
 
