@@ -151,7 +151,7 @@ function requireConfig() {
       //[{"smp":"2a","active":"j_2","joinnum":"2"}@{"smp":"22bd6fbbabbaa770a45ab2607e7a1e8a","active":"jdn02_2","joium":"3"}"]
         try {
             let options = {
-                "url": `https://github.com/hajiuhajiu/jdsign1112/blob/master/jxnc.json`,
+                "url": `https://raw.githubusercontent.com/hajiuhajiu/jdsign1112/master/jxnc.json`,
                 "headers": {
                     "Accept": "application/json,text/plain, */*",
                     "Content-Type": "application/x-www-form-urlencoded",
