@@ -1,0 +1,47 @@
+# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+name: 更新京喜工厂开团ID
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 */1 * * *'
+  watch:
+    types: started
+  repository_dispatch:
+    types: jd_updateFactoryTuanID
+jobs:
+  build:
+    env:
+      dst_key: ${{ secrets.GITEE_PRIVATE_KEY }} # 我自己同步到gitee使用，其他人可忽略
+    runs-on: ubuntu-latest
+    if: github.event.repository.owner.id == github.event.sender.id
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js 10.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 10.x
+      - name: npm install
+        run: |
+          npm install
+      - name: '运行 【更新京喜工厂开团ID】'
+        run: |
+          node jd_jxFactoryCreateTuan.js
+        env:
+          JD_COOKIE: ${{ secrets.JD_COOKIE }}
+      - name: commit
+        run: |
+          git config --global user.email 2705322732@qq.com
+          git config --global user.name hajiuhajiu
+          git add .
+          git commit -m "update by shuye73 Github Action" -a || echo "Nothing to update"
+      
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.TOKEN }}
+          branch: master
+
+      
