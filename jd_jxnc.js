@@ -18,8 +18,7 @@ let currentToken = {}; // 当前用户 token
 let shareCode = ['3700043571dc118e7178928b60859389@4c092872f737bfd225c1567e4d64261d']; // 内置助力码
 let jxncShareCodeArr = []; // 用户 助力码 数组
 let currentShareCode = []; // 当前用户 要助力的助力码
-const openUrl = `openjd://virtual?params=${encodeURIComponent('{ "category": "jump", "des": "m", "url": "https://wqsh.jd.com/sns/11111111111201912/12/jxnc/detail.html?ptag=7155.9.32&smp=b47f4790d7b2a024e75279f55f6249b9&active=jdnc_1_chelizi1205_2"}',)}`; // 打开京喜农场
-let subTitle = '', message = '', option = {'open-url': openUrl}; // 消息副标题，消息正文，消息扩展参数
+const openUrl = `openjd://virtual?params=${encodeURIComponent('{ "category": "jump", "des": "m", "url": "https://wqsh.jd.com/sns/201912/12/jxnc/detail.html?ptag=7155.9.32&smp=b47f4790d7b2a024e75279f55f6249b9&active=jdnc_1_chelizi1205_2"}',)}`; // 
 const JXNC_API_HOST = 'https://wq.jd.com/';
 
 $.detail = []; // 今日明细列表
@@ -149,10 +148,10 @@ function requireConfig() {
         // console.log(`jdFruitShareArr::${JSON.stringify(jxncShareCodeArr)}`)
         // console.log(`jdFruitShareArr账号长度::${jxncShareCodeArr.length}`)
         $.log(`您提供了${jxncShareCodeArr.length}个账号的京喜农场助力码`);
-
+      //[{"smp":"2a","active":"j_2","joinnum":"2"}@{"smp":"22bd6fbbabbaa770a45ab2607e7a1e8a","active":"jdn02_2","joium":"3"}"]
         try {
             let options = {
-                "url": `https://gitee.com/guyuexuan/jd_share_code/raw/master/share_code/jxnc.json`,
+                "url": `https://github.com/hajiuhajiu/jdsign1112/blob/master/jxnc.json`,
                 "headers": {
                     "Accept": "application/json,text/plain, */*",
                     "Content-Type": "application/x-www-form-urlencoded",
