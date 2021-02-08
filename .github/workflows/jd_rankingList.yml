@@ -47,6 +47,7 @@ jobs:
           node jd_rankingList.js
           node jd_shop.js 
           node jd_small_home.js
+          node jd_syj.js
           
         env:
           JD_COOKIE: ${{ secrets.JD_COOKIE }}
