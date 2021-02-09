@@ -17,16 +17,14 @@ const $ = new Env('宠汪汪赛跑');
 const JD_BASE_API = `https://draw.jdfcloud.com//pet`;
 //此处填入你需要助力好友的京东用户名
 //下面给出好友邀请助力的示例填写规则
-let invite_pins =[ "wdwMJcEGPKgMlq","niujie678","hajiuhajiu2733","wdovJvWPLhUUqC","q2705322732","wdfxtlDMXHbaHu","wdaABrvfJIjgOl","hajiuhajiu2067","18939824134_p","jd_441027f2a1e0d","jd_747fca41dbd0a","jd_51d9ee19241e2","wdwMJcEGPKgMlq"
-];
+let invite_pins =["wdwMJcEGPKgMlq","niujie678","hajiuhajiu2733","wdovJvWPLhUUqC","jd_4a2a4cee61c9e","q2705322732","wdfxtlDMXHbaHu","wdaABrvfJIjgOl","hajiuhajiu2067","18939824134_p","jd_441027f2a1e0d","jd_747fca41dbd0a","niujie4969","wdBJFgWzHaTGou","jd_gOtBAmRJxrDT","jd_45f1857040ac8","13335032760_p","jd_51d9ee19241e2","wdwMJcEGPKgMlq","Cindyui","ravenliangw","jd_5a069959eb8b9","nicolej18","碧落涛声","jd_RNSPYuSOvgWv","zhiguang217"];
 //下面给出好友赛跑助力的示例填写规则
 let run_pins = [  "wdwMJcEGPKgMlq","niujie678","hajiuhajiu2733","wdovJvWPLhUUqC","q2705322732","wdfxtlDMXHbaHu","wdaABrvfJIjgOl","hajiuhajiu2067","18939824134_p","jd_441027f2a1e0d","jd_747fca41dbd0a","jd_51d9ee19241e2","wdwMJcEGPKgMlq"];
 let temp = run_pins[0].split(',')
-let fixPins = temp.splice(temp.indexOf('104720238-5400718'), 1);
-fixPins.push(...temp.splice(temp.indexOf('159053039861_p'), 1));
+let fixPins = temp.splice(temp.indexOf('wdwMJcEGPKgMlq'), 1);
+fixPins.push(...temp.splice(temp.indexOf('niujie678'), 1));
 const randomPins = getRandomArrayElements(temp, 1);
-temp = ["wdwMJcEGPKgMlq","niujie678","hajiuhajiu2733","wdovJvWPLhUUqC","q2705322732","wdfxtlDMXHbaHu","wdaABrvfJIjgOl","hajiuhajiu2067","18939824134_p","jd_441027f2a1e0d","jd_747fca41dbd0a","jd_51d9ee19241e2","wdwMJcEGPKgMlq"];
-;
+temp = ["wdwMJcEGPKgMlq","niujie678","hajiuhajiu2733","wdovJvWPLhUUqC","jd_4a2a4cee61c9e","q2705322732","wdfxtlDMXHbaHu","wdaABrvfJIjgOl","hajiuhajiu2067","18939824134_p","jd_441027f2a1e0d","jd_747fca41dbd0a","niujie4969","wdBJFgWzHaTGou","jd_gOtBAmRJxrDT","jd_45f1857040ac8","13335032760_p","jd_51d9ee19241e2","wdwMJcEGPKgMlq","Cindyui","ravenliangw","jd_5a069959eb8b9","nicolej18","碧落涛声","jd_RNSPYuSOvgWv","zhiguang217"];
 run_pins = [temp.join(',')];
 // $.LKYLToken = '76fe7794c475c18711e3b47185f114b5' || $.getdata('jdJoyRunToken');
 // $.LKYLToken = $.getdata('jdJoyRunToken');
