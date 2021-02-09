@@ -1,5 +1,5 @@
 /**
-宠汪汪邀请助力与赛跑助力脚本，感谢github@Zero-S1提供帮助
+宠汪汪邀请助力与赛跑助力脚本，感谢github@Zero-S1提供帮助  164  http://jd.turinglabs.net/api/v2/jd/joy/read/1/
 更新时间：2021-2-5（宠汪汪助力更新Token的配置正则表达式已改）sy版本
 
 token时效很短，几个小时就失效了,闲麻烦的放弃就行
@@ -161,7 +161,7 @@ async function getToken() {
 }
 function readToken() {
   return new Promise(resolve => {
-    $.get({url: `https://raw.githubusercontent.com/shuye73/RandomShareCode/master/JD_JOY_Run_Token.json`, 'timeout': 10000}, (err, resp, data) => {
+    $.get({url: `http://jd.turinglabs.net/api/v2/jd/joy/read/1/`, 'timeout': 10000}, (err, resp, data) => {
       try {
         if (err) {
           console.log(`${JSON.stringify(err)}`)
