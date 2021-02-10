@@ -6,7 +6,7 @@ name: jd_joy_run1
 on:
   workflow_dispatch:
   schedule:
-    - cron: '59 1,6 * * *'
+    - cron: '40 12 * * *'
   watch:
     types: started
   repository_dispatch:
