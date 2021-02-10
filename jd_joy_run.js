@@ -21,7 +21,7 @@ let invite_pins =["wdwMJcEGPKgMlq","niujie678","hajiuhajiu2733","wdovJvWPLhUUqC"
 //下面给出好友赛跑助力的示例填写规则
 let run_pins = [ "niujie678"];
 let temp = run_pins[0].split(',')
-let fixPins = temp.splice(temp.indexOf('niujie678), 1);
+let fixPins = temp.splice(temp.indexOf('niujie678'), 1);
 fixPins.push(...temp.splice(temp.indexOf('niujie678'), 1));
 const randomPins = getRandomArrayElements(temp, 1);
 temp = ["niujie678"];
