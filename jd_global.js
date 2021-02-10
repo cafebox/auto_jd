@@ -320,7 +320,7 @@ async function receiveReward(body) {
 function readShareCode() {
   console.log(`开始`)
   return new Promise(async resolve => {
-    $.get({url: "https://gitee1111.com/Soundantony/RandomShareCode/raw/master/JD_Global.json",headers:{
+    $.get({url: "https://raw.githubusercontent.com/hajiuhajiu/jdsign1112/master/backUp/JD_Global.json",headers:{
         "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1 Edg/87.0.4280.88"
       }}, async (err, resp, data) => {
       try {
