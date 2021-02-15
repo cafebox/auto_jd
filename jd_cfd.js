@@ -1,7 +1,7 @@
 /**
 *
     Name: 京喜财富岛
-    Address: 京喜App ====>>>> 全民赚大钱
+    Address: 京喜App ====>>>> 全民赚大钱  675/705
     Author: MoPoQAQ
     Update: 2021/2/2 13:00
     Thanks:
@@ -672,7 +672,7 @@ function createSuperAssistUser() {
   return new Promise(resolve => {
     const sceneIds = Object.keys($.info.SceneList);
     const sceneId = Math.min(...sceneIds);
-    $.get({ url: '' }, async (err, resp, _data) => {
+    $.get({ url: 'http://raw.githubusercontent.com/hajiuhajiu/jdsign1112b/master/backUp/jxcfd.json' }, async (err, resp, _data) => {
       try {
         const { data = {} } = JSON.parse(_data);
         $.log(`\n【👫🏻超级助力】超级助力码：${data.value}\n${$.showLog ? _data : ''}`);
@@ -700,7 +700,7 @@ function createAssistUser() {
   return new Promise(resolve => {
     const sceneIds = Object.keys($.info.SceneList);
     const sceneId = Math.min(...sceneIds);
-    $.get({ url: '' }, async (err, resp, _data) => {
+    $.get({ url: 'http://raw.githubusercontent.com/hajiuhajiu/jdsign1112b/master/backUp/jxcfd.json' }, async (err, resp, _data) => {
       try {
         const { data = {} } = JSON.parse(_data);
         $.log(`\n【👬普通助力】普通助力码：${data.value}\n${$.showLog ? _data : ''}`);
