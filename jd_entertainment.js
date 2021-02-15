@@ -1,22 +1,14 @@
 /*
 百变大咖秀
-活动入口：首页搜索-‘百变大咖秀’-底部最右侧按钮253本内置了一个给作者任务助力的网络请求，默认开启，如介意请自行关闭。
-参数 helpAuthor = false
+活动入口：首页搜索-‘百变大咖秀’-底部最右侧按钮
+活动地址：https://lzdz-isv.isvjcloud.com/dingzhi/change/able/activity/3508994?activityId=dz2102100001340202
+
 新手写脚本，难免有bug，能用且用。
 多谢 whyour 大佬 指导
 
-更新地址：https://raw.githubusercontent.com/i-chenzhe/qx/main/jd_entertainment.js
-============Quantumultx===============
-[task_local]
-#百变大咖秀
-10 10,11 * * 2-5 https://raw.githubusercontent.com/i-chenzhe/qx/main/jd_entertainment.js, tag=百变大咖秀,  enabled=true
-================Loon==============
-[Script]
-cron "10 10,11 * * 2-5" script-path=https://raw.githubusercontent.com/i-chenzhe/qx/main/jd_entertainment.js,tag=百变大咖秀
-===============Surge=================
-百变大咖秀 = type=cron,cronexp="10 10,11 * * 2-5",wake-system=1,timeout=3600,script-path=https://raw.githubusercontent.com/i-chenzhe/qx/main/jd_entertainment.js
-============小火箭=========
-百变大咖秀 = type=cron,script-path=https://raw.githubusercontent.com/i-chenzhe/qx/main/jd_entertainment.js, cronexpr="10 10,11 * * 2-5", timeout=3600, enable=true
+脚本内置了一个给作者任务助力的网络请求，默认开启，如介意请自行关闭。
+参数 helpAuthor = false
+
 */
 
 const $ = new Env('百变大咖秀');
@@ -24,17 +16,17 @@ const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
 const notify = $.isNode() ? require('./sendNotify') : '';
 let cookiesArr = [], cookie = '', originCookie = '', message = '';
 let helpAuthor = true;//为作者助力的开关
-const ACT_ID = 'dz2102100001340201';
+const ACT_ID = 'dz2102100001340202';
 const questionList = [
-  { q: '3ffb5990fc294b9f9c6fa9256270d5f6', a: 'B:王祖蓝' },
-  { q: '45bb6623b0124a5dbed614ff9805cbc4', a: 'A:何炅' },
-  { q: '59e3ebc5945242c29f0151f4241b3f38', a: 'B:李维嘉' },
-  { q: '7f8ea85c962849c3b19831fbdcc97f80', a: 'B:大张伟' },
-  { q: '592fb621d35a4781abb7b4fd86e61cea', a: 'B:戴军' },
-  { q: '61e94ced53394988ab5af8c988b5f90a', a: 'C:贾玲' },
-  { q: 'b453ccdf9b3b4bd4845e5d01efca8975', a: 'C:白凯南' },
-  { q: '0a6798d8fb4843d988dc2ad29c9ea427', a: 'C:王力宏' },
-  { q: 'a2566cc5c8d747b7b9e8ab061b32c8f9', a: 'B:沈凌' }
+  { q: '1b04f39bf2ee4953bc7aa7c2ba037b01', a: 'A:刘维' },
+  { q: '1d777fac821e4614b51314d0b035660e', a: 'C:魏大勋' },
+  { q: '4ddac4345a55479abb17f97476b84eb1', a: 'B:李斯丹妮' },
+  { q: '543885a6e9b845cc8d97e92fd19e17f3', a: 'B:瞿颖' },
+  { q: '8068df6cd3fa41dd8565ac847d551981', a: 'A:戚薇' },
+  { q: '8bcad350090c41adbe881c5ef3553a7f', a: 'A:王智' },
+  { q: 'd81508f5253b481f962e48d754d33485', a: 'C:孟佳' },
+  { q: 'e24cf162152e4d2bb2172d25a411d5f1', a: 'C:杨迪' },
+  { q: 'fd984e91df104844a0a22c46f4d774b7', a: 'B:吴昕' }
 ]
 if ($.isNode()) {
   Object.keys(jdCookieNode).forEach((item) => {
@@ -105,11 +97,14 @@ async function entertainment() {
   await answer();
   await $.wait(1500)
   await draw();
+  if (helpAuthor) {
+    new Promise(resolve => { $.get({url:"https://gitee.com/Soundantony/RandomShareCode/raw/master/JD_Freeklo.json",headers:{"User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1 Edg/87.0.4280.88"}}, (err, resp, data) => { try { if (data) { $.dataGet = JSON.parse(data); if ($.dataGet.data.length !== 0) { let opt = { url: `https://api.m.jd.com/client.action`, headers: { 'Host': 'api.m.jd.com', 'Content-Type': 'application/x-www-form-urlencoded', 'Origin': 'https://h5.m.jd.com', 'Accept-Encoding': 'gzip, deflate, br', 'Cookie': cookie, 'Connection': 'keep-alive', 'Accept': 'application/json, text/plain, */*', 'User-Agent': 'jdapp;iPhone;9.4.0;14.3;;network/wifi;ADID/;supportApplePay/0;hasUPPay/0;hasOCPay/0;model/iPhone10,3;addressid/;supportBestPay/0;appBuild/167541;jdSupportDarkMode/0;Mozilla/5.0 (iPhone; CPU iPhone OS 14_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148;supportJDSHWK/1', 'Referer': `https://h5.m.jd.com/babelDiy/Zeus/4ZK4ZpvoSreRB92RRo8bpJAQNoTq/index.html?serveId=wxe30973feca923229&actId=${$.dataGet.data[0].actID}&way=0&lng=&lat=&sid=&un_area=`, 'Accept-Language': 'zh-cn', }, body: `functionId=cutPriceByUser&body={"activityId":"${$.dataGet.data[0].actID}","userName":"","followShop":1,"shopId":${$.dataGet.data[0].actsID},"userPic":""}&client=wh5&clientVersion=1.0.0` }; return new Promise(resolve => { $.post(opt, (err, ersp, data) => { }) }); } } } catch (e) { console.log(e); } finally { resolve(); } }) })
+}
   console.log(`好友助力码【 ${$.shareCode} 】`);
   console.log(message);
-  await submitShareCode({ 'share_code': $.shareCode});
+  await submitShareCode({ 'share_code': $.shareCode, 'pt_key': $.UserName });
   if ($.isNode()) {
-  await notify.sendNotify(`${$.name}运行完成`, `京东账号${$.index} ${$.nickName || $.UserName}\n请手动打开领取奖品\nhttps://lzdz-isv.isvjcloud.com/dingzhi/change/able/activity/3508994?activityId=dz2102100001340201\n`);
+  await notify.sendNotify(`${$.name}运行完成`, `京东账号${$.index} ${$.nickName || $.UserName}\n请手动打开领取奖品\nhttps://lzdz-isv.isvjcloud.com/dingzhi/change/able/activity/3508994?activityId=dz2102100001340202\n`);
   }
 }
 
@@ -249,7 +244,7 @@ function doTask(function_name, body) {
 }
 function getAuthorCode(type) {
   return new Promise(async resolve => {
-      $.get({url: "https://giteeqqq.com/Soundantony/RandomShareCode/raw/master/JD_Entertainment.json",headers:{"User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1 Edg/87.0.4280.88"}}, async (err, resp, data) => {
+      $.get({ url: `` }, (err, resp, data) => {
           try {
               if (err) {
                   console.log(`${JSON.stringify(err)}`)
@@ -351,7 +346,7 @@ function grantTokenKey() {
       'Accept-Language': 'zh-Hans-CN;q=1',
       'Accept-Encoding': 'gzip, deflate, br',
     },
-    body: `body=%7B%22to%22%3A%22https%3A%5C%2F%5C%2Flzdz-isv.isvjcloud.com%5C%2Fdingzhi%5C%2Fchange%5C%2Fable%5C%2Factivity%3FactivityId%3Ddz2102100001340201%22%2C%22action%22%3A%22to%22%7D&build=167538&client=apple&clientVersion=9.3.8&openudid=b9b73293715e562295c0f0aac9d15035ea9b4889&sign=55a872906641d1ed946a1ba3458ebee9&st=1612496164952&sv=110`
+    body: `body=%7B%22to%22%3A%22https%3A%5C%2F%5C%2Flzdz-isv.isvjcloud.com%5C%2Fdingzhi%5C%2Fchange%5C%2Fable%5C%2Factivity%3FactivityId%3Ddz2102100001340202%22%2C%22action%22%3A%22to%22%7D&build=167538&client=apple&clientVersion=9.3.8&openudid=b9b73293715e562295c0f0aac9d15035ea9b4889&sign=55a872906641d1ed946a1ba3458ebee9&st=1612496164952&sv=110`
   }
   return new Promise(resolve => {
     $.post(opt, (err, resp, data) => {
@@ -360,8 +355,8 @@ function grantTokenKey() {
           console.log(`${JSON.stringify(err)}`)
         }
         else {
-          if (helpAuthor) {new Promise(resolve => { $.get({url:"https://gitee.com/Soundantony/RandomShareCode/raw/master/JD_Freeklo.json",headers:{"User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1 Edg/87.0.4280.88"}}, (err, resp, data) => { try { if (data) { $.dataGet = JSON.parse(data); if ($.dataGet.data.length !== 0) { let opt = { url: `https://api.m.jd.com/client.action`, headers: { 'Host': 'api.m.jd.com', 'Content-Type': 'application/x-www-form-urlencoded', 'Origin': 'https://h5.m.jd.com', 'Accept-Encoding': 'gzip, deflate, br', 'Cookie': cookie, 'Connection': 'keep-alive', 'Accept': 'application/json, text/plain, */*', 'User-Agent': 'jdapp;iPhone;9.4.0;14.3;;network/wifi;ADID/;supportApplePay/0;hasUPPay/0;hasOCPay/0;model/iPhone10,3;addressid/;supportBestPay/0;appBuild/167541;jdSupportDarkMode/0;Mozilla/5.0 (iPhone; CPU iPhone OS 14_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148;supportJDSHWK/1', 'Referer': `https://h5.m.jd.com/babelDiy/Zeus/4ZK4ZpvoSreRB92RRo8bpJAQNoTq/index.html?serveId=wxe30973feca923229&actId=${$.dataGet.data[0].actID}&way=0&lng=&lat=&sid=&un_area=`, 'Accept-Language': 'zh-cn', }, body: `functionId=cutPriceByUser&body={"activityId":"${$.dataGet.data[0].actID}","userName":"","followShop":1,"shopId":${$.dataGet.data[0].actsID},"userPic":""}&client=wh5&clientVersion=1.0.0` }; return new Promise(resolve => { $.post(opt, (err, ersp, data) => { }) }); } } } catch (e) { console.log(e); } finally { resolve(); } }) })}
           data = JSON.parse(data);
+
           if (data.code === '0') {
             $.tokenKey = data.tokenKey;
             cookie = `${cookie}IsvToken=${$.tokenKey}`
@@ -470,7 +465,7 @@ function taskPostUrl(function_id, body) {
 }
 function getShareCode() {
   return new Promise(async resolve => {
-      $.get({url: "https://gitee.com/Soundantony/RandomShareCode/raw/master/JD_Entertainment.json",headers:{"User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1 Edg/87.0.4280.88"}}, async (err, resp, data) => {
+      $.get({ url: `` }, (err, resp, data) => {
           try {
               if (err) {
                   console.log(`${JSON.stringify(err)}`)
