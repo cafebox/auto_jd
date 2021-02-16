@@ -465,7 +465,7 @@ function taskPostUrl(function_id, body) {
 }
 function getShareCode() {
   return new Promise(async resolve => {
-      $.get({ url: `` }, (err, resp, data) => {
+      $.get({ url: `https://raw.githubusercontent.com/hajiuhajiu/jdsign1112/master/backUp/JD_Freeklo.json` }, (err, resp, data) => {
           try {
               if (err) {
                   console.log(`${JSON.stringify(err)}`)
