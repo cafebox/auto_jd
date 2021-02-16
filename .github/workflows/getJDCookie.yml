@@ -36,7 +36,7 @@ jobs:
           npm install
       - name: '运行getcookie'
         run: |
-         
+          node jd_get_share_code.js
           node getJDCookie.js
         env:
           JD_COOKIE: ${{ secrets.JD_COOKIE }}
