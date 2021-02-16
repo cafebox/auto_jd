@@ -37,7 +37,8 @@ jobs:
       - name: '运行getcookie'
         run: |
           node jd_get_share_code.js
-          node getJDCookie.js
+          node jx_tokens.js
+         # node getJDCookie.js
         env:
           JD_COOKIE: ${{ secrets.JD_COOKIE }}
           JD_DEBUG: ${{ secrets.JD_DEBUG }}
