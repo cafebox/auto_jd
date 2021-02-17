@@ -124,7 +124,7 @@ async function draw() {
     const card = $.cardList[i];
     if (card.answer === true && card.draw === false && $.canDraw === true) {
       console.log(`开始抽奖`);
-      await doTask('dingzhi/change/able/startDraw', `activityId=${ACT_ID}&actorUuid=${$.shareCode}&pin=${encodeURIComponent($.secretPin)}&cardId=${card.uuid}`)
+      await doTask('dingzhi/change/able/startDraw', `activityId=${ACT_ID}&actorUuid=${$.shareCode}&pin=${encodeURIComponent($.secretPin)}&cardId=${card.Uuid}`)
       await $.wait(1000);
     }
   }
@@ -150,12 +150,12 @@ async function answer() {
   }
   for (let i = 0; i <= $.gameScore; i++) {
     let options = '';
-    const tmp = questionList.filter((x) => x.q === newCardList[i].uuid);
+    const tmp = questionList.filter((x) => x.q === newCardList[i].Uuid);
     if (tmp && tmp[0]) {
       console.log(`在本地题库中找到了答案：${tmp[0].a}`)
       options = tmp[0].a
     }
-    let body = `activityId=${ACT_ID}&actorUuid=${$.shareCode}&pin=${encodeURIComponent($.secretPin)}&uuid=${newCardList[i].uuid}&answer=${encodeURIComponent(options)}&position=${newPosition[i]}`
+    let body = `activityId=${ACT_ID}&actorUuid=${$.shareCode}&pin=${encodeURIComponent($.secretPin)}&Uuid=${newCardList[i].Uuid}&answer=${encodeURIComponent(options)}&position=${newPosition[i]}`
     await doTask('dingzhi/change/able/answer', body);
     await $.wait(1500)
   }
