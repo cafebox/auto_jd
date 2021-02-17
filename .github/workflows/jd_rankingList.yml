@@ -6,7 +6,7 @@ name: 合集（排行榜小屋逛商店）
 on:
   workflow_dispatch:
   schedule:
-    - cron: '11 18 * * *'
+    - cron: '30 15 * * *'
   watch:
     types: started
   repository_dispatch:
@@ -35,15 +35,15 @@ jobs:
       - name: npm install
         run: |
           npm install
+      - name: Set up Python 3.7
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.7
+      - name: 阻塞运行
+        run: |
+          python3 wait24.py
       - name: '运行 【京东排行榜】'
         run: |
-          random_time=$(($RANDOM % 10))
-          echo "等待 ${random_time} 分钟后开始执行"
-          for((i=1; i<=${random_time}; i++));  
-          do
-            echo "倒计时 $[${random_time}-$i] 分钟"
-            sleep 1m
-          done
           node jd_rankingList.js
           node jd_shop.js 
           node jd_small_home.js
