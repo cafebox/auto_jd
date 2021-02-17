@@ -1,12 +1,12 @@
 # This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
 
-name: jd_xmf
+name: jd_xmf魔方+沃尔马
 
 on:
   workflow_dispatch:
   schedule:
-    - cron: '21 18 * * *'
+    - cron: '1 16 * * *'
   repository_dispatch:
     types: jd_xmf
 jobs:
@@ -34,8 +34,9 @@ jobs:
       - name: npm install
         run: |
           npm install
-      - name: 'jd_entertainment'
+      - name: 'jd_xmf'
         run: |
+          node jd_walmart.js 
           node jd_xmf.js
         env:
           JD_COOKIE: ${{ secrets.JD_COOKIE }}
