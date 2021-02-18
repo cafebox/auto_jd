@@ -34,7 +34,7 @@ jobs:
       - name: npm install
         run: |
           npm install
-          npm install qrcode-terminal
+          # npm install qrcode-terminal
       - name: '运行getcookie'
         run: |
           node getJDCookie.js
