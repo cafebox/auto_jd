@@ -1,7 +1,7 @@
 # This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
 
-name: getcookie
+name: 获取互助码
 
 on:
   workflow_dispatch:
@@ -9,7 +9,7 @@ on:
   watch:
     types: started
   repository_dispatch:
-    types: getcookie
+    types: 获取互助码
 jobs:
   build:
 
@@ -34,11 +34,10 @@ jobs:
       - name: npm install
         run: |
           npm install
-          npm install qrcode-terminal
-      - name: '运行getcookie'
+         
+      - name: '运行获取互助码'
         run: |
-          node getJDCookie.js
-          node getJDCookie.js
+          node jd_get_share_code.js
          
           
         env:
