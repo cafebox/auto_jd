@@ -1,9 +1,9 @@
-name: 小鸽有礼
+name: nzmh
 
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 23 * * *'
+    - cron: '0 7 19-25 2 *'
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -30,7 +30,7 @@ jobs:
                    npm install
       - name: '运行'
         run: |
-             node jd_xg.js
+             node jd_nzmh.js
         env:
           JD_COOKIE: ${{ secrets.JD_COOKIE }}
           JD_DEBUG: ${{ secrets.JD_DEBUG }}
