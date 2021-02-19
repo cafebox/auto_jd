@@ -215,13 +215,13 @@ async function getGoodList() {
 async function filterGoodList() {
 	console.log(`⏰ 过滤商品列表，当前共有${allGoodList.length}个商品`)
 	const now = Date.now()
-	const oneMoreDay = now + 24 * 60 * 60 * 1000
+	const oneMoreDay = now + 24 * 60 * 60 * 2300
 	$.goodList = allGoodList.filter(good => {
 		// 1. good 有问题
 		// 2. good 距离结束不到10min
 		// 3. good 的结束时间大于一天
 		// 4. good 的价格小于最小的限制
-		if (!good || good.endTime < now + 10 * 60 * 1000 || good.endTime > oneMoreDay || good.jdPrice < minPrice) {
+		if (!good || good.endTime < now + 10 * 60  || good.endTime > oneMoreDay || good.jdPrice < minPrice) {
 			return false
 		}
 		for (let item of goodFilters) {
