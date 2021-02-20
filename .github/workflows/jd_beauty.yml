@@ -29,6 +29,7 @@ jobs:
         run: |
                    npm install
                    npm install websocket
+                   npm install ws
       - name: '运行'
         run: |
              node jd_beauty.js
