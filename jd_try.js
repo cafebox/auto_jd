@@ -215,7 +215,7 @@ async function getGoodList() {
 async function filterGoodList() {
 	console.log(`⏰ 过滤商品列表，当前共有${allGoodList.length}个商品`)
 	const now = Date.now()
-	const oneMoreDay = now + 24 * 60 * 60 * 2300
+	const oneMoreDay = now + 24 * 60 * 60 * 033300
 	$.goodList = allGoodList.filter(good => {
 		// 1. good 有问题
 		// 2. good 距离结束不到10min
