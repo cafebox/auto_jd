@@ -43,13 +43,10 @@ lxk0301-环境变量合集（Secrets）配置[点击查看](https://gitee.com/lx
 > 具体如何取 cookie 如何配置,可参考 [lxk0301 的获取京东Cookies教程](https://gitee.com/lxk0301/jd_scripts/blob/master/backUp/GetJdCookie.md)
 > 清单：
 > ##############短期活动##############
-#环球挑战赛 活动时间：2021-02-02 至 2021-02-22
-10 9,12,20,21 2-22 2 * node /scripts/jd_global.js >> /scripts/logs/jd_global.log 2>&1
-##############短期活动##############
 
-#环球挑战赛 活动时间：2021-02-02 至 2021-02-22
-10 9,12,20,21 2-22 2 * node /scripts/jd_global.js >> /scripts/logs/jd_global.log 2>&1
-百变大咖秀第二期
+环球挑战赛 活动时间：2021-02-02 至 2021-02-22
+10 9,12,20,21 2-22 2 * node /scripts/jd_global.js >> /scripts/logs/jd_global.log 2>&1 
+百变大咖秀第3期
 22 23,0,9 * * * node /scripts/jd_entertainment.js >> /scripts/logs/jd_entertainment.log 2>&1
 
  京东女装盲盒
@@ -151,4 +148,3 @@ lxk0301-环境变量合集（Secrets）配置[点击查看](https://gitee.com/lx
 40 0,12,18 * * *  node /scripts/jd_speed_redpocke.js >> /scripts/logs/jd_speed_redpocke.log 2>&1
  京东极速版
 48 0,12,18 * * *  node /scripts/jd_speed_sign.js >> /scripts/logs/jd_speed_sign.log 2>&1
-
