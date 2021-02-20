@@ -1,11 +1,11 @@
 # This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
 
-name: 京豆签到脚本
+name: 京豆签到脚本20210220bean_sign
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 16 * * *'
+    - cron: '35 15 * * *'
   watch:
     types: started
   repository_dispatch:
@@ -24,7 +24,14 @@ jobs:
       - name: npm install
         run: |
           npm install
-      - name: '运行 【京豆签到脚本】'
+      - name: Set up Python 3.7
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.7
+      - name: '定时签到'
+        run: |
+              python3 wait24.py 0.1 0.1 29
+      - name: '运行 【京豆定时签到脚本】'
         run: |
           node jd_bean_sign.js
         env:
