@@ -1,4 +1,4 @@
-name: sff 
+name: jd_speed_sign急速版签到
 
 on:
   workflow_dispatch:
@@ -30,8 +30,7 @@ jobs:
           npm install
       - name: '运行'
         run: |
-          node jd_live_redrain_nian.js
-          node jd_live_redrain_offical.js
+          node jd_speed_sign.js
           sleep 1m
         env:
           JD_COOKIE: ${{ secrets.JD_COOKIE }}
