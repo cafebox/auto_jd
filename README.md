@@ -45,11 +45,8 @@ lxk0301-环境变量合集（Secrets）配置[点击查看](https://gitee.com/lx
 > 清单：
 > ##############短期活动##############
 
-环球挑战赛 活动时间：2021-02-02 至 2021-02-22
-10 9,12,20,21 2-22 2 * node /scripts/jd_global.js >> /scripts/logs/jd_global.log 2>&1 
-百变大咖秀第3期
-22 23,0,9 * * * node /scripts/jd_entertainment.js >> /scripts/logs/jd_entertainment.log 2>&1
-
+环球挑战赛 活动时间：2021-02-02 至 2021-02-22 10 9,12,20,21 2-22 2 * node /scripts/jd_global.js >> /scripts/logs/jd_global.log 2>&1  
+百变大咖秀第3期  22 23,0,9 * * * node /scripts/jd_entertainment.js >> /scripts/logs/jd_entertainment.log 2>&1 
  京东女装盲盒
 9 0,12,18 * * * node /scripts/jd_nzmh.js >> /scripts/logs/jd_nzmh.log 2>&1
  美丽研究院
