@@ -36,7 +36,6 @@ jobs:
           npm install
       - name: 'jd_entertainment'
         run: |
-          node jd_entertainment1.js
           node jd_entertainment.js
         env:
           JD_COOKIE: ${{ secrets.JD_COOKIE }}
