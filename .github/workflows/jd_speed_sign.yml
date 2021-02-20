@@ -1,4 +1,4 @@
-name: jd_speed_sign急速版签到
+name: jd_speed_sign急速版签到及红包
 
 on:
   workflow_dispatch:
@@ -32,6 +32,7 @@ jobs:
         run: |
           node jd_speed_sign.js
           sleep 1m
+          node jd_speed_redpocke.js
         env:
           JD_COOKIE: ${{ secrets.JD_COOKIE }}
           JD_DEBUG: ${{ secrets.JD_DEBUG }}
