@@ -29,7 +29,9 @@
 填入`Repository name`后点击最下方的`Create repository` 点下面Import a repository.
 然后在于Your old repository’s clone URL 填入 https://github.com/hajiuhajiu/jdsign1112 按提示完成复制后
 填写secrets 的cookie及其它参数即可。cookie可自行百度教程
+该方法需要自行定期替换或更新脚本，不会同步，但方法简单
 
+自动同步教程：
 1. [按照这个教程进行 reposync](backup/reposync.md)
 2. 再在`Settings`-`Secrets`里面添加`JD_COOKIE`
 3. 多条 cookie 用`&`隔开，支持无数条 cookie
