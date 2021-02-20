@@ -42,6 +42,7 @@ lxk0301-环境变量合集（Secrets）配置[点击查看](https://gitee.com/lx
 
 > 具体如何取 cookie 如何配置,可参考 [lxk0301 的获取京东Cookies教程](https://gitee.com/lxk0301/jd_scripts/blob/master/backUp/GetJdCookie.md)
 > 清单：
+> 清单：
 > ##############短期活动##############
 
 环球挑战赛 活动时间：2021-02-02 至 2021-02-22
