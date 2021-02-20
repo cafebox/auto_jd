@@ -53,10 +53,11 @@ lxk0301-环境变量合集（Secrets）配置[点击查看](https://gitee.com/lx
  美丽研究院 9 0,12,18 * * * node /scripts/jd_beauty.js >> /scripts/logs/jd_beauty   
 ##############长期活动##############
  签到  0 0,18 * * * cd /scripts && node jd_bean_sign.js >> /scripts/logs/jd_bean_sign   
- 东东超市兑换奖品0,30 0 * * * node /scripts/jd_blueCoin.js >> /scripts/logs/jd_blueCoin   
+ 东东超市兑换奖品 0,16 * * * node /scripts/jd_blueCoin.js 默认换500豆，然后运行换20豆(jd_blueCoin20) 
  摇京豆0 0 * * * node /scripts/jd_club_lottery.js >> /scripts/logs/jd_club_lottery   
  东东农场5 6-18/6 * * * node /scripts/jd_fruit.js >> /scripts/logs/jd_fruit   
- 宠汪汪15 */2 * * * node /scripts/jd_joy.js >> /scripts/logs/jd_joy   
+ 宠汪汪15 */2 * * * node /scripts/jd_joy.js >> /scripts/logs/jd_joy
+ 宠汪汪换豆 57 15,23,3,11 * * * node /scripts/jd_joy_reward.js 默认0点8点先换500豆，8点延迟一分钟后换20豆 
  宠汪汪喂食15 */1 * * * node /scripts/jd_joy_feedPets.js >> /scripts/logs/jd_joy_feedPets   
  宠汪汪偷好友积分与狗粮0 0-10/2 * * * node /scripts/jd_joy_steal.js >> /scripts/logs/jd_joy_steal      
  摇钱树0 */2 * * * node /scripts/jd_moneyTree.js >> /scripts/logs/jd_moneyTree      
