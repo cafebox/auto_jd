@@ -6,7 +6,7 @@ name: jd_club_lottery
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 16 * * *'
+    - cron: '35 15 * * *'
   watch:
     types: started
   repository_dispatch:
@@ -25,6 +25,13 @@ jobs:
       - name: npm install
         run: |
           npm install
+      - name: Set up Python 3.7
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.7
+      - name: '定时运行'
+        run: |
+              python3 wait24.py 0.1 0.1 29
       - name: '运行 【摇京豆脚本】'
         run: |
           node jd_club_lottery.js
