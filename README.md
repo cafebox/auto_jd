@@ -40,7 +40,8 @@
 喜马拉雅极速版专属环境变量[点击查看](backup/xmly/xmly.md)
 lxk0301-环境变量合集（Secrets）配置[点击查看](https://gitee.com/lxk0301/jd_scripts/blob/master/githubAction.md)
 
-> 具体如何取 cookie 如何配置,可参考 [lxk0301 的获取京东Cookies教程](https://gitee.com/lxk0301/jd_scripts/blob/master/backUp/GetJdCookie.md)
+> 具体如何取 cookie可以运行getcookie脚本，按build里面运行提示扫码登陆，脚本会获得cookie，然后将脚本获得的cookie 放在secrets即可。
+>  如何配置,可参考 > [lxk0301 的获取京东Cookies教程](https://gitee.com/lxk0301/jd_scripts/blob/master/backUp/GetJdCookie.md)
 >
 > 
 >   清单：  
