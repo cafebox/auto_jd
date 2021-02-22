@@ -49,6 +49,7 @@ jobs:
           node jd_small_home.js
           node jd_syj.js
           node jd_bean_home.js
+          node jd_kd.js
           
         env:
           JD_COOKIE: ${{ secrets.JD_COOKIE }}
