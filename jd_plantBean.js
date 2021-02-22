@@ -5,8 +5,7 @@
 脚本兼容: QuantumultX, Surge, Loon, JSBox, Node.js
 注：会自动关注任务中的店铺跟商品，介意者勿使用。
 互助码shareCode请先手动运行脚本查看打印可看到
-每个京东账号每天只能帮助3个人。多出的助力码将会助力失败。
-=====================================Quantumult X=================================
+每个京东账号每天只能帮助3个人。多出的助力码将会助力失败。=====================================Quantumult X=================================
 [task_local]
 1 7-21/2 * * * https://raw.githubusercontent.com/lxk0301/jd_scripts/master/jd_plantBean.js, tag=种豆得豆, img-url=https://raw.githubusercontent.com/58xinian/icon/master/jdzd.png, enabled=true
 
@@ -502,7 +501,7 @@ async function plantBeanIndex() {
 }
 function readShareCode() {
   return new Promise(resolve => {
-    $.get({url: `http://api.turinglabs.net/api/v1/jd/bean/read/${randomCount}/`}, (err, resp, data) => {
+    $.get({url: `https://raw.githubusercontent.com/hajiuhajiu/jdsign1112/master/backUp/total/JD_bean.json`}, (err, resp, data) => {
       try {
         if (err) {
           console.log(`${JSON.stringify(err)}`)
