@@ -3,7 +3,7 @@ name: jd_asus_iqiyi华硕爱奇艺
 on:
   workflow_dispatch:
   schedule:
-    - cron: '1 0 22-28 2 **'
+    - cron: '59 15 22-28 2 *'
 jobs:
   build:
     runs-on: ubuntu-latest
