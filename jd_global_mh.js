@@ -1,6 +1,6 @@
 /*
 京东国际盲盒
-活动时间:2021-01-15至2021-02-15
+活动时间:2021-02-23至2021-03-31
 暂不加入品牌会员
 地址 https://gmart.jd.com/?appId=27260146
 活动入口：京东app首页浮动窗口
@@ -9,17 +9,17 @@
 ============Quantumultx===============
 [task_local]
 #京东国际盲盒
-0 9,12,20,21 * * * https://gitee.com/lxk0301/jd_scripts/raw/master/jd_global_mh.js, tag=京东国际盲盒, img-url=https://raw.githubusercontent.com/yogayyy/Scripts/main/Icon/lxk0301/jd_global_mh.png, enabled=true
+0 9,12,20,21 * * * https://jdsharedresourcescdn.azureedge.net/jdresource/jd_global_mh.js, tag=京东国际盲盒, img-url=https://raw.githubusercontent.com/yogayyy/Scripts/main/Icon/lxk0301/jd_global_mh.png, enabled=true
 
 ================Loon==============
 [Script]
-cron "0 9,12,20,21 * * *" script-path=https://gitee.com/lxk0301/jd_scripts/raw/master/jd_global_mh.js,tag=京东国际盲盒
+cron "0 9,12,20,21 * * *" script-path=https://jdsharedresourcescdn.azureedge.net/jdresource/jd_global_mh.js,tag=京东国际盲盒
 
 ===============Surge=================
-京东国际盲盒 = type=cron,cronexp="0 9,12,20,21 * * *",wake-system=1,timeout=3600,script-path=https://gitee.com/lxk0301/jd_scripts/raw/master/jd_global_mh.js
+京东国际盲盒 = type=cron,cronexp="0 9,12,20,21 * * *",wake-system=1,timeout=3600,script-path=https://jdsharedresourcescdn.azureedge.net/jdresource/jd_global_mh.js
 
 ============小火箭=========
-京东国际盲盒 = type=cron,script-path=https://gitee.com/lxk0301/jd_scripts/raw/master/jd_global_mh.js, cronexpr="0 9,12,20,21 * * *", timeout=3600, enable=true
+京东国际盲盒 = type=cron,script-path=https://jdsharedresourcescdn.azureedge.net/jdresource/jd_global_mh.js, cronexpr="0 9,12,20,21 * * *", timeout=3600, enable=true
  */
 const $ = new Env('京东国际盲盒');
 
@@ -38,13 +38,7 @@ if ($.isNode()) {
   if (process.env.JD_DEBUG && process.env.JD_DEBUG === 'false') console.log = () => {
   };
 } else {
-  let cookiesData = $.getdata('CookiesJD') || "[]";
-  cookiesData = jsonParse(cookiesData);
-  cookiesArr = cookiesData.map(item => item.cookie);
-  cookiesArr.reverse();
-  cookiesArr.push(...[$.getdata('CookieJD2'), $.getdata('CookieJD')]);
-  cookiesArr.reverse();
-  cookiesArr = cookiesArr.filter(item => item !== "" && item !== null && item !== undefined);
+  cookiesArr = [$.getdata('CookieJD'), $.getdata('CookieJD2'), ...jsonParse($.getdata('CookiesJD') || "[]").map(item => item.cookie)].filter(item => !!item);
 }
 
 const JD_API_HOST = 'https://api.m.jd.com/', actCode = 'lucky-box-001';
