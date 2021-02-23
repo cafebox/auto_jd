@@ -6,7 +6,7 @@ name: 宠汪汪换500豆
 on:
   workflow_dispatch:
   schedule:
-    - cron: '45 15,3 * * *'
+    - cron: '40 15,3 * * *'
   watch:
     types: started
   repository_dispatch:
