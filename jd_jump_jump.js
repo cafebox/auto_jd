@@ -6,7 +6,7 @@
 jd_jump_jump by i-chenzhe
 已支持IOS双京东账号,Node.js支持N个京东账号
 
-脚本内置了一个给作者任务助力的网络请求，默认开启，如介意请自行关闭。
+脚本内置了一个给作者任务助力的网络请 求，默认开启，如介意请自行关闭。
 参数 helpAuthor = false
 */
 const $ = new Env('母婴 - 跳一跳');
