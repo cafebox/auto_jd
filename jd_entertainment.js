@@ -33,7 +33,7 @@ let helpAuthor = true;//为作者助力的开关
 const ACT_ID = 'dz2102100001340203';
 const questionList = [
   { q: '84d9ef3ccb2543449935871c2a95f2aa', a: 'B:玲花' },
-  { q: '12ffa15a77c3489ca644ff0880e79343', a: 'C:鞠萍' },
+  { q: '12ffa15a77c3489ca644ff0880e79343', a: 'A:倪萍' },
   { q: '2c71328d97e6422a8181c6c025e078cc', a: 'A:管乐' },
   { q: '3e7c6a1f59e043a59bcdca9b01b4cdaa', a: 'B:汪小敏' },
   { q: '3f471e4309d7435c81604d0fe1d600b7', a: 'A:王智' },
