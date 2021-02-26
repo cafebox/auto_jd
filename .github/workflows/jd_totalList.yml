@@ -50,8 +50,10 @@ jobs:
           node jd_syj.js
           node jd_bean_home.js
           node jd_kd.js
-          node jd_jump_jump.js
+          node jd_shake.js
           node jd_plus_bean.js
+          node jd_jump_jump.js
+          
           
         env:
           JD_COOKIE: ${{ secrets.JD_COOKIE }}
