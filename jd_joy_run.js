@@ -171,6 +171,7 @@ async function getToken() {
     $.done()
   }
 }
+//http://jd.turinglabs.net/api/v2/jd/joy/read/1/
 function readToken() {
   return new Promise(resolve => {
     $.get({url: `http://jd.turinglabs.net/api/v2/jd/joy/read/1/`, 'timeout': 10000}, (err, resp, data) => {
