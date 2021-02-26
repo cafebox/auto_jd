@@ -51,6 +51,7 @@ jobs:
           node jd_bean_home.js
           node jd_kd.js
           node jd_jump_jump.js
+          node jd_plus_bean.js
           
         env:
           JD_COOKIE: ${{ secrets.JD_COOKIE }}
