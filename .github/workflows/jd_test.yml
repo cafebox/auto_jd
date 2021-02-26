@@ -37,7 +37,7 @@ jobs:
 
       - name: '运行'
         run: |
-          node jd_club_lottery.js
+          node jd_plus_bean.js
          
           
         env:
