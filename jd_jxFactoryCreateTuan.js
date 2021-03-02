@@ -1,7 +1,7 @@
 /*
 京东京喜工厂自动开团
  */
-
+const exec = require('child_process').execSync
 const $ = new Env('京东京喜工厂自动开团');
 const JD_API_HOST = 'https://m.jingxi.com';
 const fs = require('fs');
@@ -41,8 +41,6 @@ if (process.env.JD_DEBUG && process.env.JD_DEBUG === 'false') console.log = () =
 
         if ($.isNode()) {
           await notify.sendNotify(`${$.name}cookie已失效 - ${$.UserName}`, `京东账号${$.index} ${$.UserName}\n请重新登录获取cookie`);
-        } else {
-          $.setdata('', `CookieJD${i ? i + 1 : "" }`);//cookie失效，故清空cookie。$.setdata('', `CookieJD${i ? i + 1 : "" }`);//cookie失效，故清空cookie。
         }
         continue
       }
@@ -62,12 +60,8 @@ async function jdDreamFactory() {
   await userInfo();
   if (!$.unActive) return
   await tuanActivity();
-  await showMsg();
 }
-async function readFile() {
-  let oldData = await fs.readFileSync('./jd_updateFactoryTuanId.json');
-  $.oldData = JSON.parse(oldData);
-}
+
 async function writeFile() {
   const info = {
     tuanActiveId,
@@ -75,7 +69,8 @@ async function writeFile() {
   }
   const tuanIds = info.tuanIds;
   info.tuanIds = [...new Set(tuanIds)];
-  await fs.writeFileSync('jd_updateFactoryTuanId.json', JSON.stringify(info));
+  if (!fs.existsSync(`./shareCodes`)) fs.mkdirSync(`./shareCodes`);
+  await fs.writeFileSync(`./shareCodes/jd_updateFactoryTuanId.json`, JSON.stringify(info));
   console.log(`文件写入成功，已经替换`);
 }
 // 初始化个人信息
@@ -291,25 +286,7 @@ function CreateTuan() {
 
 async function showMsg() {
   return new Promise(async resolve => {
-    let ctrTemp;
-    if ($.isNode() && process.env.DREAMFACTORY_NOTIFY_CONTROL) {
-      ctrTemp = `${process.env.DREAMFACTORY_NOTIFY_CONTROL}` === 'false';
-    } else if ($.getdata('jdDreamFactory')) {
-      ctrTemp = $.getdata('jdDreamFactory') === 'false';
-    } else {
-      ctrTemp = `${jdNotify}` === 'false';
-    }
-    if (ctrTemp) {
-      $.msg($.name, '', message);
-      if ($.isNode()) {
-        await notify.sendNotify(`${$.name} - 账号${$.index} - ${$.nickName}`, `${message}\n【收取零件】获得${$.pickEle}电力`);
-      }
-    } else if (new Date().getHours() === 22) {
-      $.msg($.name, '', `${message}`)
-      $.log(`\n${message}`);
-    } else {
-      $.log(`\n${message}`);
-    }
+    $.log(`\n${message}`);
     resolve()
   })
 }
