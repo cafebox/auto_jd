@@ -672,7 +672,7 @@ function createSuperAssistUser() {
   return new Promise(resolve => {
     const sceneIds = Object.keys($.info.SceneList);
     const sceneId = Math.min(...sceneIds);
-    $.get({ url: 'http://raw.githubusercontent.com/hajiuhajiu/jdsign1112/master/backUp/jxcfd.json' }, async (err, resp, _data) => {
+    $.get({ url: 'https://raw.githubusercontent.com/hajiuhajiu/jdsign1112/master/shareCodes/cfd.json' }, async (err, resp, _data) => {
       try {
         const { data = {} } = JSON.parse(_data);
         $.log(`\n【👫🏻超级助力】超级助力码：${data.value}\n${$.showLog ? _data : ''}`);
@@ -700,7 +700,7 @@ function createAssistUser() {
   return new Promise(resolve => {
     const sceneIds = Object.keys($.info.SceneList);
     const sceneId = Math.min(...sceneIds);
-    $.get({ url: 'http://raw.githubusercontent.com/hajiuhajiu/jdsign1112/master/backUp/jxcfd.json' }, async (err, resp, _data) => {
+    $.get({ url: 'https://raw.githubusercontent.com/hajiuhajiu/jdsign1112/master/shareCodes/cfd.json' }, async (err, resp, _data) => {
       try {
         const { data = {} } = JSON.parse(_data);
         $.log(`\n【👬普通助力】普通助力码：${data.value}\n${$.showLog ? _data : ''}`);
@@ -785,7 +785,7 @@ function openGroup() {
 //助力好友寻宝大作战
 function joinGroup() {
   return new Promise( async (resolve) => {
-    $.get({ url: 'https://raw.githubusercontent.com/hajiuhajiu/jdsign1112/master/backUp/jxcfd.json' }, (err, resp, _data) => {
+    $.get({ url: 'https://raw.githubusercontent.com/hajiuhajiu/jdsign1112/master/shareCodes/cfd.json' }, (err, resp, _data) => {
       try {
         const { data = {} } = JSON.parse(_data);
         $.log(`\n【🏝寻宝大作战】随机助力码：${data.value}\n${$.showLog ? _data : ''}`);
