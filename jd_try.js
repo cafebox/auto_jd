@@ -430,7 +430,7 @@ async function showMsg() {
 			"open-url": 'https://try.m.jd.com/user'
 		})
 		if($.isNode()){
-			await notify.sendNotify(`${$.name} - 账号${$.index} - ${$.nickName}`, message)
+			//await notify.sendNotify(`${$.name} - 账号${$.index} - ${$.nickName}`, message)
 		}
 	} else {
 		console.log(message)
