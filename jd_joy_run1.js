@@ -173,7 +173,7 @@ async function getToken() {
 }
 function readToken() {
   return new Promise(resolve => {
-    $.get({url: `http://jd.turinglabs.net/api/v2/jd/joy/read/1/`, 'timeout': 10000}, (err, resp, data) => {
+    $.get({url: `https://raw.githubusercontent.com/hajiuhajiu/jdsign1112/master/backUp/joytoken.json`, 'timeout': 10000}, (err, resp, data) => {
       try {
         if (err) {
           console.log(`${JSON.stringify(err)}`)
