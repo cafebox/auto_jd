@@ -1370,10 +1370,12 @@ function shareCodesFormat() {
 function requireConfig() {
   return new Promise(async resolve => {
     await updateTuanIdsCDN('https://raw.githubusercontent.com/hajiuhajiu/jdsign1112/master/jd_updateFactoryTuanId.json');
+    if (!$.tuanIdS) await updateTuanIds();
+    if (!$.tuanIdS) await updateTuanIdsCDN('https://raw.githubusercontent.com/hajiuhajiu/jdsign1112/master/jd_updateFactoryTuanId.json');
     if ($.tuanIdS && $.tuanIdS.tuanActiveId) {
       tuanActiveId = $.tuanIdS.tuanActiveId;
     }
-    console.log(`开始获取${$.name}配置文件\n`);
+    console.log(`开始获取${$.name}配置文件999999\n`);
     console.log(`tuanActiveId: ${tuanActiveId}`)
     //Node.js用户请在jdCookie.js处填写京东ck;
     const shareCodes = $.isNode() ? require('./jdDreamFactoryShareCodes.js') : '';
