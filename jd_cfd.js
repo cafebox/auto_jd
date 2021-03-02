@@ -700,7 +700,7 @@ function createAssistUser() {
   return new Promise(resolve => {
     const sceneIds = Object.keys($.info.SceneList);
     const sceneId = Math.min(...sceneIds);
-    $.get({ url: 'http://raw.githubusercontent.com/hajiuhajiu/jdsign1112b/master/backUp/jxcfdn.json' }, async (err, resp, _data) => {
+    $.get({ url: 'http://raw.githubusercontent.com/hajiuhajiu/jdsign1112b/master/backUp/jxcfds.json' }, async (err, resp, _data) => {
       try {
         const { data = {} } = JSON.parse(_data);
         $.log(`\n【👬普通助力】普通助力码：${data.value}\n${$.showLog ? _data : ''}`);
