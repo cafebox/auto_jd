@@ -442,11 +442,11 @@ async function showMsg() {
 }
 function readShareCode() {
   return new Promise(async resolve => {
-    $.get({url: `https://raw111.githubusercontent.com/shuye72/RandomShareCode/master/JD_Pet.json`, 'timeout': 10000}, (err, resp, data) => {
+    $.get({url: `https://raw.githubusercontent.com/hajiuhajiu/jdsign1112/master/backUp/total/jd_pet.json`, 'timeout': 10000}, (err, resp, data) => {
       try {
         if (err) {
           console.log(`${JSON.stringify(err)}`)
-          console.log(`${$.name} API请求失败，请检查网路重试`)
+          console.log(`${$.name} API请求失败uuuu，请检查网路重试`)
         } else {
           if (data) {
             console.log(`随机取个${randomCount}码放到您固定的互助码后面(不影响已有固定互助)`)
