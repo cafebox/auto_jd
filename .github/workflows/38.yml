@@ -37,6 +37,7 @@ jobs:
       - name: '38 *'
         run: |
           node 38.js
+          node jd_nzmh.js
           
         env:
           JD_COOKIE: ${{ secrets.JD_COOKIE }}
