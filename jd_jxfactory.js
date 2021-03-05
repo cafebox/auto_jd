@@ -99,6 +99,7 @@ if ($.isNode()) {
       cookie = cookiesArr[i];
       if ($.tuanIds.length > 0) {
         await JoinTuan($.tuanIds[0]);
+        console.log($.tuanIds[0]);
       }
       await joinLeaderTuan();//参团
     }
@@ -152,11 +153,11 @@ function collectElectricity(facId = $.factoryId, help = false, master) {
             if (data['ret'] === 0) {
               if (help) {
                 $.ele += Number(data.data['loginPinCollectElectricity'])
-                console.log(`帮助好友收取 ${data.data['CollectElectricity']} 电力，获得 ${data.data['loginPinCollectElectricity']} 电力`);
+                //console.log(`帮助好友收取 ${data.data['CollectElectricity']} 电力，获得 ${data.data['loginPinCollectElectricity']} 电力`);
                 message += `【帮助好友】帮助成功，获得 ${data.data['loginPinCollectElectricity']} 电力\n`
               } else {
                 $.ele += Number(data.data['CollectElectricity'])
-                console.log(`收取 ${data.data['CollectElectricity']} 电力`);
+                //console.log(`收取 ${data.data['CollectElectricity']} 电力`);
                 message += `【收取发电站】收取成功，获得 ${data.data['CollectElectricity']} 电力\n`
               }
             } else {
