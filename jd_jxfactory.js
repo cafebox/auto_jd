@@ -154,11 +154,11 @@ function collectElectricity(facId = $.factoryId, help = false, master) {
               if (help) {
                 $.ele += Number(data.data['loginPinCollectElectricity'])
                 //console.log(`帮助好友收取 ${data.data['CollectElectricity']} 电力，获得 ${data.data['loginPinCollectElectricity']} 电力`);
-                message += `【帮助好友】帮助成功，获得 ${data.data['loginPinCollectElectricity']} 电力\n`
+                //message += `【帮助好友】帮助成功，获得 ${data.data['loginPinCollectElectricity']} 电力\n`
               } else {
                 $.ele += Number(data.data['CollectElectricity'])
                 //console.log(`收取 ${data.data['CollectElectricity']} 电力`);
-                message += `【收取发电站】收取成功，获得 ${data.data['CollectElectricity']} 电力\n`
+               // message += `【收取发电站】收取成功，获得 ${data.data['CollectElectricity']} 电力\n`
               }
             } else {
               if (help) {
@@ -1358,6 +1358,7 @@ function shareCodesFormat() {
     } else {
       console.log(`由于您第${$.index}个京东账号未提供shareCode,将采纳本脚本自带的助力码\n`)
       const tempIndex = $.index > inviteCodes.length ? (inviteCodes.length - 1) : ($.index - 1);
+      console.log (tempIndex);
       $.newShareCodes = inviteCodes[tempIndex].split('@');
     }
     const readShareCodeRes = await readShareCode();
