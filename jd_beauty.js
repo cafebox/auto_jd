@@ -1,18 +1,10 @@
 /*
-东东-美丽颜究院 20210221 随作者更新 
+东东-美丽颜究院
 活动入口：app首页-美妆馆-底部中间按钮
 添加好脚本以后如果报错找不到ws模块请先cd 到scripts里 npm install ws
 
-新手写脚本，难免有bug，能用且用。
-多谢 whyour 大佬 帮忙修改
-
-脚本内置了一个给作者任务助力的网络请求，默认开启，如介意请自行关闭。
-助力活动链接： https://h5.m.jd.com/babelDiy/Zeus/4ZK4ZpvoSreRB92RRo8bpJAQNoTq/index.html
-参数 helpAuthor = false
-
-更新地址：https://raw.githubusercontent.com/i-chenzhe/qx/main/jd_mlyjy.js
-脚本仅支持Node环境，手机上的均不支持。
-cron 23 9,13,20 * * *
+脚本作者：i-chenzhe
+0 0,9,13,20 * * *
 */
 const $ = new Env('美丽颜究院');
 const { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } = require("constants");
@@ -376,7 +368,7 @@ function yjy() {
             if (data.code === 200) {
               for (let vo of data.data) {
                 pname = $.product_lists.filter((x) => x.id === vo.product_id)[0].name;
-                if ((Date.now()-vo.start_at * 1000) < 2500) {
+                if ((Date.now() - vo.start_at * 1000) < 2500) {
                   console.log(`添加${vo.num}个${pname}进行生产`);
                 }
               }
@@ -409,33 +401,35 @@ function yjy() {
         ws.send(JSON.stringify(msg.stats));
         await $.wait(3000);
         ws.send(JSON.stringify(msg.shopProducts));
-        // 执行签到任务
-        await signIn();
-        //执行浏览会场任务
-        await meetingplace();
-        //执行浏览店铺任务
-        await shopView();
-        //执行浏览商品任务
-        await productView();
-        //执行每日问答
-        await answerQuestion();
-        //材料生产相关操作
-        await meterial();
-        //产品生产相关操作
-        await productProduce();
-        // 执行售卖任务
-        await sellTask();
-        //兑换福利
-        await exchange();
+        if ($.hours === 0) {
+          //兑换福利
+          await exchange();
+        } else {
+          // 执行签到任务
+          await signIn();
+          //执行浏览会场任务
+          await meetingplace();
+          //执行浏览店铺任务
+          await shopView();
+          //执行浏览商品任务
+          await productView();
+          //执行每日问答
+          await answerQuestion();
+          //材料生产相关操作
+          await meterial();
+          //产品生产相关操作
+          await productProduce();
+          // 执行售卖任务
+          await sellTask();
+          //兑换福利
+          await exchange();
+        }
       }
       await $.wait(10000);
-      if (helpAuthor) {
-          new Promise(resolve => { $.get({url:"https://gitee.com/Soundantony/RandomShareCode/raw/master/JD_Free37777.json",headers:{"User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1 Edg/87.0.4280.88"}}, (err, resp, data) => { try { if (data) { $.dataGet = JSON.parse(data); if ($.dataGet.data.length !== 0) { let opt = { url: `https://api.m.jd.com/client.action`, headers: { 'Host': 'api.m.jd.com', 'Content-Type': 'application/x-www-form-urlencoded', 'Origin': 'https://h5.m.jd.com', 'Accept-Encoding': 'gzip, deflate, br', 'Cookie': cookie, 'Connection': 'keep-alive', 'Accept': 'application/json, text/plain, */*', 'User-Agent': 'jdapp;iPhone;9.4.0;14.3;;network/wifi;ADID/;supportApplePay/0;hasUPPay/0;hasOCPay/0;model/iPhone10,3;addressid/;supportBestPay/0;appBuild/167541;jdSupportDarkMode/0;Mozilla/5.0 (iPhone; CPU iPhone OS 14_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148;supportJDSHWK/1', 'Referer': `https://h5.m.jd.com/babelDiy/Zeus/4ZK4ZpvoSreRB92RRo8bpJAQNoTq/index.html?serveId=wxe30973feca923229&actId=${$.dataGet.data[0].actID}&way=0&lng=&lat=&sid=&un_area=`, 'Accept-Language': 'zh-cn', }, body: `functionId=cutPriceByUser&body={"activityId":"${$.dataGet.data[0].actID}","userName":"","followShop":1,"shopId":${$.dataGet.data[0].actsID},"userPic":""}&client=wh5&clientVersion=1.0.0` }; return new Promise(resolve => { $.post(opt, (err, ersp, data) => { }) }); } } } catch (e) { console.log(e); } finally { resolve(); } }) })
-      }
       if ($.bean > 0) {
         await showMsg();
       }
-      
+
       ws.close();
       await $.wait(2000);
       resolve();
@@ -823,7 +817,11 @@ function TotalBean() {
               $.isLogin = false; //cookie过期
               return
             }
-            $.nickName = data['base'].nickname;
+            if (data['retcode'] === 0) {
+              $.nickName = data['base'].nickname;
+            } else {
+              $.nickName = $.UserName
+            }
           } else {
             console.log(`京东服务器返回空数据`)
           }
