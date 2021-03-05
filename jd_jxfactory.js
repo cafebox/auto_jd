@@ -715,7 +715,7 @@ async function PickUp(encryptPin = $.encryptPin, help = false) {
         if (PickUpComponentRes['ret'] === 0) {
           const data = PickUpComponentRes['data'];
           if (help) {
-            console.log(`收取好友[${encryptPin}]零件成功:获得${data['increaseElectric']}电力\n`);
+            // console.log(`收取好友[${encryptPin}]零件成功:获得${data['increaseElectric']}电力\n`);
             $.pickFriendEle += data['increaseElectric'];
           } else {
             console.log(`收取自家零件成功:获得${data['increaseElectric']}电力\n`);
@@ -723,7 +723,7 @@ async function PickUp(encryptPin = $.encryptPin, help = false) {
           }
         } else {
           if (help) {
-            console.log(`收好友[${encryptPin}]零件失败：${PickUpComponentRes.msg},直接跳出`)
+            // console.log(`收好友[${encryptPin}]零件失败：${PickUpComponentRes.msg},直接跳出`)
           } else {
             console.log(`收自己地下零件失败：${PickUpComponentRes.msg},直接跳出`);
             $.pickUpMyselfComponent = false;
