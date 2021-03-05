@@ -30,17 +30,17 @@ const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
 const notify = $.isNode() ? require('./sendNotify') : '';
 let cookiesArr = [], cookie = '', originCookie = '', message = '';
 let helpAuthor = true;//为作者助力的开关
-const ACT_ID = 'dz2102100001340204';
+const ACT_ID = 'dz2102100001340205';
 const questionList = [
-  { q: '2ac2613ac0944d46a439859680c40c48', a: 'A:沈梦辰' },
-  { q: '3015c6e3d4374627bd639d3fb16df287', a: 'B:大张伟' },
-  { q: '4b9d9886eac24a3188c26f7d9594add5', a: 'A:虎虎' },
-  { q: '54d0563ce5424fb5b75c4a29581173c9', a: 'B:蔡国庆' },
-  { q: '76a8c0b2d46e4ec495fe74c556ba6bb7', a: 'A:黄艺馨' },
-  { q: '78c6a42baa374299bd9290771268ba80', a: 'C:任贤齐' },
-  { q: 'dfd7acb0efb54487984ecfc9edee0cee', a: 'A:陈浩民' },
-  { q: 'f67e2bfefae34709971e4fabd961b0f5', a: 'B:王祖蓝' },
-  { q: 'fcff5670e2214eb099924b9b9bc1d355', a: 'B:张海宇' }
+  { q: '28f1ba1fa63c40fdb350b2bbf86dacb7', a: 'B:金靖' },
+  { q: '3d0f9bef43314552ba9137b6157584a9', a: 'B:白凯南' },
+  { q: '4fc4e9810f7a4fa1948de6e361d9cf2e', a: 'B:李维嘉' },
+  { q: '9e48fdb85b14410ab18754467034a330', a: 'B:瞿颖' },
+  { q: '9fb1e0b6c3114916a91e2fbb37f1a127', a: 'A:王琳' },
+  { q: 'a5e321821334491c87b6b32becc79c5b', a: 'A:倪萍' },
+  { q: 'bc520102bad14028b8246399927ad1e5', a: 'B:黄龄' },
+  { q: 'cb1f87f9925340a59d461944635a2a1a', a: 'C:张远' },
+  { q: 'd6539f6bc1bd49f8a233e70bbeaca0a6', a: 'A:王菊' }
 ]
 if ($.isNode()) {
   Object.keys(jdCookieNode).forEach((item) => {
