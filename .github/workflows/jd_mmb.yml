@@ -31,7 +31,7 @@ jobs:
       - name: '运行'
         run: |
           node jd_ms.js
-          node jd_bean_sign.yml
+          node jd_bean_sign.js
         env:
           JD_COOKIE: ${{ secrets.JD_COOKIE }}
           JD_DEBUG: ${{ secrets.JD_DEBUG }}
