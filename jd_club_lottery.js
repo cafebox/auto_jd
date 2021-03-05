@@ -1,5 +1,11 @@
 /*
-活动入口：京东APP首页-领京豆-摇京豆
+* @Author: LXK9301
+* @Date: 2020-11-03 20:35:07
+* @Last Modified by: LXK9301
+* @Last Modified time: 2020-11-23 12:27:09
+*/
+/*
+活动入口：京东APP首页-领京豆-摇京豆/京东APP首页-我的-京东会员-摇京豆
 更新时间:2020-10-12
 Modified from https://github.com/Zero-S1/JD_tools/blob/master/JD_vvipclub.py
 已支持IOS双京东账号,Node.js支持N个京东账号
@@ -14,6 +20,7 @@ cron "5 0 * * *" script-path=https://gitee.com/lxk0301/jd_scripts/raw/master/jd_
 =================Surge==============
 [Script]
 摇京豆 = type=cron,cronexp="5 0 * * *",wake-system=1,timeout=3600,script-path=https://gitee.com/lxk0301/jd_scripts/raw/master/jd_club_lottery.js
+
 ============小火箭=========
 摇京豆 = type=cron,script-path=https://gitee.com/lxk0301/jd_scripts/raw/master/jd_club_lottery.js, cronexpr="5 0 * * *", timeout=3600, enable=true
 */
@@ -31,13 +38,7 @@ if ($.isNode()) {
   })
   if (process.env.JD_DEBUG && process.env.JD_DEBUG === 'false') console.log = () => {};
 } else {
-  let cookiesData = $.getdata('CookiesJD') || "[]";
-  cookiesData = jsonParse(cookiesData);
-  cookiesArr = cookiesData.map(item => item.cookie);
-  cookiesArr.reverse();
-  cookiesArr.push(...[$.getdata('CookieJD2'), $.getdata('CookieJD')]);
-  cookiesArr.reverse();
-  cookiesArr = cookiesArr.filter(item => item !== "" && item !== null && item !== undefined);
+  cookiesArr = [$.getdata('CookieJD'), $.getdata('CookieJD2'), ...jsonParse($.getdata('CookiesJD') || "[]").map(item => item.cookie)].filter(item => !!item);
 }
 const JD_API_HOST = 'https://api.m.jd.com/client.action';
 !(async () => {
@@ -66,6 +67,7 @@ const JD_API_HOST = 'https://api.m.jd.com/client.action';
         continue
       }
       await clubLottery();
+      await shakeSign();
       await showMsg();
     }
   }
@@ -78,11 +80,15 @@ const JD_API_HOST = 'https://api.m.jd.com/client.action';
     })
 
 async function clubLottery() {
-  await doTasks();//做任务
-  await getFreeTimes();//获取摇奖次数
-  await vvipclub_receive_lottery_times();//新版：领取一次免费的机会
-  await vvipclub_shaking_info();//新版：查询多少次摇奖次数
-  await shaking();//开始摇奖
+  try {
+    await doTasks();//做任务
+    await getFreeTimes();//获取摇奖次数
+    await vvipclub_receive_lottery_times();//京东会员：领取一次免费的机会
+    await vvipclub_shaking_info();//京东会员：查询多少次摇奖次数
+    await shaking();//开始摇奖
+  } catch (e) {
+    $.logErr(e)
+  }
 }
 async function doTasks() {
   const browseTaskRes = await getTask('browseTask');
@@ -126,35 +132,40 @@ async function doTasks() {
 }
 async function shaking() {
   for (let i = 0; i < new Array($.leftShakingTimes).fill('').length; i++) {
-    console.log(`开始新版-摇奖`)
-    // await $.wait(500);
+    console.log(`开始 【京东会员】 摇奖`)
+    await $.wait(1000);
     const newShakeBeanRes = await vvipclub_shaking_lottery();
     if (newShakeBeanRes.success) {
-      console.log(`新版-剩余摇奖次数：${newShakeBeanRes.data.remainLotteryTimes}`)
+      console.log(`京东会员-剩余摇奖次数：${newShakeBeanRes.data.remainLotteryTimes}`)
       if (newShakeBeanRes.data && newShakeBeanRes.data.rewardBeanAmount) {
         $.prizeBeanCount += newShakeBeanRes.data.rewardBeanAmount;
-        console.log(`恭喜你，中奖了，获得${newShakeBeanRes.data.rewardBeanAmount}京豆\n`)
+        console.log(`恭喜你，京东会员中奖了，获得${newShakeBeanRes.data.rewardBeanAmount}京豆\n`)
       } else {
         console.log(`未中奖\n`)
       }
     }
   }
   for (let i = 0; i < new Array($.freeTimes).fill('').length; i++) {
-    console.log(`开始摇奖`)
+    console.log(`开始 【摇京豆】 摇奖`)
     await $.wait(1000);
     const shakeBeanRes = await shakeBean();
     if (shakeBeanRes.success) {
       console.log(`剩余摇奖次数：${shakeBeanRes.data.luckyBox.freeTimes}`)
       if (shakeBeanRes.data && shakeBeanRes.data.prizeBean) {
+        console.log(`恭喜你，中奖了，获得${shakeBeanRes.data.prizeBean.count}京豆\n`)
         $.prizeBeanCount += shakeBeanRes.data.prizeBean.count;
         $.totalBeanCount = shakeBeanRes.data.luckyBox.totalBeanCount;
+      } else if (shakeBeanRes.data && shakeBeanRes.data.prizeCoupon) {
+        console.log(`获得优惠券：${shakeBeanRes.data.prizeCoupon['limitStr']}\n`)
+      } else {
+        console.log(`摇奖其他未知结果：${JSON.stringify(shakeBeanRes)}\n`)
       }
     }
   }
 }
 function showMsg() {
   if ($.prizeBeanCount) {
-    $.msg(`${$.name}`, `京东账号${$.index} ${$.nickName}`, `【获得】${$.prizeBeanCount}京豆\n【账号总计】${$.totalBeanCount}京豆`);
+    $.msg(`${$.name}`, `京东账号${$.index} ${$.nickName}`, `获得${$.prizeBeanCount}京豆`);
   }
 }
 //====================API接口=================
@@ -183,7 +194,7 @@ function vvipclub_shaking_info() {
           data = JSON.parse(data);
           if (data.success) {
             $.leftShakingTimes = data.data.leftShakingTimes;//剩余抽奖次数
-            console.log(`新版——摇奖次数${$.leftShakingTimes}`);
+            console.log(`京东会员——摇奖次数${$.leftShakingTimes}`);
           }
         }
       } catch (e) {
@@ -194,7 +205,7 @@ function vvipclub_shaking_info() {
     })
   })
 }
-//新版摇奖API
+//京东会员摇奖API
 function vvipclub_shaking_lottery() {
   return new Promise(resolve => {
     const options = {
@@ -226,7 +237,7 @@ function vvipclub_shaking_lottery() {
     })
   })
 }
-//领取新版本摇一摇一次免费的次数
+//领取京东会员本摇一摇一次免费的次数
 function vvipclub_receive_lottery_times() {
   return new Promise(resolve => {
     const options = {
@@ -271,7 +282,7 @@ function getFreeTimes() {
           data = JSON.parse(data);
           if (data.success) {
             $.freeTimes = data.data.freeTimes;
-            console.log(`摇奖次数${$.freeTimes}`);
+            console.log(`摇京豆——摇奖次数${$.freeTimes}`);
           }
         }
       } catch (e) {
@@ -328,13 +339,58 @@ function shakeBean() {
           console.log(`\n${$.name}: API查询请求失败 ‼️‼️`)
           $.logErr(err);
         } else {
-          console.log(`摇奖结果:${data}`)
+          // console.log(`摇奖结果:${data}`)
           data = JSON.parse(data);
         }
       } catch (e) {
         $.logErr(e, resp);
       } finally {
         resolve(data);
+      }
+    })
+  })
+}
+async function shakeSign() {
+  let body = {"floorToken": "df6e1996-0f6f-4c29-92b9-22416fc1f68a", "dataSourceCode": "popUpInfo", "argMap": {}};
+  const res = await pg_interact_interface_invoke(body);
+  if (res.success && res.data) {
+    if (res['data']['popUpRemainTimes'] > 0) {
+      //可签到
+      body = {"floorToken":"f1d574ec-b1e9-43ba-aa84-b7a757f27f0e","dataSourceCode":"signIn","argMap":{"currSignCursor": res['data']['dayBeanAmount']}}
+      const signRes = await pg_interact_interface_invoke(body);
+      console.log(`京东会员第${res['data']['dayBeanAmount']}天签到结果；${JSON.stringify(signRes)}`)
+      if (signRes.success && signRes['data']) {
+        console.log(`京东会员第${res['data']['dayBeanAmount']}天签到成功。获得${signRes['data']['rewardVos'] && signRes['data']['rewardVos'][0]['jingBeanVo'] && signRes['data']['rewardVos'][0]['jingBeanVo']['beanNum']}京豆\n`)
+      }
+    } else {
+      console.log(`京东会员第${res['data']['dayBeanAmount'] - 1}天已经签到了`)
+    }
+  }
+}
+function pg_interact_interface_invoke(body) {
+  return new Promise(resolve => {
+    const options = {
+      url: `https://api.m.jd.com/?appid=sharkBean&functionId=pg_interact_interface_invoke&body=${escape(JSON.stringify(body))}`,
+      headers: {
+        'Cookie': cookie,
+        'Host': 'api.m.jd.com',
+        'User-Agent': $.isNode() ? (process.env.JD_USER_AGENT ? process.env.JD_USER_AGENT : (require('./USER_AGENTS').USER_AGENT)) : ($.getdata('JDUA') ? $.getdata('JDUA') : "jdapp;iPhone;9.2.2;14.2;%E4%BA%AC%E4%B8%9C/9.2.2 CFNetwork/1206 Darwin/20.1.0"),
+        'Referer': 'https://spa.jd.com',
+        'origin': 'https://spa.jd.com'
+      }
+    }
+    $.post(options, (err, resp, data) => {
+      try {
+        if (err) {
+          console.log(`\n${$.name}: API查询请求失败 ‼️‼️`)
+          $.logErr(err);
+        } else {
+          data = JSON.parse(data);
+        }
+      } catch (e) {
+        $.logErr(e, resp);
+      } finally {
+        resolve(data || {});
       }
     })
   })
@@ -366,7 +422,11 @@ function TotalBean() {
               $.isLogin = false; //cookie过期
               return
             }
-            $.nickName = data['base'].nickname;
+            if (data['retcode'] === 0) {
+              $.nickName = data['base'].nickname;
+            } else {
+              $.nickName = $.UserName
+            }
           } else {
             console.log(`京东服务器返回空数据`)
           }
