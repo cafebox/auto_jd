@@ -99,6 +99,7 @@ if ($.isNode()) {
       cookie = cookiesArr[i];
       if ($.tuanIds.length > 0) {
         await JoinTuan($.tuanIds[0]);
+        console.log($.tuanIds[0]);
       }
       await joinLeaderTuan();//参团
     }
