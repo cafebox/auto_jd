@@ -33,11 +33,12 @@ jobs:
       - name: npm install
         run: |
           npm install
-      - name: 'j11'
+      - name: '运行'
         run: |
-          node jx_sign.js
+          
           node jdczf.js
           node jdtqz.js
+          node jx_sign.js
           
         env:
           JD_COOKIE: ${{ secrets.JD_COOKIE }}
