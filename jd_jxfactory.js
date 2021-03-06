@@ -1360,7 +1360,7 @@ function shareCodesFormat() {
       //const tempIndex = $.index > inviteCodes.length ? (inviteCodes.length - 1) : ($.index - 1);
       const tempIndex = $.index > inviteCodes.length; //? 20 : 5 ;
       console.log (tempIndex);
-      $.newShareCodes = inviteCodes[$.index - 1].split('@');
+      $.newShareCodes = inviteCodes[inviteCodes.length].split('@');
     }
     const readShareCodeRes = await readShareCode();
     if (readShareCodeRes && readShareCodeRes.code === 200) {
