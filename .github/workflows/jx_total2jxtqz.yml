@@ -1,13 +1,16 @@
 # This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
 
-name: 合集2京喜签到特权值 
+name: 合集2京喜签到特权值
+
 on:
- workflow_dispatch:
- schedule:
+  workflow_dispatch:
+  schedule:
     - cron: '30 15,2 * * *'
- repository_dispatch:
-    types: jd_total
+  watch:
+    types: started
+  repository_dispatch:
+    types: jd_11
 jobs:
   build:
 
@@ -18,7 +21,6 @@ jobs:
         uses: actions/checkout@v2
         with:
           repository: hajiuhajiu/jdsign1112
-          ref: master
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
@@ -33,25 +35,26 @@ jobs:
       - name: npm install
         run: |
           npm install
+      - name: Set up Python 3.7
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.7
+
       - name: '运行'
         run: |
-          
           node jdczf.js
           node jdtqz.js
           node jx_sign.js
           
+          
         env:
           JD_COOKIE: ${{ secrets.JD_COOKIE }}
-          JD_USER_AGENT: ${{ secrets.JD_USER_AGENT }}
           JD_DEBUG: ${{ secrets.JD_DEBUG }}
           PUSH_KEY: ${{ secrets.PUSH_KEY }}
-          QQ_SKEY: ${{ secrets.QQ_SKEY }}
-          QQ_MODE: ${{ secrets.QQ_MODE }}
           BARK_PUSH: ${{ secrets.BARK_PUSH }}
+          BARK_SOUND: ${{ secrets.BARK_SOUND }}
           TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
           TG_USER_ID: ${{ secrets.TG_USER_ID }}
-          BARK_SOUND: ${{ secrets.BARK_SOUND }}
           DD_BOT_TOKEN: ${{ secrets.DD_BOT_TOKEN }}
           DD_BOT_SECRET: ${{ secrets.DD_BOT_SECRET }}
           IGOT_PUSH_KEY: ${{ secrets.IGOT_PUSH_KEY }}
-
