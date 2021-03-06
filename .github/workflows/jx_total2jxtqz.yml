@@ -38,6 +38,7 @@ jobs:
           node jd_sign.js
           node jdczf.js
           node jdtqz.js
+          
         env:
           JD_COOKIE: ${{ secrets.JD_COOKIE }}
           JD_USER_AGENT: ${{ secrets.JD_USER_AGENT }}
