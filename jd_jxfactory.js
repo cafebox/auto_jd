@@ -40,7 +40,7 @@ const randomCount = $.isNode() ? 20 : 5;
 let tuanActiveId = `MUdRsCXI13_DDYMcnD8v7g==`;  
 const jxOpenUrl = `openjd://virtual?params=%7B%20%22category%22:%20%22jump%22,%20%22des%22:%20%22m%22,%20%22url%22:%20%22https://wqsd.jd.com/pingou/dream_factory/index.html%22%20%7D`;
 let cookiesArr = [], cookie = '', message = '';
-const inviteCodes = ['LAxdowQnMU3ox65OdwNwZA==@N8QdMHreY_pd7rIHq9zlFw==@LAxdowQnMU3ox65OdwNwZA==@7UFJoyEFc-k42Yrnh_-gEA==@F-LnusDb7uc82e3xbgcq7g==@J10ATl44ExfgWBueXVbrhQ==@T0205KkcIE9Qpw2NX0Wv3ZVRCjVWnYaS5kRrbA@CJvUmDW5_In4nqFPr7BkVg=='
+const inviteCodes = ['N8QdMHreY_pd7rIHq9zlFw==@LAxdowQnMU3ox65OdwNwZA==@7UFJoyEFc-k42Yrnh_-gEA==@F-LnusDb7uc82e3xbgcq7g==@J10ATl44ExfgWBueXVbrhQ==@T0205KkcIE9Qpw2NX0Wv3ZVRCjVWnYaS5kRrbA@CJvUmDW5_In4nqFPr7BkVg=='
 ];
 const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
 $.tuanIds = [];
@@ -99,7 +99,6 @@ if ($.isNode()) {
       cookie = cookiesArr[i];
       if ($.tuanIds.length > 0) {
         await JoinTuan($.tuanIds[0]);
-        console.log($.tuanIds[0]);
       }
       await joinLeaderTuan();//参团
     }
@@ -153,12 +152,12 @@ function collectElectricity(facId = $.factoryId, help = false, master) {
             if (data['ret'] === 0) {
               if (help) {
                 $.ele += Number(data.data['loginPinCollectElectricity'])
-                //console.log(`帮助好友收取 ${data.data['CollectElectricity']} 电力，获得 ${data.data['loginPinCollectElectricity']} 电力`);
-                //message += `【帮助好友】帮助成功，获得 ${data.data['loginPinCollectElectricity']} 电力\n`
+                console.log(`帮助好友收取 ${data.data['CollectElectricity']} 电力，获得 ${data.data['loginPinCollectElectricity']} 电力`);
+                message += `【帮助好友】帮助成功，获得 ${data.data['loginPinCollectElectricity']} 电力\n`
               } else {
                 $.ele += Number(data.data['CollectElectricity'])
-                //console.log(`收取 ${data.data['CollectElectricity']} 电力`);
-               // message += `【收取发电站】收取成功，获得 ${data.data['CollectElectricity']} 电力\n`
+                console.log(`收取 ${data.data['CollectElectricity']} 电力`);
+                message += `【收取发电站】收取成功，获得 ${data.data['CollectElectricity']} 电力\n`
               }
             } else {
               if (help) {
@@ -413,7 +412,7 @@ function assistFriend(sharepin) {
       try {
         if (err) {
           console.log(`${JSON.stringify(err)}`)
-          console.log(`${$.name} API请求失败，请检查网路重试help`)
+          console.log(`${$.name} API请求失败，请检查网路重试`)
         } else {
           if (safeGet(data)) {
             data = JSON.parse(data);
@@ -702,7 +701,7 @@ async function PickUp(encryptPin = $.encryptPin, help = false) {
     const { componentList } = GetUserComponentRes['data'];
     if (componentList && componentList.length <= 0) {
       if (help) {
-        // $.log(`好友【${encryptPin}】地下暂无零件可收`)
+        $.log(`好友【${encryptPin}】地下暂无零件可收`)
       } else {
         $.log(`自家地下暂无零件可收`)
       }
@@ -715,7 +714,7 @@ async function PickUp(encryptPin = $.encryptPin, help = false) {
         if (PickUpComponentRes['ret'] === 0) {
           const data = PickUpComponentRes['data'];
           if (help) {
-            // console.log(`收取好友[${encryptPin}]零件成功:获得${data['increaseElectric']}电力\n`);
+            console.log(`收取好友[${encryptPin}]零件成功:获得${data['increaseElectric']}电力\n`);
             $.pickFriendEle += data['increaseElectric'];
           } else {
             console.log(`收取自家零件成功:获得${data['increaseElectric']}电力\n`);
@@ -723,7 +722,7 @@ async function PickUp(encryptPin = $.encryptPin, help = false) {
           }
         } else {
           if (help) {
-            // console.log(`收好友[${encryptPin}]零件失败：${PickUpComponentRes.msg},直接跳出`)
+            console.log(`收好友[${encryptPin}]零件失败：${PickUpComponentRes.msg},直接跳出`)
           } else {
             console.log(`收自己地下零件失败：${PickUpComponentRes.msg},直接跳出`);
             $.pickUpMyselfComponent = false;
@@ -1331,7 +1330,7 @@ function readShareCode() {
       try {
         if (err) {
           console.log(`${JSON.stringify(err)}`)
-          console.log(`${$.name} API请求失败，请检查网路重试哈哈哈`)
+          console.log(`${$.name} API请求失败，请检查网路重试`)
         } else {
           if (data) {
             console.log(`随机取${randomCount}个码放到您固定的互助码后面(不影响已有固定互助)`)
@@ -1354,12 +1353,10 @@ function shareCodesFormat() {
     // console.log(`第${$.index}个京东账号的助力码:::${$.shareCodesArr[$.index - 1]}`)
     $.newShareCodes = [];
     if ($.shareCodesArr[$.index - 1]) {
-      $.newShareCodes = inviteCodes[10].split('@');
+      $.newShareCodes = $.shareCodesArr[$.index - 1].split('@');
     } else {
       console.log(`由于您第${$.index}个京东账号未提供shareCode,将采纳本脚本自带的助力码\n`)
-      //const tempIndex = $.index > inviteCodes.length ? (inviteCodes.length - 1) : ($.index - 1);
-      const tempIndex = $.index > inviteCodes.length; //? 20 : 5 ;
-      console.log (tempIndex);
+      const tempIndex = $.index > inviteCodes.length ? (inviteCodes.length - 1) : ($.index - 1);
       $.newShareCodes = inviteCodes[tempIndex].split('@');
     }
     const readShareCodeRes = await readShareCode();
