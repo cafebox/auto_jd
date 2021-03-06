@@ -35,7 +35,7 @@ jobs:
           npm install
       - name: 'j11'
         run: |
-          node jd_sign.js
+          node jx_sign.js
           node jdczf.js
           node jdtqz.js
           
