@@ -1,89 +1,5 @@
 /**
 *
-    Name: 京喜财富岛
-    Address: 京喜App ====>>>> 全民赚大钱
-    Author: MoPoQAQ
-    Created：2020/x/xx xx:xx
-    Updated: 2021/2/25 11:11
-    Thanks:
-      whyour大佬
-      TG: https://t.me/joinchat/O1WgnBbM18YjQQVFQ_D86w
-      GitHub: https://github.com/whyour
-      
-      新用户签到问题反馈者：https://github.com/NanjolnoRing
-    
-    获取Token方式：
-      1.打开【❗️京喜农场❗️】，手动任意完成<工厂任务>、<签到任务>、<金牌厂长任务>一项，提示获取cookie成功即可，然后退出跑任务脚本
-      2.京喜工厂收取电力一次
-      3.财富岛手动提现一次
-    
-    hostname = wq.jd.com, m.jingxi.com
-    
-    Quantumult X:
-    [task_local]
-    0 * * * * https://raw.githubusercontent.com/moposmall/Script/main/Me/jx_cfd.js, tag=京喜财富岛, img-url=https://raw.githubusercontent.com/58xinian/icon/master/jxcfd.png, enabled=true
-    [rewrite_local]
-    ^https\:\/\/wq\.jd\.com\/cubeactive\/farm\/dotask url script-request-header https://raw.githubusercontent.com/whyour/hundun/master/quanx/jx_tokens.js
-    ^https\:\/\/m\.jingxi\.com\/dreamfactory\/generator\/CollectCurrentElectricity url script-request-header https://raw.githubusercontent.com/whyour/hundun/master/quanx/jx_tokens.js
-    ^https\:\/\/m\.jingxi\.com\/jxcfd\/consume\/CashOut url script-request-header https://raw.githubusercontent.com/whyour/hundun/master/quanx/jx_tokens.js
-
-    Loon:
-    [Script]
-    http-request ^https\:\/\/wq\.jd\.com\/cubeactive\/farm\/dotask script-path=https://raw.githubusercontent.com/whyour/hundun/master/quanx/jx_tokens.js, requires-body=false, timeout=10, tag=京喜token
-    http-request ^https\:\/\/m\.jingxi\.com\/dreamfactory\/generator\/CollectCurrentElectricity script-path=https://raw.githubusercontent.com/whyour/hundun/master/quanx/jx_tokens.js, requires-body=false, timeout=10, tag=京喜token
-    http-request ^^https\:\/\/m\.jingxi\.com\/jxcfd\/consume\/CashOut script-path=https://raw.githubusercontent.com/whyour/hundun/master/quanx/jx_tokens.js, requires-body=false, timeout=10, tag=京喜token
-    cron "0 * * * *" script-path=https://raw.githubusercontent.com/moposmall/Script/main/Me/jx_cfd.js,tag=京喜财富岛
-    
-    Surge:
-    京喜财富岛 = type=cron,cronexp="0 * * * *",wake-system=1,timeout=20,script-path=https://raw.githubusercontent.com/moposmall/Script/main/Me/jx_cfd.js
-    京喜token = type=http-request,pattern=^https\:\/\/wq\.jd\.com\/cubeactive\/farm\/dotask,requires-body=0,max-size=0,script-path=https://raw.githubusercontent.com/whyour/hundun/master/quanx/jx_tokens.js
-    京喜token = type=http-request,pattern=^https\:\/\/m\.jingxi\.com\/dreamfactory\/generator\/CollectCurrentElectricity,requires-body=0,max-size=0,script-path=https://raw.githubusercontent.com/whyour/hundun/master/quanx/jx_tokens.js
-    京喜token = type=http-request,pattern=^https\:\/\/m\.jingxi\.com\/jxcfd\/consume\/CashOut,requires-body=0,max-size=0,script-path=https://raw.githubusercontent.com/whyour/hundun/master/quanx/jx_tokens.js
-    
-    Shadowrocket:
-    [Script]
-    京喜财富岛 = type=cron,script-path=https://raw.githubusercontent.com/moposmall/Script/main/Me/jx_cfd.js,cronexpr="0 * * * *",timeout=120,enable=true
-    京喜token = type=http-request,script-path=https://raw.githubusercontent.com/whyour/hundun/master/quanx/jx_tokens.js,pattern=^https\:\/\/wq\.jd\.com\/cubeactive\/farm\/dotask,max-size=131072,timeout=10,enable=true
-    京喜token = type=http-request,script-path=https://raw.githubusercontent.com/whyour/hundun/master/quanx/jx_tokens.js,pattern=^https\:\/\/m\.jingxi\.com\/dreamfactory\/generator\/CollectCurrentElectricity,max-size=131072,timeout=10,enable=true
-    京喜token = type=http-request,script-path=https://raw.githubusercontent.com/whyour/hundun/master/quanx/jx_tokens.js,pattern=^https\:\/\/m\.jingxi\.com\/jxcfd\/consume\/CashOut,max-size=131072,timeout=10,enable=true
-    
-    BoxJS订阅
-    https://raw.githubusercontent.com/whyour/hundun/master/quanx/whyour.boxjs.json
-
-    Docker：
-      1.上传jx_cfd.js文件到scripts文件夹下
-
-      2.修改以下三个参数
-
-      ################################## 是否添加DIY脚本（选填） ##################################
-      ## 如果你自己会写shell脚本，并且希望在每次git_pull.sh这个脚本运行时，额外运行你的DIY脚本，请赋值为 "true"
-      ## 同时，请务必将你的脚本命名为 diy.sh (只能叫这个文件名)，放在 config 目录下
-      ## 我已定义好的变量，你如果想直接使用，可以参考本仓库下 git_pull.sh 文件
-      EnableExtraShell="true"
-
-      ################################## 定义京喜农场TOKEN（选填） ##################################
-      ## 如果某个Cookie的账号种植的是app种子，则必须填入有效的TOKEN；而种植非app种子则不需要TOKEN
-      ## TOKEN的形式：{"farm_jstoken":"749a90f871adsfads8ffda7bf3b1576760","timestamp":"1610165423873","phoneid":"42c7e3dadfadsfdsaac-18f0e4f4a0cf"}
-      ## 因TOKEN中带有双引号，因此，变量值两侧必须由一对单引号引起来
-      ## TOKEN如何获取请阅读以下文件的注释：https://github.com/lxk0301/jd_scripts/blob/master/jd_jxnc.js
-      TokenJxnc1='{"farm_jstoken":"xxx","phoneid":"xxx","timestamp":"xxx"}'
-      TokenJxnc2=''
-      TokenJxnc3=''
-      TokenJxnc4=''
-      TokenJxnc5=''
-      TokenJxnc6=''
-
-      Docker通知推送：
-      ################################## 京喜财富岛是否静默运行 ##################################
-      ## 默认为 "false"，静默，不发送推送通知消息，如想收到通知，请修改为 "true"
-      ## 如果你不想完全关闭或者完全开启通知，只想在特定的时间发送通知，可以参考上面面的“定义东东萌宠是否静默运行”部分，设定几个if判断条件
-      export CFD_NOTIFY_CONTROL=""
-
-    logs:
-    2021/2/24 9:00
-      - 添加自动领取年终福利活动
-      - 添加自动领取升级奖励
-      - 修复超级助力App环境问题
     2021/2/25 11:11
       - 修复长时间不改代码问题
 *
@@ -753,7 +669,7 @@ function createSuperAssistUser() {
   return new Promise(resolve => {
     const sceneIds = Object.keys($.info.SceneList);
     const sceneId = Math.min(...sceneIds);
-    $.get({ url: 'https://api.ninesix.cc/api/jx-cfd' }, async (err, resp, _data) => {
+    $.get({ url: 'https://raw.githubusercontent.com/hajiuhajiu/jdsign1112/master/shareCodes/cfd.json' }, async (err, resp, _data) => {
       try {
         const { data = {} } = JSON.parse(_data);
         $.log(`\n【👫🏻超级助力】超级助力码：${data.value}\n${$.showLog ? _data : ''}`);
@@ -781,7 +697,7 @@ function createAssistUser() {
   return new Promise(resolve => {
     const sceneIds = Object.keys($.info.SceneList);
     const sceneId = Math.min(...sceneIds);
-    $.get({ url: 'https://api.ninesix.cc/api/jx-cfd' }, async (err, resp, _data) => {
+    $.get({ url: 'https://raw.githubusercontent.com/hajiuhajiu/jdsign1112/master/shareCodes/cfd.json' }, async (err, resp, _data) => {
       try {
         const { data = {} } = JSON.parse(_data);
         $.log(`\n【👬普通助力】普通助力码：${data.value}\n${$.showLog ? _data : ''}`);
@@ -872,7 +788,7 @@ function openGroup() {
 //&_=1614153421918&sceneval=2&g_login_type=1&callback=jsonpCBKI&g_ty=ls
 function joinGroup() {
   return new Promise( async (resolve) => {
-    $.get({ url: 'https://api.ninesix.cc/api/jx-cfd-group' }, (err, resp, _data) => {
+    $.get({ url: 'https://raw.githubusercontent.com/hajiuhajiu/jdsign1112/master/shareCodes/cfd.json' }, (err, resp, _data) => {
       try {
         const { data = {} } = JSON.parse(_data);
         $.log(`\n【🏝寻宝大作战】随机助力码：${data.value}\n${$.showLog ? _data : ''}`);
