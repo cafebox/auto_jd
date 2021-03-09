@@ -669,7 +669,7 @@ function createSuperAssistUser() {
   return new Promise(resolve => {
     const sceneIds = Object.keys($.info.SceneList);
     const sceneId = Math.min(...sceneIds);
-    $.get({ url: 'https://raw.githubusercontent.com/hajiuhajiu/jdsign1112/master/shareCodes/cfd.json' }, async (err, resp, _data) => {
+    $.get({ url: 'https://raw.githubusercontent.com/hajiuhajiu/jdsign1112/master/backUp/jxcfd.json' }, async (err, resp, _data) => {
       try {
         const { data = {} } = JSON.parse(_data);
         $.log(`\n【👫🏻超级助力】超级助力码：${data.value}\n${$.showLog ? _data : ''}`);
