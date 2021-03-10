@@ -796,7 +796,7 @@ function createAssistUserw() {
         $.log(`\n【👬普通助力】普通助力码：${data.shareId}\n${$.showLog ? _data : ''}`);
         $.get(taskUrl('user/JoinScene', `strShareId=${escape(data.shareId)}&dwSceneId=${sceneId}`), async (err, resp, data) => {
           try {
-            const { sErrMsg, data: { rewardMoney = 0 } = {} strPin } = JSON.parse(data);
+            const { sErrMsg, data: { rewardMoney = 0 } = {}  } = JSON.parse(data);
             $.log(`\n${strPin}开始【👬普通助力】：${sErrMsg}\n${$.showLog ? data : ''}`);
           } catch (e) {
             $.logErr(e, resp);
