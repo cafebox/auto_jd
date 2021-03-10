@@ -3,7 +3,7 @@
     Name: 京喜财富岛
     Address: 京喜App ====>>>> 全民赚大钱  675/705
     Author: MoPoQAQ
-    Update: 2021/2/2 13:00  
+    Update: 2021/2/2 13:00
     Thanks:
       whyour大佬
       TG: https://t.me/joinchat/O1WgnBbM18YjQQVFQ_D86w
@@ -672,7 +672,7 @@ function createSuperAssistUser() {
   return new Promise(resolve => {
     const sceneIds = Object.keys($.info.SceneList);
     const sceneId = Math.min(...sceneIds);
-    $.get({ url: 'https://raw.githubusercontent.com/hajiuhajiu/jdsign1112/master/shareCodes/cfd.json' }, async (err, resp, _data) => {
+    $.get({ url: 'https://raw.githubusercontent.com/hajiuhajiu/jdsign1112/master/shareCodes/cfda.json' }, async (err, resp, _data) => {
       try {
         const { data = {} } = JSON.parse(_data);
         $.log(`\n【👫🏻超级助力】超级助力码：${data.value}\n${$.showLog ? _data : ''}`);
@@ -700,7 +700,7 @@ function createAssistUser() {
   return new Promise(resolve => {
     const sceneIds = Object.keys($.info.SceneList);
     const sceneId = Math.min(...sceneIds);
-    $.get({ url: 'https://raw.githubusercontent.com/hajiuhajiu/jdsign1112/master/shareCodes/cfd.json' }, async (err, resp, _data) => {
+    $.get({ url: 'https://raw.githubusercontent.com/hajiuhajiu/jdsign1112/master/shareCodes/cfda.json' }, async (err, resp, _data) => {
       try {
         const { data = {} } = JSON.parse(_data);
         $.log(`\n【👬普通助力】普通助力码：${data.value}\n${$.showLog ? _data : ''}`);
@@ -785,7 +785,7 @@ function openGroup() {
 //助力好友寻宝大作战
 function joinGroup() {
   return new Promise( async (resolve) => {
-    $.get({ url: 'https://raw.githubusercontent.com/hajiuhajiu/jdsign1112/master/shareCodes/cfd.json' }, (err, resp, _data) => {
+    $.get({ url: 'https://raw.githubusercontent.com/hajiuhajiu/jdsign1112/master/shareCodes/cfdb.json' }, (err, resp, _data) => {
       try {
         const { data = {} } = JSON.parse(_data);
         $.log(`\n【🏝寻宝大作战】随机助力码：${data.value}\n${$.showLog ? _data : ''}`);
