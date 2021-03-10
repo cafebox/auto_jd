@@ -53,3 +53,16 @@ jobs:
           DD_BOT_TOKEN: ${{ secrets.DD_BOT_TOKEN }}
           DD_BOT_SECRET: ${{ secrets.DD_BOT_SECRET }}
           IGOT_PUSH_KEY: ${{ secrets.IGOT_PUSH_KEY }}
+      - name: commit
+        run: |
+          git config --global user.name hajiuhajiu
+          git config --global user.email 2705322732@qq.com
+          git add .
+          git commit -m "update by  Github Action" -a || echo "Nothing to update"
+        
+    
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.TOKEN }}
+          branch: master  
