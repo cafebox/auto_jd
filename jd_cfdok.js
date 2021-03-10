@@ -19,7 +19,7 @@ $.tokenArr = [];
 $.currentToken = {};
 $.allTask = [];
 $.info = {};
-let superInvites = [`07E8BD1DDEF55ECD7B79CEC148F138A1726FC12185E5A9EFC6C8F3571C12882A`,`CA4FBDC98A13E0058546377ABB2358FC4D1CC436156204764BDB2F16F45E03A6`,`D2B2BDD4CC704C9FF73849C46E630F0186C30BEEC932644F3F12BC720A7690ED`,`ED617C1E01B263F6A156720C16462D528096BEFF86BE2B2D093E8E463C9EBBA4`];
+let superInvites = [`E159DA144E8B1C4E2C6F8504CC683E719CB6DE5EF29B9D1607C4683A5542D781`,`CA4FBDC98A13E0058546377ABB2358FC2A5E58912300C87A36DFF2FD6197B079`,`D2B2BDD4CC704C9FF73849C46E630F0109AD93F41E3D7AF7DF27C82B20EA9C87`,`ED617C1E01B263F6A156720C16462D52D9BC5D3D86215ABCC728C6E0F85E4BA6`];
 
 !(async () => {
   if (!getCookies()) return;
@@ -669,7 +669,7 @@ function createSuperAssistUser() {
   return new Promise(resolve => {
     const sceneIds = Object.keys($.info.SceneList);
     const sceneId = Math.min(...sceneIds);
-    $.get({ url: 'https://raw.githubusercontent.com/hajiuhajiu/jdsign1112/master/backUp/jxcfd.json' }, async (err, resp, _data) => {
+    $.get({ url: 'https://raw.githubusercontent.com/hajiuhajiu/jdsign1112/master/shareCodes/cfd.json' }, async (err, resp, _data) => {
       try {
         const { data = {} } = JSON.parse(_data);
         $.log(`\n【👫🏻超级助力】超级助力码：${data.value}\n${$.showLog ? _data : ''}`);
@@ -697,7 +697,7 @@ function createAssistUser() {
   return new Promise(resolve => {
     const sceneIds = Object.keys($.info.SceneList);
     const sceneId = Math.min(...sceneIds);
-    $.get({ url: 'https://raw.githubusercontent.com/hajiuhajiu/jdsign1112/master/backUp/jxcfd.json' }, async (err, resp, _data) => {
+    $.get({ url: 'https://raw.githubusercontent.com/hajiuhajiu/jdsign1112/master/shareCodes/cfd.json' }, async (err, resp, _data) => {
       try {
         const { data = {} } = JSON.parse(_data);
         $.log(`\n【👬普通助力】普通助力码：${data.value}\n${$.showLog ? _data : ''}`);
@@ -788,7 +788,7 @@ function openGroup() {
 //&_=1614153421918&sceneval=2&g_login_type=1&callback=jsonpCBKI&g_ty=ls
 function joinGroup() {
   return new Promise( async (resolve) => {
-    $.get({ url: 'https://raw.githubusercontent.com/hajiuhajiu/jdsign1112/master/backUp/jxcfd.json' }, (err, resp, _data) => {
+    $.get({ url: 'https://raw.githubusercontent.com/hajiuhajiu/jdsign1112/master/shareCodes/cfd.json' }, (err, resp, _data) => {
       try {
         const { data = {} } = JSON.parse(_data);
         $.log(`\n【🏝寻宝大作战】随机助力码：${data.value}\n${$.showLog ? _data : ''}`);
