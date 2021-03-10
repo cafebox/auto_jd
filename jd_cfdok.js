@@ -1,7 +1,27 @@
 /**
 *
-    2021/2/25 11:11  github_moposmall_Script-main
-      - 修复长时间不改代码问题
+    Name: 京喜财富岛
+       
+    
+
+      ################################## 定义京喜农场TOKEN（选填） ##################################
+      ## 如果某个Cookie的账号种植的是app种子，则必须填入有效的TOKEN；而种植非app种子则不需要TOKEN
+      ## TOKEN的形式：{"farm_jstoken":"749a90f871adsfads8ffda7bf3b1576760","timestamp":"1610165423873","phoneid":"42c7e3dadfadsfdsaac-18f0e4f4a0cf"}
+      ## 因TOKEN中带有双引号，因此，变量值两侧必须由一对单引号引起来
+      ## TOKEN获取方式：用抓包软件----惊喜农场做个浇水任务----然后转包软件搜索farm_jstoken（URL：https://wq.jd.com/cubeactive/farm/dotask）
+
+      TokenJxnc1='{"farm_jstoken":"xxx","phoneid":"xxx","timestamp":"xxx"}'
+      TokenJxnc2=''
+      TokenJxnc3=''
+      TokenJxnc4=''
+      TokenJxnc5=''
+      TokenJxnc6=''
+
+      Docker通知推送：
+      ################################## 京喜财富岛是否静默运行 ##################################
+      ## 默认为 "false"，静默，不发送推送通知消息，如想收到通知，请修改为 "true"
+      ## 如果你不想完全关闭或者完全开启通知，只想在特定的时间发送通知，可以参考上面面的“定义东东萌宠是否静默运行”部分，设定几个if判断条件
+      export CFD_NOTIFY_CONTROL=""
 *
 **/
 
@@ -19,7 +39,8 @@ $.tokenArr = [];
 $.currentToken = {};
 $.allTask = [];
 $.info = {};
-let superInvites = [`E159DA144E8B1C4E2C6F8504CC683E719CB6DE5EF29B9D1607C4683A5542D781`,`CA4FBDC98A13E0058546377ABB2358FC2A5E58912300C87A36DFF2FD6197B079`,`D2B2BDD4CC704C9FF73849C46E630F0109AD93F41E3D7AF7DF27C82B20EA9C87`,`ED617C1E01B263F6A156720C16462D52D9BC5D3D86215ABCC728C6E0F85E4BA6`];
+let superInvites = ["D01370846B627306207E97CEB6D82378A3A381AD6E95C0368BE81D676A9B326B","CA4FBDC98A13E0058546377ABB2358FC01C254A2A940EFA56B34A834F8DEA7E5","D2B2BDD4CC704C9FF73849C46E630F0134235F410FDB1E718A819F1A885E843E","ED617C1E01B263F6A156720C16462D5247CA88603814B5250143508E4F31FD1D","6E72BA807EDB873131F38DCBB8F233F4749855FCA56BE5FD488BB39392616C75","1B50293E6D692A384607EF19B6BA40DEE8E7D68A00FE677640E07EA9EC9F2BCA","752380E1912BAA6F70E871A6BF1357B00A84B7942B09129E9DC510F5D765BCB3","A7E82FA259076C41B8995EF867D3C533A11B181B8FBBF38D8B18C0EF9985E283"];
+let groupInvites = {};
 
 !(async () => {
   if (!getCookies()) return;
@@ -30,9 +51,9 @@ let superInvites = [`E159DA144E8B1C4E2C6F8504CC683E719CB6DE5EF29B9D1607C4683A554
     if ($.currentCookie) {
       $.userName = decodeURIComponent($.currentCookie.match(/pt_pin=(.+?);/) && $.currentCookie.match(/pt_pin=(.+?);/)[1]);
       $.index = i + 1;
-      $.nickName = '';
-      
+      $.nickName = '';      
       $.log(`\n开始【京东账号${i + 1}】${$.userName}`);
+
 
       const beginInfo = await getUserInfo();
          
@@ -83,24 +104,46 @@ let superInvites = [`E159DA144E8B1C4E2C6F8504CC683E719CB6DE5EF29B9D1607C4683A554
         `【💵财富值】净增值: ${endInfo.ddwMoney - beginInfo.ddwMoney}`
       );
 
-      //出岛寻宝大作战
-      await $.wait(500);
-      await submitGroupId();
-      await $.wait(500);
-      await joinGroup();
       //提交邀请码
       await $.wait(500);
       await submitInviteId($.userName);
-      //超级助力
+
+      //出海寻宝 
       await $.wait(500);
-      await createSuperAssistUser();
-      //普通助力
-      await $.wait(500);
-      await createAssistUser();
+      await submitGroupId();     
     }
   }
-  await $.wait(500);
-  await showMsg();
+  //助力类  
+  await console.log(`\n\n开始助力`);
+
+  for(let j = 0; j < $.cookieArr.length; j++) {
+    $.currentCookie = $.cookieArr[j];
+    $.currentToken = $.tokenArr[j];
+    if($.currentCookie){
+      $.userName = decodeURIComponent($.currentCookie.match(/pt_pin=(.+?);/)) && $.currentCookie.match(/pt_pin=(.+?);/[1]);
+      $.index = j +1;
+      $.nickName = '';      
+      // 出海寻宝 喊好友帮忙加里程
+      await $.wait(500);
+      await await joinGroup(); 
+
+       //超级助力
+       await  $.wait(500);
+       await createSuperAssistUser();
+	   await  $.wait(500);
+       await createSuperAssistUserw();
+
+       //普通助力
+       await $.wait(500);
+       await createAssistUser();    
+       await $.wait(500);
+       await createAssistUserw(); 	   
+    }
+  }
+  // //通知
+  // await $.wait(500);
+  // await showMsg();
+
 })()
   .catch((e) => $.logErr(e))
   .finally(() => $.done());
@@ -271,6 +314,7 @@ function getMoney_dwSource_3( _key, sceneList ) {
         try {
           const { iRet, dwMoney, sErrMsg, strPin } = JSON.parse(data);
           $.log(`\n【${sceneList[_key].strSceneName}】👬好友: ${ sErrMsg == 'success' ? `获取超级助力财富值：¥ ${dwMoney || 0}` : sErrMsg } \n${$.showLog ? data : ""}`);
+          await $.wait(500);
         } catch (e) {
           $.logErr(e, resp);
         } finally {
@@ -630,7 +674,7 @@ function soltMachine(strCouponPool,strGoodsPool,ddwConfVersion) {
   });
 }
 
-//提交互助码
+//超级助力与普通助力提交互助码
 function submitInviteId(userName) {
   return new Promise(resolve => {
     if (!$.info || !$.info.strMyShareId) {
@@ -645,9 +689,9 @@ function submitInviteId(userName) {
       async (err, resp, _data) => {
         try {
           const { data = {}, code } = JSON.parse(_data);
-          $.log(`\n【🏖岛主】邀请码提交：${code}\n${$.showLog ? _data : ''}`);
+          $.log(`\n【🏖出海寻宝】邀请码提交：${code}\n${$.showLog ? _data : ''}`);
           if (data.value) {
-            $.result.push('【🏖岛主】邀请码提交成功！');
+            $.result.push(`${$.userName}:【🏖超级助力】邀请码提交成功！`);
           }
         } catch (e) {
           $.logErr(e, resp);
@@ -659,24 +703,46 @@ function submitInviteId(userName) {
   });
 }
 
-//随机超级助力好友
-//user/JoinScene
-//strZone=jxcfd&bizCode=jxcfd&source=jxcfd&dwEnv=7&_cfd_t=1614129401306&ptag=&
-//strShareId=90A15070F26FE5335C0DD5B80BC737B570EE3333E55C6586B913301C30BBD298&dwSceneId=1001&dwType=2
-//&strPgtimestamp=1614129401239&strPhoneID=1fdab515ff3293f7fa8979661e521458d5a7a0b3&strPgUUNum=5e9a1cf37e0ad6fbe634840fcfe0ebb3
-//&_stk=_cfd_t%2CbizCode%2CdwEnv%2CdwSceneId%2CdwType%2Cptag%2Csource%2CstrPgUUNum%2CstrPgtimestamp%2CstrPhoneID%2CstrShareId%2CstrZone
-function createSuperAssistUser() {
+
+//循环超级助力好友
+async function createSuperAssistUser() {  
+  for (let superInvite of superInvites) {
+    if (!superInvite) continue
+    await createSuperAssistUsers(superInvite)
+    await $.wait(Math.random() * 1000 + 2000)
+  }
+}
+
+// 超级助力好友
+function createSuperAssistUsers(superInvite) {
+  return new Promise(resolve => {
+    const sceneIds = Object.keys($.info.SceneList);
+    const sceneId = Math.min(...sceneIds);            
+        $.get(taskUrl('user/JoinScene', `strPgtimestamp=${$.currentToken['timestamp']}&strPhoneID=${$.currentToken['phoneid']}&strPgUUNum=${$.currentToken['farm_jstoken']}&strShareId=${escape(superInvite)}&dwSceneId=${sceneId}&dwType=2&_stk=_cfd_t%2CbizCode%2CdwEnv%2CdwSceneId%2CdwType%2Cptag%2Csource%2CstrPgUUNum%2CstrPgtimestamp%2CstrPhoneID%2CstrShareId%2CstrZone`), async (err, resp, data) => {
+          try {
+            const { sErrMsg, data: { rewardMoney = 0 } = {},strPin } = JSON.parse(data);                     
+            $.log(`\n${strPin}开始【👫🏻超级助力】：${sErrMsg}\n${$.showLog ? data : ''}`);            
+          } catch (e) {
+            $.logErr(e, resp);
+          } finally {
+            resolve();
+          }
+        });      
+});
+}
+//9999添加其它脚本 
+function createSuperAssistUserw() {
   return new Promise(resolve => {
     const sceneIds = Object.keys($.info.SceneList);
     const sceneId = Math.min(...sceneIds);
-    $.get({ url: 'https://raw.githubusercontent.com/hajiuhajiu/jdsign1112/master/backUp/jxcfd.json' }, async (err, resp, _data) => {
+    $.get({ url: 'https://raw.githubusercontent.com/hajiuhajiu/jdsign1112/master/shareCodes/cfd.json' }, async (err, resp, _data) => {
       try {
         const { data = {} } = JSON.parse(_data);
-        $.log(`\n【👫🏻超级助力】超级助力码：${data.value}\n${$.showLog ? _data : ''}`);
-        $.get(taskUrl('user/JoinScene', `strPgtimestamp=${$.currentToken['timestamp']}&strPhoneID=${$.currentToken['phoneid']}&strPgUUNum=${$.currentToken['farm_jstoken']}&strShareId=${escape(data.value)}&dwSceneId=${sceneId}&dwType=2&_stk=_cfd_t%2CbizCode%2CdwEnv%2CdwSceneId%2CdwType%2Cptag%2Csource%2CstrPgUUNum%2CstrPgtimestamp%2CstrPhoneID%2CstrShareId%2CstrZone`), async (err, resp, data) => {
+        $.log(`\n【👫🏻超级助力】超级助力码：${data.shareId}\n${$.showLog ? _data : ''}`);
+        $.get(taskUrl('user/JoinScene', `strPgtimestamp=${$.currentToken['timestamp']}&strPhoneID=${$.currentToken['phoneid']}&strPgUUNum=${$.currentToken['farm_jstoken']}&strShareId=${escape(data.shareId)}&dwSceneId=${sceneId}&dwType=2&_stk=_cfd_t%2CbizCode%2CdwEnv%2CdwSceneId%2CdwType%2Cptag%2Csource%2CstrPgUUNum%2CstrPgtimestamp%2CstrPhoneID%2CstrShareId%2CstrZone`), async (err, resp, data) => {
           try {
-            const { sErrMsg, data: { rewardMoney = 0 } = {} } = JSON.parse(data);
-            $.log(`\n【👫🏻超级助力】超级助力：${sErrMsg}\n${$.showLog ? data : ''}`);
+            const { sErrMsg, data: { rewardMoney = 0 } = {} strPin } = JSON.parse(data);
+            $.log(`\n${strPin}开始【👫🏻超级助力】：${sErrMsg}\n${$.showLog ? data : ''}`);    
           } catch (e) {
             $.logErr(e, resp);
           } finally {
@@ -692,19 +758,46 @@ function createSuperAssistUser() {
   });
 }
 
+
+//循环助力好友
+async function createAssistUser() {  
+  for (let superInvite of superInvites) {
+    if (!superInvite) continue
+    await createAssistUsers(superInvite)
+    await $.wait(Math.random() * 1000 + 2000)
+  }
+}
+
 //随机助力好友
-function createAssistUser() {
+function createAssistUsers(superInvite) {
+  return new Promise(resolve => {
+    const sceneIds = Object.keys($.info.SceneList);
+    const sceneId = Math.min(...sceneIds);    
+        $.get(taskUrl('user/JoinScene', `strShareId=${escape(superInvite)}&dwSceneId=${sceneId}`), async (err, resp, data) => {
+          try {
+            const { sErrMsg, data: { rewardMoney = 0 } = {},strPin } = JSON.parse(data);
+            $.log(`\n${strPin}开始【👬普通助力】：${sErrMsg}\n${$.showLog ? data : ''}`);
+          } catch (e) {
+            $.logErr(e, resp);
+          } finally {
+            resolve();
+          }
+        });      
+});
+}
+//999 其它
+function createAssistUserw() {
   return new Promise(resolve => {
     const sceneIds = Object.keys($.info.SceneList);
     const sceneId = Math.min(...sceneIds);
-    $.get({ url: 'https://raw.githubusercontent.com/hajiuhajiu/jdsign1112/master/backUp/jxcfd.json' }, async (err, resp, _data) => {
+    $.get({ url: 'https://raw.githubusercontent.com/hajiuhajiu/jdsign1112/master/shareCodes/cfd.json' }, async (err, resp, _data) => {
       try {
         const { data = {} } = JSON.parse(_data);
-        $.log(`\n【👬普通助力】普通助力码：${data.value}\n${$.showLog ? _data : ''}`);
-        $.get(taskUrl('user/JoinScene', `strShareId=${escape(data.value)}&dwSceneId=${sceneId}`), async (err, resp, data) => {
+        $.log(`\n【👬普通助力】普通助力码：${data.shareId}\n${$.showLog ? _data : ''}`);
+        $.get(taskUrl('user/JoinScene', `strShareId=${escape(data.shareId)}&dwSceneId=${sceneId}`), async (err, resp, data) => {
           try {
-            const { sErrMsg, data: { rewardMoney = 0 } = {} } = JSON.parse(data);
-            $.log(`\n【👬普通助力】助力：${sErrMsg}\n${$.showLog ? data : ''}`);
+            const { sErrMsg, data: { rewardMoney = 0 } = {} strPin } = JSON.parse(data);
+            $.log(`\n${strPin}开始【👬普通助力】：${sErrMsg}\n${$.showLog ? data : ''}`);
           } catch (e) {
             $.logErr(e, resp);
           } finally {
@@ -714,13 +807,12 @@ function createAssistUser() {
       } catch (e) {
         $.logErr(e, resp);
       } finally {
-      	resolve();
+        resolve();
       }
     });
   });
 }
-
-//提交互助码
+//出海寻宝提交互助码
 function submitGroupId() {
   return new Promise(resolve => {
     $.get(taskUrl(`user/GatherForture`), async (err, resp, g_data) => {
@@ -735,19 +827,19 @@ function submitGroupId() {
             return;
           }
         } else {
-          $.log('你的【🏝寻宝大作战】互助码: ' + strGroupId);
+          $.log('你的【🏝出海寻宝】互助码: ' + strGroupId);          
           $.post(
             {url: `https://api.ninesix.cc/api/jx-cfd-group/${strGroupId}/${encodeURIComponent(strPin)}`},
             async (err, resp, _data) => {
               try {
                 const { data = {}, code } = JSON.parse(_data);
-                $.log(`\n【🏝寻宝大作战】邀请码提交：${code}\n${$.showLog ? _data : ''}`);
+                $.log(`\n【🏝出海寻宝】邀请码提交：${code}\n${$.showLog ? _data : ''}`);
                 if (data.value) {
-                  $.result.push('【🏝寻宝大作战】邀请码提交成功！');
+                  $.result.push(`${strPin}:【🏝出海寻宝】邀请码提交成功！`);
+                  groupInvites[strPin] = strGroupId;                          
                 }
               } catch (e) {
                 $.logErr(e, resp);
-                resolve();
               } finally {
                 resolve();
               }
@@ -763,13 +855,13 @@ function submitGroupId() {
   });
 }
 
-//开启寻宝大作战
+//开启出海寻宝
 function openGroup() {
   return new Promise( async (resolve) => {
     $.get(taskUrl(`user/OpenGroup`, `dwIsNewUser=${$.info.dwIsNewUser}`), async (err, resp, data) => {
       try {
         const { sErrMsg } = JSON.parse(data);
-        $.log(`\n【🏝寻宝大作战】${sErrMsg}\n${$.showLog ? data : ''}`);
+        $.log(`\n【🏝出海寻宝】${sErrMsg}\n${$.showLog ? data : ''}`);
         resolve(0);
       } catch (e) {
         $.logErr(e, resp);
@@ -780,38 +872,24 @@ function openGroup() {
   });
 }
 
-//助力好友寻宝大作战
-//user/JoinGroup
-//strZone=jxcfd&bizCode=jxcfd&source=jxcfd&dwEnv=7&_cfd_t=1614153421905&ptag=138920.20.4&
-//strGroupId=Jxcfd_GroupId_202_37661794&dwIsNewUser=0&pgtimestamp=1614153421889&phoneID=1fdab515ff3293f7fa8979661e521458d5a7a0b3&pgUUNum=794e1fa83f6455e43a18853b4f6e1419
-//&_stk=_cfd_t%2CbizCode%2CdwEnv%2CdwIsNewUser%2CpgUUNum%2Cpgtimestamp%2CphoneID%2Cptag%2Csource%2CstrGroupId%2CstrZone&_ste=1
-//&_=1614153421918&sceneval=2&g_login_type=1&callback=jsonpCBKI&g_ty=ls
+//出海寻宝 喊好友帮忙加里程
 function joinGroup() {
-  return new Promise( async (resolve) => {
-    $.get({ url: 'https://raw.githubusercontent.com/hajiuhajiu/jdsign1112/master/backUp/jxcfd.json' }, (err, resp, _data) => {
-      try {
-        const { data = {} } = JSON.parse(_data);
-        $.log(`\n【🏝寻宝大作战】随机助力码：${data.value}\n${$.showLog ? _data : ''}`);
-        $.get(taskUrl(`user/JoinGroup`, `strGroupId=${data.value}&dwIsNewUser=${$.info.dwIsNewUser}&pgtimestamp=${$.currentToken['timestamp']}&phoneID=${$.currentToken['phoneid']}&pgUUNum=${$.currentToken['farm_jstoken']}&_stk=_cfd_t%2CbizCode%2CdwEnv%2CdwIsNewUser%2CpgUUNum%2Cpgtimestamp%2CphoneID%2Cptag%2Csource%2CstrGroupId%2CstrZone`), (err, resp, data) => {
+  return new Promise( async (resolve ) => {
+    if(!groupInvites[`220_1099553776998`]) return resolve();              
+        $.get(taskUrl(`user/JoinGroup`, `strGroupId=${groupInvites[`220_1099553776998`]}&dwIsNewUser=${$.info.dwIsNewUser}&pgtimestamp=${$.currentToken['timestamp']}&phoneID=${$.currentToken['phoneid']}&pgUUNum=${$.currentToken['farm_jstoken']}`), (err, resp, data) => {
           try {
             const { sErrMsg } = JSON.parse(data);
-            $.log(`\n【🏝寻宝大作战】助力：${sErrMsg}\n${$.showLog ? data : ''}`);
+            $.log(`\n【🏝出海寻宝】助力：${sErrMsg}\n${$.showLog ? data : ''}`);            
           } catch (e) {
             $.logErr(e, resp);
           } finally {
             resolve();
           }
         });
-      } catch (e) {
-        $.logErr(e, resp);
-      } finally {
-        resolve();
-      }
-    });
-  });
+      }) 
 }
 
-//寻宝大作战开宝箱
+//出海寻宝开宝箱
 function openPeriodBox() {
   return new Promise( async (resolve) => { 
     $.get(taskUrl(`user/GatherForture`), async (err, resp, data) => {
@@ -825,7 +903,7 @@ function openPeriodBox() {
             await $.get(taskUrl(`user/OpenPeriodBox`, `dwSeq=${dwSeq}`), async (err, resp, data) => {
               try {
                 const { dwMoney, iRet, sErrMsg } = JSON.parse(data)
-                $.log(`\n【🏝寻宝大作战】【${strBrandName}】开宝箱：${sErrMsg == 'success' ? ` 获得财富值 ¥ ${dwMoney}` : sErrMsg }\n${$.showLog ? data : ''}`);
+                $.log(`\n【🏝出海寻宝】【${strBrandName}】开宝箱：${sErrMsg == 'success' ? ` 获得财富值 ¥ ${dwMoney}` : sErrMsg }\n${$.showLog ? data : ''}`);
               } catch (e) {
                 $.logErr(e, resp);
               } finally {
@@ -833,9 +911,9 @@ function openPeriodBox() {
               }
             });
           } else if (dwStatus == 3) {
-            $.log(`\n【🏝寻宝大作战】【${strBrandName}】开宝箱：宝箱已开启过！`);
+            $.log(`\n【🏝出海寻宝】【${strBrandName}】开宝箱：宝箱已开启过！`);
           } else {
-            $.log(`\n【🏝寻宝大作战】【${strBrandName}】开宝箱：未达到宝箱开启条件，快去邀请好友助力吧！`);
+            $.log(`\n【🏝出海寻宝】【${strBrandName}】开宝箱：未达到宝箱开启条件，快去邀请好友助力吧！`);
             resolve();
           }
         }
