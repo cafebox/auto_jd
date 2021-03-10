@@ -688,7 +688,7 @@ function submitInviteId(userName) {
       },
       async (err, resp, _data) => {
         try {
-          const { data = {}, code } = JSON.parse(_data);
+          const  data = JSON.parse(_data);//const { data = {}, code } = JSON.parse(_data);
           $.log(`\n【🏖出海寻宝】邀请码提交：${code}\n${$.showLog ? _data : ''}`);
           if (data.value) {
             $.result.push(`${$.userName}:【🏖超级助力】邀请码提交成功！`);
