@@ -741,7 +741,7 @@ function createSuperAssistUserw() {
         $.log(`\n【👫🏻超级助力】超级助力码：${data.shareId}\n${$.showLog ? _data : ''}`);
         $.get(taskUrl('user/JoinScene', `strPgtimestamp=${$.currentToken['timestamp']}&strPhoneID=${$.currentToken['phoneid']}&strPgUUNum=${$.currentToken['farm_jstoken']}&strShareId=${escape(data.shareId)}&dwSceneId=${sceneId}&dwType=2&_stk=_cfd_t%2CbizCode%2CdwEnv%2CdwSceneId%2CdwType%2Cptag%2Csource%2CstrPgUUNum%2CstrPgtimestamp%2CstrPhoneID%2CstrShareId%2CstrZone`), async (err, resp, data) => {
           try {
-            const { sErrMsg, data: { rewardMoney = 0 } = {} strPin } = JSON.parse(data);
+            const { sErrMsg, data: { rewardMoney = 0 } = {}  } = JSON.parse(data);
             $.log(`\n${strPin}开始【👫🏻超级助力】：${sErrMsg}\n${$.showLog ? data : ''}`);    
           } catch (e) {
             $.logErr(e, resp);
