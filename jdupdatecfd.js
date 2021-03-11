@@ -52,7 +52,7 @@ async function writeFile() {
     strGroupIds : $.strGroupIds
   }
   if (!fs.existsSync(`./shareCodes`)) fs.mkdirSync(`./shareCodes`);
-  await fs.writeFileSync(`./shareCodes/cfd.json`, JSON.stringify(info));
+  await fs.writeFileSync(`./shareCodes/cfdn.json`, JSON.stringify(info));
   console.log({
     shareId : $.strMyShareIds,
     strGroupIds : $.strGroupIds
