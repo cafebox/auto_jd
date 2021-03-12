@@ -1080,14 +1080,14 @@ function JoinTuan(tuanId) {
       try {
         if (err) {
           console.log(`${JSON.stringify(err)}`)
-          console.log(`${$.name} API请求失败，请检查网路重试`);
+          console.log(`${$.name} API请求失败，请检查网路重试66666`);
         } else {
           if (safeGet(data)) {
             data = JSON.parse(data);
             if (data['ret'] === 0) {
-              console.log(`参团成功\n${JSON.stringify(data)}\n`);
+              console.log(`参团成功6666\n${JSON.stringify(data)}\n`);
             } else {
-              console.log(`参团失败：${JSON.stringify(data)}`);
+              console.log(`参团失败6666：${JSON.stringify(data)}`);
             }
           }
         }
