@@ -43,7 +43,7 @@ let cookiesArr = [], cookie = '', message = '';
 const inviteCodes = ['CJvUmDW5_In4nqFPr7BkVg==@N8QdMHreY_pd7rIHq9zlFw==@LAxdowQnMU3ox65OdwNwZA==@7UFJoyEFc-k42Yrnh_-gEA==@F-LnusDb7uc82e3xbgcq7g==@J10ATl44ExfgWBueXVbrhQ==@T0205KkcIE9Qpw2NX0Wv3ZVRCjVWnYaS5kRrbA@CJvUmDW5_In4nqFPr7BkVg==@c9Rd8GuPETcm7RKReTfqXw=='
 ];
 const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
-$.tuanIds = [''];
+$.tuanIds = ['niujie678'];
 if ($.isNode()) {
   Object.keys(jdCookieNode).forEach((item) => {
     cookiesArr.push(jdCookieNode[item])
