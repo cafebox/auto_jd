@@ -1046,6 +1046,8 @@ function CreateTuan() {
   })
 }
 async function joinLeaderTuan() {
+  $.tuanIdS = null;
+  if (!$.tuanIdS) await updateTuanIdsCDN('https://raw.githubusercontent.com/hajiuhajiu/jdsign1112/master/shareCodes/jd_updateFactoryTuanId.json');
   if ($.tuanIdS && $.tuanIdS.tuanIds) {
     for (let tuanId of $.tuanIdS.tuanIds) {
       if (!tuanId) continue
@@ -1053,7 +1055,7 @@ async function joinLeaderTuan() {
     }
   }
   $.tuanIdS = null;
-  if (!$.tuanIdS) await updateTuanIdsCDN('https://raw.githubusercontent.com/hajiuhajiu/jdsign1112/master/jd_updateFactoryTuanId.json');
+  if (!$.tuanIdS) await updateTuanIdsCDN('https://raw.githubusercontent.com/hajiuhajiu/jdsign1112/master/shareCodes/jd_updateFactoryTuanId.json');
   if ($.tuanIdS && $.tuanIdS.tuanIds) {
     for (let tuanId of $.tuanIdS.tuanIds) {
       if (!tuanId) continue
