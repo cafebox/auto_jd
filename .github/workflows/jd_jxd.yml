@@ -6,7 +6,7 @@ name: jd_jxd+众筹
 on:
   workflow_dispatch:
   schedule:
-    - cron: '00 15,16 * * *'
+    - cron: '00 0,8,12 * * *'
   repository_dispatch:
     types: jd_jxd
 jobs:
