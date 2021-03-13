@@ -106,7 +106,7 @@ if ($.isNode()) {
       console.log(`\n账号内部相互进团\n`);
       for (let item of $.tuanIds) {
         console.log(`${$.UserName} 去参加团 ${item}\n`);
-        await JoinTuan(item);
+        await JoinTuan(item); }
     }
   }
 })()
