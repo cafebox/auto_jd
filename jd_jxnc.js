@@ -626,10 +626,6 @@ function doTask({tasklevel, left, taskname, eachtimeget}) {
             taskUrl(
                 'dotask',
                 `active=${$.info.active}&answer=${$.info.indexday}:D:0&joinnum=${$.info.joinnum}&tasklevel=${tasklevel}&_stk=active%2Canswer%2Cch%2Cfarm_jstoken%2Cjoinnum%2Cphoneid%2Ctasklevel%2Ctimestamp`,
-      ),
-      (err, resp, data) => {
-        try {
-
             ),
             (err, resp, data) => {
                 try {
