@@ -42,7 +42,7 @@ if ($.isNode()) {
 }
 const starID = ["sanxing", "meizu", "xiaomi", "oppo", "vivo", "sony"];
 const shareID = [
-  "311",
+  "268ec29b-7a6b-4b7f-98c4-1553f02814a9", "97f02857-98d4-4a23-a210-f61a149cfbc7", "f04d72b7-dbc0-4956-bada-014c53d23cc4","60c0e558-0249-4378-913d-091bcfe85bf2",
 
 ];
 $.allShareId = {};
