@@ -20,7 +20,7 @@ let cookiesArr = [], cookie = '', message = '', allMessage = '';
 const inviteCodes = ['CJvUmDW5_In4nqFPr7BkVg==@N8QdMHreY_pd7rIHq9zlFw==@LAxdowQnMU3ox65OdwNwZA==@7UFJoyEFc-k42Yrnh_-gEA==@F-LnusDb7uc82e3xbgcq7g==@J10ATl44ExfgWBueXVbrhQ==@SIQEUukDV19DwOQGjd9J5Q==@Fbaf_4RHy2vXFozIm1fVaw==@rbVhfHad1_uXgcxLYt1OWNrooP9F4dMbWiQt1EM8tJU=@p1G7bGNlvz-Izi_78zQCuA==@CJvUmDW5_In4nqFPr7BkVg==@c9Rd8GuPETcm7RKReTfqXw=='
 ];
 const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
-$.tuanIds = ['niujie678'];
+$.tuanIds = ['N8QdMHreY_pd7rIHq9zlFw=='];
 if ($.isNode()) {
   Object.keys(jdCookieNode).forEach((item) => {
     cookiesArr.push(jdCookieNode[item])
