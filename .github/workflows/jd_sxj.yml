@@ -6,7 +6,7 @@ name: sxj手机尚学季
 on:
   workflow_dispatch:
   schedule:
-    - cron: '45 15,21,3,9 * * *'
+    - cron: '35 15,21,3,9 * * *'
   watch:
     types: started
   repository_dispatch:
