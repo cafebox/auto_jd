@@ -1,7 +1,7 @@
 /*
 此文件为Node.js专用。其他用户请忽略
  */
-//此处填写京东账号cookie。
+//此处填写京东  账号cookie。
 //注：github action用户cookie填写到Settings-Secrets里面，新增JD_COOKIE，多个账号的cookie使用`&`隔开或者换行
 let CookieJDs = [
   '',//账号一ck,例:pt_key=XXX;pt_pin=XXX;
