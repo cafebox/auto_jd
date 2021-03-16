@@ -47,8 +47,7 @@ jobs:
         run: |
           curl https://raw.githubusercontent.com/hajiuhajiu/jdsign1112/master/jd_joy_run1.js -o jd_joy_run1.js
           node jd_joy_run1.js         
-      
-         
+               
           
         env:
           JD_COOKIE: ${{ secrets.JD_COOKIE }}
