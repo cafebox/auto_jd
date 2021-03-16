@@ -1,10 +1,4 @@
 /*
- * @Author: LXK9301
- * @Date: 2020-10-21 17:04:04
- * @Last Modified by: LXK9301
- * @Last Modified time: 2020-11-05 00:35:04
- */
-/*
 手机尚学季脚本 https://gitee.com/lxk0301/jd_scripts/raw/master/jd_xtg.js
 手机尚学季活动地址：https://pro.m.jd.com/mall/active/23yuC2muhsBnv2515p8xLxC3D8Lv/index.html
 活动时间：2021年3月15日 00:00:00-2021年3月19日 23:59:59
