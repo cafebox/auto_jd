@@ -132,14 +132,13 @@ function yjy() {
     $.risk = false;
     $.newUser = false;
     $.doSell = true;
-    $.hours = (new Date).getHours();
-    console.log(`111\n`);
-    await grantTokenKey();
-    console.log(`222\n`);
-    await grantToken();
-    console.log(`333\n`);
+    $.hours = (new Date).getHours();    
+    await grantTokenKey();    
+    await grantToken();    
     await Token();
+    console.log(`111\n`);
     ws = new WebSocket(`wss://xinruimz-isv.isvjcloud.com/wss/?token=${$.TOKEN}`);
+    console.log(`222\n`);
     ws.onopen = async function () {
       ws.onmessage = (DATA) => {
         data = JSON.parse(DATA.data);
