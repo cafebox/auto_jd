@@ -107,7 +107,7 @@ function getTaskList() {
   return new Promise(async resolve => {
     $.get(taskUrl('query', `type=1`), async (err, resp, data) => {
       try {
-        const res = data.match(/try\{whyour\(([\s\S]*)\)\;\}catch\(e\)\{\}/)[1];
+        const res = data.match(/try\{whyour\(([\s\S]*)\)\;\}catch\(e\)\{\}/); //[1]
         const { detail, msg, task = [], retmsg, ...other } = JSON.parse(res);
         $.helpTask = task.filter(x => x.tasktype === 2)[0] || { eachtimeget: 0, limit: 0 };
         $.allTask = task.filter(x => x.tasktype !== 3 && x.tasktype !== 2 && parseInt(x.left) > 0);
