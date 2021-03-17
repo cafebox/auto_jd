@@ -135,13 +135,13 @@ function yjy() {
     $.hours = (new Date).getHours();    
     await grantTokenKey();    
     await grantToken();    
-    await Token();
-    console.log(`111\n`);
+    await Token();    
     ws = new WebSocket(`wss://xinruimz-isv.isvjcloud.com/wss/?token=${$.TOKEN}`);
-    console.log(`222\n`);
+    
     ws.onopen = async function () {
       ws.onmessage = (DATA) => {
         data = JSON.parse(DATA.data);
+        console.log(`111\n`);
         switch (data.action) {
           case 'get_benefit':
             if (data.code === 200) {
