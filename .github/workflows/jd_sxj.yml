@@ -6,7 +6,7 @@ name: sxj手机尚学季
 on:
   workflow_dispatch:
   schedule:
-    - cron: '35 15,21,3,9 * * *'
+    - cron: '35 21,3,9 * * *'
   watch:
     types: started
   repository_dispatch:
@@ -39,10 +39,8 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: 3.7
-      - name: '宠汪汪换500豆'
-        run: |
-              python3 wait24.py 0.1 0.1 29
-      - name: '运行'
+      - name: 'sxj豆'
+     
         run: |
           node jd_sxj.js
          
