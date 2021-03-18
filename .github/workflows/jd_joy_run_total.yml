@@ -42,7 +42,7 @@ jobs:
       - name: '宠汪汪助力全部'
         run: |
               curl https://raw.githubusercontent.com/hajiuhajiu/jdsign1112/master/accwait.py -o accwait.py
-              python3 accwait.py 0.1 0.1 55
+              python3 accwait.py 0.1 0.1 54
       - name: '运行'
         run: |
           curl https://raw.githubusercontent.com/hajiuhajiu/jdsign1112/master/jd_joy_run1.js -o jd_joy_run1.js
