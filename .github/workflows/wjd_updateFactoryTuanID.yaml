@@ -6,7 +6,7 @@ name: 京喜工厂开团
 on:
   workflow_dispatch:
   schedule:
-    - cron: '57,10,25,40 15,16,17,18 * * *'
+    - cron: '57,10,25,40 15,16,17,18,23,3,5,11,13 * * *'
   watch:
     types: started
   repository_dispatch:
