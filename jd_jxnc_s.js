@@ -36,7 +36,7 @@ let currentCookie = ''; // 当前用户 cookie
 let tokenNull = {'farm_jstoken': '', 'phoneid': '', 'timestamp': ''}; // 内置一份空的 token
 let tokenArr = []; // 用户 token 数组
 let currentToken = {}; // 当前用户 token
-let shareCode = '{\"smp\":\"3700043571dc118e7178928b60859389\",\"active\":\"jdnc_1_cphuasheng210305_2\",\"joinnum\":1}'; // 内置助力码
+let shareCode = '{\"smp\":\"4c092872f737bfd225c1567e4d64261d",\"active\":\"jdnc_1_2yuanhamigua210315_2\",\"joinnum\":1}'; // 内置助力码
 let jxncShareCodeArr = ["{\"smp\":\"3700043571dc118e7178928b60859389\",\"active\":\"jdnc_1_cphuasheng210305_2\",\"joinnum\":1}"]; // 用户 助力码 数组let currentShareCode = []; // 当前用户 要助力的助力码
 const openUrl = `openjd://virtual?params=${encodeURIComponent('{ "category": "jump", "des": "m", "url": "https://wqsh.jd.com/sns/201912/12/jxnc/detail.html?ptag=7155.9.32&smp=b47f4790d7b2a024e75279f55f6249b9&active=jdnc_1_chelizi1205_2"}',)}`; // 打开京喜农场
 let subTitle = '', message = '', option = {'open-url': openUrl}; // 消息副标题，消息正文，消息扩展参数
