@@ -210,14 +210,8 @@ async function doDailyTask() {
   } else {
     console.log(`给${$.farmTask.waterFriendTaskInit.waterFriendMax}个好友浇水任务已完成\n`)
   }
-  // await Promise.all([
-  //   clockInIn(),//打卡领水
-  //   executeWaterRains(),//水滴雨
-  //   masterHelpShare(),//助力好友
-  //   getExtraAward(),//领取额外水滴奖励
-  //   turntableFarm()//天天抽奖得好礼
   // ])
-  await getAwardInviteFriend();
+  //await getAwardInviteFriend();
   await clockInIn();//打卡领水
   await executeWaterRains();//水滴雨
   await getExtraAward();//领取额外水滴奖励
@@ -373,16 +367,6 @@ async function doTenWaterAgain() {
       console.log(`您目前水滴:${totalEnergy}g,水滴换豆卡${$.myCardInfoRes.beanCard}张,暂不满足水滴换豆的条件,为您继续浇水`)
     }
   }
-  // if (totalEnergy > 100 && $.myCardInfoRes.fastCard > 0) {
-  //   //使用快速浇水卡
-  //   await userMyCardForFarm('fastCard');
-  //   console.log(`使用快速浇水卡结果:${JSON.stringify($.userMyCardRes)}`);
-  //   if ($.userMyCardRes.code === '0') {
-  //     console.log(`已使用快速浇水卡浇水${$.userMyCardRes.waterEnergy}g`);
-  //   }
-  //   await initForFarm();
-  //   totalEnergy  = $.farmInfo.farmUserPro.totalEnergy;
-  // }
   // 所有的浇水(10次浇水)任务，获取水滴任务完成后，如果剩余水滴大于等于60g,则继续浇水(保留部分水滴是用于完成第二天的浇水10次的任务)
   let overageEnergy = totalEnergy - retainWater;
   if (totalEnergy >= ($.farmInfo.farmUserPro.treeTotalEnergy - $.farmInfo.farmUserPro.treeEnergy)) {
@@ -779,7 +763,7 @@ async function getAwardInviteFriend() {
   if ($.friendList) {
     console.log(`\n今日已邀请好友${$.friendList.inviteFriendCount}个 / 每日邀请上限${$.friendList.inviteFriendMax}个`);
     console.log(`开始删除${$.friendList.friends && $.friendList.friends.length}个好友,可拿每天的邀请奖励`);
-    if ($.friendList.friends && $.friendList.friends.length > 0) {
+    if ($.friendList.friends && $.friendList.friends.length > 20) {
       for (let friend of $.friendList.friends) {
         console.log(`\n开始删除好友 [${friend.shareCode}]`);
         const deleteFriendForFarm = await request('deleteFriendForFarm', { "shareCode": `${friend.shareCode}`,"version":8,"channel":1 });
