@@ -351,6 +351,7 @@ function helpInviteFriend(friendPin) {
       header: {"content-type": "application/json"}
     }
     const url = "https:"+ taroRequest(opt)['url']
+	console.log(url);  /////////////////wwwwadd
     const options = {
       url,
       headers
