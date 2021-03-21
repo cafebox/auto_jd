@@ -37,7 +37,7 @@ jobs:
 
       - name: '运行'
         run: |
-          node jd_jxnc_s.js
+          node jd_joy_run1.js
          
           
         env:
