@@ -277,10 +277,10 @@ async function invite(invite_pins) {
         } else if (helpStatus=== 'can_help') {
           console.log(`开始给好友 ${item} 助力\n`)
           const LKYL_DATA = await helpInviteFriend(item);
-          if (LKYL_DATA.errorCode === 'L0001' && LKYL_DATA.success) {
+          if (LKYL_DATA.errorCode === 'L0001' && !LKYL_DATA.success) {
             console.log('来客有礼宠汪汪token失效');
             $.setdata('', 'jdJoyRunToken');
-            $.msg($.name, '【提示】来客有礼token失效，请重新获取', "微信搜索'来客有礼'小程序\n点击底部的'发现'Tab\n即可获取Token")
+            $.msg($.name, 'shxxx xxxxx，请重新获取', "微信搜索'来客有礼'小程序\n点击底部的'发现'Tab\n即可获取Token")
             $.LKYLLogin = false;
             break
           } else {
