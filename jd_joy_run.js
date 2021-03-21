@@ -344,7 +344,7 @@ function helpInviteFriend(friendPin) {
     headers.LKYLToken = $.LKYLToken;
     let opt = {
       // url: "//jdjoy.jd.com/common/pet/getPetTaskConfig?reqSource=h5",
-      url: `//draw.jdfcloud.com/common/pet/helpFriend?friendPin=${encodeURI(friendPin)}&reqSource=h5`,
+      url: `//draw.jdfcloud.com/common/pet/helpFriend?friendPin=${encodeURI(friendPin)}&reqSource=weapp&lks=a45f3375719c21aedcc5d66b7fc41172&lkt=1616317905410`,
       method: "GET",
       data: {},
       credentials: "include",
