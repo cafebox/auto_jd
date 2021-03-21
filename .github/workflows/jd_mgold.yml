@@ -10,7 +10,7 @@ on:
   watch:
     types: started
   repository_dispatch:
-    types: 手机尚学季
+    types: jd_mgold.js
 jobs:
   build:
 
@@ -39,10 +39,10 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: 3.7
-      - name: 'sxj豆'
+      - name: 'mgold'
      
         run: |
-          node jd_sxj.js
+          node jd_mgold.js
          
           
         env:
