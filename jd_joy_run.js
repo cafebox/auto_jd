@@ -363,7 +363,7 @@ function helpInviteFriend(friendPin) {
         } else {
           $.log(`邀请助力结果：${data}`);
           data = JSON.parse(data);
-          // {"errorCode":"help_ok","errorMessage":null,"currentTime":1600254297789,"data":29466,"success":true}
+          // {"errorCode":"help_ok","errorMessage":null,"currentTime":1600254297789,"data":145438,"success":true}
           if (data.success && data.errorCode === 'help_ok') {
             $.inviteReward += 30;
           }
