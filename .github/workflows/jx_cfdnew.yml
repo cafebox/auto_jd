@@ -35,7 +35,7 @@ jobs:
           npm install
       - name: 'd_jump_jump.js'
         run: |
-          node jd_jump_jump.js.js
+          node jd_jump_jump.js
         env:
           JD_COOKIE: ${{ secrets.JD_COOKIE }}
           JD_USER_AGENT: ${{ secrets.JD_USER_AGENT }}
