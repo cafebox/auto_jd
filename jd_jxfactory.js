@@ -1327,6 +1327,7 @@ function readShareCode() {
           if (data) {
             console.log(`随机取11(不影响已有固定互助)`)
             data = JSON.parse(data);
+            console.log(data);
           }
         }
       } catch (e) {
