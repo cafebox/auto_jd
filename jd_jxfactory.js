@@ -1323,7 +1323,7 @@ function readShareCode() {
           console.log(`${$.name} API请求失败，请检查网路重试`)
         } else {
           if (data) {
-            console.log(`随机取助力码放到您固定的互助码后面(不影响已有固定互助)`)
+            console.log(`随机取助力码放到您固定的互助码后333333333333333333面(不影响已有固定互助)`)
             data = JSON.parse(data);
           }
         }
