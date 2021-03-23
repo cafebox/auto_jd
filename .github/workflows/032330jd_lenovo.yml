@@ -1,14 +1,14 @@
 # This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
 
-name: 03301+盲盒
+name: 0330lenovo
 
 on:
   workflow_dispatch:
   schedule:
     - cron: '11 12,23 17-30 3 *'
   repository_dispatch:
-    types: 1+盲盒
+    types: lenovo
 jobs:
   build:
 
@@ -34,10 +34,10 @@ jobs:
       - name: npm install
         run: |
           npm install
-      - name: '1+盲盒'
+      - name: 'lenovo'
         run: |
-          curl https://raw.githubusercontent.com/hajiuhajiu/jdsign1112/master/jd_1plus.js -o jd_1plus.js
-          node jd_1plus.js
+          curl https://raw.githubusercontent.com/hajiuhajiu/jdsign1112/master/jd_lenovo.js -o jd_lenovo.js
+          node jd_lenovo.js
         env:
           JD_COOKIE: ${{ secrets.JD_COOKIE }}
           JD_USER_AGENT: ${{ secrets.JD_USER_AGENT }}
