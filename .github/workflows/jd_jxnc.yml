@@ -6,7 +6,7 @@ name: jd_jxnc农场
 on:
   workflow_dispatch:
   schedule:
-    - cron: '21 16,13 * * *'
+    - cron: '57 15,21,6 * * *'
   repository_dispatch:
     types: jd_jxnc
 jobs:
