@@ -380,7 +380,35 @@ async function helpFriends() {
   }
 }
 // 帮助用户
-function assistFriend(sharepin) {
+async function helpFriends() {
+  let Hours = new Date(new Date().getTime() + new Date().getTimezoneOffset()*60*1000 + 8*60*60*1000).getHours();
+  if ($.canHelpFlag && Hours >= 6) {
+    await shareCodesFormat();
+    for (let code of $.newShareCodes) {
+      if (code) {
+        if ($.encryptPin === code) {
+          console.log(`不能为自己助力,跳过`);
+          continue;
+        }
+        const assistFriendRes = await assistFriend(code);
+        if (assistFriendRes && assistFriendRes['ret'] === 0) {
+          console.log(`助力朋友：${code}成功，因一次只能助力一个，故跳出助力`)
+          break
+        } else if (assistFriendRes && assistFriendRes['ret'] === 11009) {
+          console.log(`助力朋友[${code}]失败：${assistFriendRes.msg}，跳出助力`);
+          break
+        } else {
+          console.log(`助力朋友[${code}]失败：${assistFriendRes.msg}`)
+        }
+      }
+    }
+  } else {
+    $.log(`今日助力好友机会已耗尽\n`);
+  }
+}
+
+//function assistFriend(sharepin) 
+{
   return new Promise(async resolve => {
     // const url = `/dreamfactory/friend/AssistFriend?zone=dream_factory&sharepin=${escape(sharepin)}&sceneval=2&g_login_type=1`
     const options = {
