@@ -35,6 +35,7 @@ function readShareCode() {
           if (data) {
             console.log(`随机取个${randomCount}码Network`)
             jxncShareCodeArr = JSON.parse(data);
+            console.log(jxncShareCodeArr );
           }
         }
       } catch (e) {
