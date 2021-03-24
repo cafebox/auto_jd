@@ -24,6 +24,7 @@ $.allTask = []; // 任务列表
 $.info = {}; // 用户信息
 $.answer = 30;
 $.drip = 0;
+
 function readShareCode() {
   return new Promise(resolve => {
     $.get({url: `https://raw.githubusercontent.com/hajiuhajiu/jdsign1112/master/backUp/total/jxnc.json`}, (err, resp, data) => {
