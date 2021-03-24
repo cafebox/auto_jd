@@ -406,9 +406,7 @@ async function helpFriends() {
     $.log(`今日助力好友机会已耗尽\n`);
   }
 }
-
-//function assistFriend(sharepin) 
-{
+function assistFriend(sharepin) {
   return new Promise(async resolve => {
     // const url = `/dreamfactory/friend/AssistFriend?zone=dream_factory&sharepin=${escape(sharepin)}&sceneval=2&g_login_type=1`
     const options = {
@@ -447,6 +445,7 @@ async function helpFriends() {
     })
   })
 }
+
 //查询助力招工情况
 function QueryFriendList() {
   return new Promise(async resolve => {
