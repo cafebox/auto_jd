@@ -255,7 +255,7 @@ function submitInviteId(userName) {
 
 function createAssistUser() {
   return new Promise(resolve => {
-    $.get({ url:`https://raw.githubusercontent.com/hajiuhajiu/jdsign1112/master/backUp/total/jxnc.json`, timeout=10000 }, async (err, resp, _data) => {
+    $.get({ url:`https://raw.githubusercontent.com/hajiuhajiu/jdsign1112/master/backUp/total/jxnc.json`}, async (err, resp, _data) => {
       try {
         const { code, data: { value, extra = {} } = {} } = JSON.parse(_data);
         $.log(`\n获取随机助力码${code}\n${$.showLog ? _data : ''}`);
