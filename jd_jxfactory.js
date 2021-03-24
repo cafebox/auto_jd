@@ -1300,7 +1300,8 @@ async function showMsg() {
     resolve()
   })
 }
-function readShareCode() {
+function readShareCode() 
+{
   console.log(`开始`)
   return new Promise(async resolve => {
     $.get({url: `https://raw.githubusercontent.com/hajiuhajiu/jdsign1112/master/shareCodes/jd_updateFactoryTuanId.json`, 'timeout': 10000}, (err, resp, data) => {
