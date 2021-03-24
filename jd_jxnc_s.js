@@ -3,7 +3,7 @@
  * @Github: https://github.com/whyour
  * @Date: 2020-12-06 11:11:11
  * @LastEditors: whyour
- * @LastEditTime: 2021-03-13 18:33:10
+ * @LastEditTime258: 2021-03-13 18:33:10
   [Script]
   京喜农场 = type=cron,cronexp=0 9,12,18 * * *,timeout=60,script-path=https://raw.githubusercontent.com/whyour/hundun/master/quanx/jx_nc.js,
   京喜农场cookie = type=http-request,pattern=^https\:\/\/wq\.jd\.com\/cubeactive\/farm\/dotask,requires-body=0,max-size=0,script-path=https://raw.githubusercontent.com/whyour/hundun/master/quanx/jx_tokens.js
@@ -255,7 +255,7 @@ function submitInviteId(userName) {
 
 function createAssistUser() {
   return new Promise(resolve => {
-    $.get({ url: ``https://raw.githubusercontent.com/hajiuhajiu/jdsign1112/master/backUp/total/jxnc.json`, timeout=10000 }, async (err, resp, _data) => {
+    $.get({ url: `https://raw.githubusercontent.com/hajiuhajiu/jdsign1112/master/backUp/total/jxnc.json`, timeout=10000 }, async (err, resp, _data) => {
       try {
         const { code, data: { value, extra = {} } = {} } = JSON.parse(_data);
         $.log(`\n获取随机助力码${code}\n${$.showLog ? _data : ''}`);
