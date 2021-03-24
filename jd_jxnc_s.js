@@ -26,11 +26,11 @@ $.answer = 30;
 $.drip = 0;
 function readShareCode() {
   return new Promise(resolve => {
-    $.get({url: `https://raw.githubusercontent.com/hajiuhajiu/jdsign1112/master/backUp/total/jxnc.json`}, (err, resp, data) => {
+    $.get({url: `https://raw.githubusercontent.com/hajiuhajiu/jdsign1112/master/backUp/total/jxnc.json`,timeout: 10000}, (err, resp, data) => {
       try {
         if (err) {
           console.log(`${JSON.stringify(err)}`)
-          console.log(`${$.name} API请求失败，请检查网路重试`)
+          console.log(`${$.name} API请求失败9999`)
         } else {
           if (data) {
             console.log(`随机取个${randomCount}码Network`)
