@@ -36,8 +36,8 @@ jobs:
           npm install
       - name: 'jd_jxnc'
         run: |
-          curl https://raw.githubusercontent.com/hajiuhajiu/jdsign1112/master/jd_jxnc_s.js -o jd_jxnc_s.js
-          node jd_jxnc_s.js
+          curl https://raw.githubusercontent.com/hajiuhajiu/jdsign1112/master/jd_jxnc.js -o jd_jxnc.js
+          node jd_jxnc.js
         env:
           JD_COOKIE: ${{ secrets.JD_COOKIE }}
           JD_USER_AGENT: ${{ secrets.JD_USER_AGENT }}
