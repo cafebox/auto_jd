@@ -5,8 +5,6 @@ name: jd_jxnc农场测试
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '21 16,13 * * *'
   repository_dispatch:
     types: jd_jxnc
 jobs:
