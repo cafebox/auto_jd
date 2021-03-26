@@ -926,7 +926,7 @@ async function joinLeaderTuan() {
   if ($.tuanIdS && $.tuanIdS.tuanIds) {
     for (let tuanId of $.tuanIdS.tuanIds) {
       if (!tuanId) continue
-      console.log(`${$.UserName} 去参加团 tuanId\n`)
+      console.log(`${$.UserName} 去参加团 (tuanId)\n`)
       await JoinTuan(tuanId);
     }
   }
@@ -935,7 +935,7 @@ async function joinLeaderTuan() {
   if ($.tuanIdS && $.tuanIdS.tuanIds) {
     for (let tuanId of $.tuanIdS.tuanIds) {
       if (!tuanId) continue
-      console.log(`${$.UserName} 去参加团 tuanId\n`)
+      console.log(`${$.UserName} 去参加团 (tuanId)\n`)
       await JoinTuan(tuanId);
     }
   }
@@ -1159,6 +1159,7 @@ function updateTuanIdsCDN(url) {
         } else {
           if (safeGet(data)) {
             $.tuanIdS = JSON.parse(data);
+            Console.log(tuanIdS);
           }
         }
       } catch (e) {
