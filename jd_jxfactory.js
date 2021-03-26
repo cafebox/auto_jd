@@ -1159,7 +1159,7 @@ function updateTuanIdsCDN(url) {
         } else {
           if (safeGet(data)) {
             $.tuanIdS = JSON.parse(data);
-            Console.log(tuanIdS);
+            console.log (tuanIdS);
           }
         }
       } catch (e) {
