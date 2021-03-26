@@ -101,10 +101,9 @@ if ($.isNode()) {
       await joinLeaderTuan();//参团
       $.UserName = decodeURIComponent(cookie.match(/pt_pin=([^; ]+)(?=;?)/) && cookie.match(/pt_pin=([^; ]+)(?=;?)/)[1])
       console.log(`\n账号内部相互进团\n`);
-      console.log(tuanIds);
       for (let item of $.tuanIds) {
         console.log(`${$.UserName} 去参加团 ${item}\n`);
-        await JoinTuan(item);
+       // await JoinTuan(item);
       }
     }
   }
