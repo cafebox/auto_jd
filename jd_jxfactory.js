@@ -46,6 +46,7 @@ const inviteCodes = ['CJvUmDW5_In4nqFPr7BkVg==@N8QdMHreY_pd7rIHq9zlFw==@LAxdowQn
 ];
 const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
 $.tuanIds = [];
+$.tuanIds2 = [];
 if ($.isNode()) {
   Object.keys(jdCookieNode).forEach((item) => {
     cookiesArr.push(jdCookieNode[item])
@@ -100,9 +101,10 @@ if ($.isNode()) {
       await joinLeaderTuan();//参团
       $.UserName = decodeURIComponent(cookie.match(/pt_pin=([^; ]+)(?=;?)/) && cookie.match(/pt_pin=([^; ]+)(?=;?)/)[1])
       console.log(`\n账号内部相互进团\n`);
-      for (let item of $.tuanIds) {
+      tuanIds2 =  tuanIds2.slice(0,1);
+      for (let item of $.tuanIds2) {
         console.log(`${$.UserName} 去参加团 ${item}\n`);
-        //await JoinTuan(item);
+        await JoinTuan(item);
       }
     }
   }
@@ -925,6 +927,7 @@ async function joinLeaderTuan() {
   if ($.tuanIdS && $.tuanIdS.tuanIds) {
     for (let tuanId of $.tuanIdS.tuanIds) {
       if (!tuanId) continue
+      console.log(`${$.UserName} 去参加团 tuanId\n`)
       await JoinTuan(tuanId);
     }
   }
@@ -933,6 +936,7 @@ async function joinLeaderTuan() {
   if ($.tuanIdS && $.tuanIdS.tuanIds) {
     for (let tuanId of $.tuanIdS.tuanIds) {
       if (!tuanId) continue
+      console.log(`${$.UserName} 去参加团 tuanId\n`)
       await JoinTuan(tuanId);
     }
   }
