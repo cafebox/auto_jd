@@ -21,6 +21,7 @@ const inviteCodes = ['CJvUmDW5_In4nqFPr7BkVg==@N8QdMHreY_pd7rIHq9zlFw==@LAxdowQn
 ];
 const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
 $.tuanIds = [];
+$.tuanIdS = [];
 if ($.isNode()) {
   Object.keys(jdCookieNode).forEach((item) => {
     cookiesArr.push(jdCookieNode[item])
