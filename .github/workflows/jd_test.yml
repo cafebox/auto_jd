@@ -37,7 +37,7 @@ jobs:
 
       - name: '运行'
         run: |
-          node jd_joy_run1.js
+          node atest.js
          
           
         env:
