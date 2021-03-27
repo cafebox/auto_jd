@@ -953,6 +953,7 @@ async function joinLeaderTuan() {
   if ($.tuanIdS && $.tuanIdS.tuanIds) {
     for (let tuanId of $.tuanIdS.tuanIds) {
       if (!tuanId) continue
+      consloe.log(tuanId)
       await JoinTuan(tuanId);
     }
   }
@@ -961,6 +962,7 @@ async function joinLeaderTuan() {
   if ($.tuanIdS && $.tuanIdS.tuanIds) {
     for (let tuanId of $.tuanIdS.tuanIds) {
       if (!tuanId) continue
+       consloe.log(tuanId)
       await JoinTuan(tuanId);
     }
   }
