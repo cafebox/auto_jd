@@ -1,6 +1,6 @@
 /*
 京东京喜工厂
-更新时间：2021-3-24 修复做任务、收集电力出现火爆，不能完成任务
+更新时间：2021-3- 24 修复做任务、收集电力出现火爆，不能完成任务
 重新计算h5st验证
 参考自 ：https://www.orzlee.com/web-development/2021/03/03/lxk0301-jingdong-signin-scriptjingxi-factory-solves-the-problem-of-unable-to-signin.html
 活动入口：京东APP-游戏与互动-查看更多-京喜工厂
@@ -1138,8 +1138,32 @@ function tuanAward(activeId, tuanId, isTuanLeader = true) {
     })
   })
 }
+function updateTuanIdsCDN() {
+  console.log(`开始`)
+  return new Promise(async resolve => {
+    $.get({url: `https://raw.githubusercontent.com/hajiuhajiu/jdsign1112/master/shareCodes/jd_updateFactoryTuanId.json`, 'timeout': 10000}, (err, resp, data) => {
+      try {
+        if (err) {
+          console.log(`${JSON.stringify(err)}`)
+          console.log(`${$.name} API请求失败，请检查网路重试`)
+        } else {
+          if (data) {
+            console.log(`随机取${randomCount}个码放到您固定的互助码后面(不影响已有固定互助)`)
+            tuanIdS = JSON.parse(data);
+          }
+        }
+      } catch (e) {
+        $.logErr(e, resp)
+      } finally {
+        resolve(data);
+      }
+    })
+    await $.wait(10000);
+    resolve()
+  })
+}
 
-function updateTuanIdsCDN(url) {
+function updateTuanIdsCDN1(url) {
   return new Promise(async resolve => {
     $.get({url,
       headers:{
