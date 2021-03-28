@@ -1058,11 +1058,13 @@ function CreateTuan() {
 function JoinTuan(tuanId, stk = '_time,activeId,tuanId') {
   return new Promise((resolve) => {
     const body = `activeId=${escape(tuanActiveId)}&tuanId=${escape(tuanId)}`;
+    console.log(body);
     const options = taskTuanUrl(`JoinTuan`, body, '_time,activeId,tuanId')
     $.get(options, async (err, resp, data) => {
       try {
         if (err) {
           console.log(`${JSON.stringify(err)}`)
+          console.log(`${JSON.stringify(data)}`)
           console.log(`${$.name} API请求失败，请检查网路重试`);
         } else {
           if (safeGet(data)) {
