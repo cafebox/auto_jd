@@ -4,6 +4,14 @@
 
 // ****************************************************************************
 // 活动ID配置项目
+const $ = new Env('店铺签到');
+
+const notify = $.isNode() ? require('./sendNotify') : '';
+//Node.js用户请在jdCookie.js处填写京东ck;
+const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
+//IOS等用户直接用NobyDa的jd cookie
+let cookiesArr = [], cookie = '', message;
+
 const vas = [
           "75455,10317497",//每天10豆3天20豆 4.3
           "10052505,10304213",//每天2豆7天16豆 4.3
@@ -26,38 +34,55 @@ const $ = hammer("店铺签到", 3);
 
 let results = ["左滑 / 下拉 查看详细结果..."];
 
-let options = {
-    url: "",
-    headers: {
-        Cookie: $.read('CookieJD'),
-        "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 14_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.1 Mobile/15E148 Safari/604.1",
-        "referer": "https://h5.m.jd.com/",
-    }
-};
-
-function checkCookie(){
-    return new Promise(resolve => {
-        if(!options.headers.Cookie){
-            $.alert("Cookie不存在，中止运行.");
-            return resolve(false);
-        }
-        options.url = "https://plogin.m.jd.com/cgi-bin/ml/islogin";
-        $.request("GET", options, (err, resp, data) => {
-            if(err){
-                $.log(err);
-                $.alert("Cookie检测异常，查看日志");
-                return resolve(false);
-            }
-            resp = JSON.parse(resp);
-            if(resp.islogin == 1){
-                return resolve(true);
-            }
-            $.log(resp);
-            $.alert("Cookie已失效");
-            return resolve(false);
-        })
-    })
+if ($.isNode()) {
+  Object.keys(jdCookieNode).forEach((item) => {
+    cookiesArr.push(jdCookieNode[item])
+  })
+  if (process.env.JD_DEBUG && process.env.JD_DEBUG === 'false') console.log = () => {};
+} else {
+  let cookiesData = $.getdata('CookiesJD') || "[]";
+  cookiesData = jsonParse(cookiesData);
+  cookiesArr = cookiesData.map(item => item.cookie);
+  cookiesArr.reverse();
+  cookiesArr.push(...[$.getdata('CookieJD2'), $.getdata('CookieJD')]);
+  cookiesArr.reverse();
+  cookiesArr = cookiesArr.filter(item => item !== "" && item !== null && item !== undefined);
 }
+
+!(async () => {
+  if (!cookiesArr[0]) {
+    $.msg($.name, '【提示】请先获取京东账号一cookie\n直接使用NobyDa的京东签到获取', 'https://bean.m.jd.com/bean/signIndex.action', {"open-url": "https://bean.m.jd.com/bean/signIndex.action"});
+    return;
+  }
+  for (let i = 0; i < cookiesArr.length; i++) {
+    if (cookiesArr[i]) {
+      cookie = cookiesArr[i];
+      $.UserName = decodeURIComponent(cookie.match(/pt_pin=(.+?);/) && cookie.match(/pt_pin=(.+?);/)[1])
+      $.index = i + 1;
+      $.isLogin = true;
+      $.nickName = '';
+      message = '';
+      await TotalBean();
+      console.log(`\n******开始【京东账号${$.index}】${$.nickName || $.UserName}*********\n`);
+      if (!$.isLogin) {
+        $.msg($.name, `【提示】cookie已失效`, `京东账号${$.index} ${$.nickName || $.UserName}\n请重新登录获取\nhttps://bean.m.jd.com/bean/signIndex.action`, {"open-url": "https://bean.m.jd.com/bean/signIndex.action"});
+
+        if ($.isNode()) {
+          await notify.sendNotify(`${$.name}cookie已失效 - ${$.UserName}`, `京东账号${$.index} ${$.UserName}\n请重新登录获取cookie`);
+        }
+        continue
+      }
+      await dpqd()
+      await showMsg()
+    }
+  }
+})()
+    .catch((e) => {
+      $.log('', `❌ ${$.name}, 失败! 原因: ${e}!`, '')
+    })
+    .finally(() => {
+      $.done();
+    })
 
 // ****************************************************************************
 function buildOptions(va){
