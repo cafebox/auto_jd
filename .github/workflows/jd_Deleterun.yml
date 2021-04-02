@@ -12,7 +12,7 @@ jobs:
       - name: Delete_workflow_runs
         uses: smallprogram/delete-workflow-runs@main
         with:
-          token: ${{ secrets.PAT }}
+          token: ${{ secrets.TOKEN }}
           repository: ${{ github.repository }}
           retain_days: 2
           keep_minimum_runs: 6
