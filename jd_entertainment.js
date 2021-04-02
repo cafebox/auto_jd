@@ -33,9 +33,9 @@ let cookiesArr = [], cookie = '', originCookie = '', message = '';
 let helpAuthor = true;//为作者助力的开关
 const cp = $.isNode() ? require('child_process') : '';
 const ACT_ID = 'dz2102100001340209';
-const questionList = [
-  { q: '0c32c1c0e2284331beec6910dc07a948', a: 'B:潘玮柏' },
-  { q: '3576e8750b0b4322977420622aff18a0', a: 'A:印小天' },
+const questionList 
+  { q: '0c32c1c0e2284331beec6910dc07a948', a: 'A:大张伟' },
+  { q: '3576e8750b0b4322977420622aff18a0', a: 'A:弦子' },
   { q: '43669f0fcf074342934e1422a26d164a', a: 'C:艾福杰尼' },
   { q: '7ef574a3f282466ea36cbd4d0b6e1685', a: 'C:李雪琴' },
   { q: 'a8e35c93ad79460d871f42a10bce68d4', a: 'B:杜海涛' },
