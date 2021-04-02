@@ -144,7 +144,7 @@ let results = ["左滑 / 下拉 查看详细结果..."];
 let options = {
     url: "",
     headers: {
-        Cookie: cookie
+        Cookie: cookie, 
         "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 14_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.1 Mobile/15E148 Safari/604.1",
         "referer": "https://h5.m.jd.com/",
     }
