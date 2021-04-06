@@ -37,10 +37,13 @@ jobs:
       - name: '签到'
         run: |
           node jd_shop_follow_sku.js
+          sleep 5
           curl https://raw.githubusercontent.com/hajiuhajiu/jdsign1112/master/jd_shop_follow_sku.js -o jd_shop_follow_sku.js
           node jd_shop_follow_sku.js
+          sleep 5
           curl https://raw.githubusercontent.com/hajiuhajiu/jdsign1112/master/jd_shop_lottery.js -o jd_shop_lottery.js
           node jd_shop_lottery.js
+          sleep 5
           curl https://raw.githubusercontent.com/hajiuhajiu/jdsign1112/master/jd_skyworth.js -o jd_skyworth.js
           node jd_skyworth.js
           
