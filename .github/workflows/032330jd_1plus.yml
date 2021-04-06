@@ -1,7 +1,7 @@
 # This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
 
-name: 0406店铺签到相关
+name: 0406店铺签到有礼+关注有礼+创维签到0418
 
 on:
   workflow_dispatch:
