@@ -39,7 +39,7 @@ const questionList
   { q: '43669f0fcf074342934e1422a26d164a', a: 'B:戴军' },
   { q: '7ef574a3f282466ea36cbd4d0b6e1685', a: 'B:沈凌' },
   { q: 'a8e35c93ad79460d871f42a10bce68d4', a: 'C:锤娜丽莎' },
-  { q: 'ade513a501ce48df9a4816566f24904e', a: 'B:沈凌' },
+  { q: 'ade513a501ce48df9a4816566f24904e', a: 'B:白凯南' },
   { q: 'afd88ed596324ba9a84129112d2fb8b6', a: 'B:乔杉' },
   { q: 'c6bacb5e9aac49f0bc4beae144decf80', a: 'B:吴昕' },
   { q: 'e5421dda894e4b43863aad4fd524fd9f', a: 'B:娄艺潇' }
