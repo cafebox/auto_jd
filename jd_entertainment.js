@@ -42,7 +42,7 @@ const questionList
   { q: 'ade513a501ce48df9a4816566f24904e', a: 'B:沈凌' },
   { q: 'afd88ed596324ba9a84129112d2fb8b6', a: 'B:乔杉' },
   { q: 'c6bacb5e9aac49f0bc4beae144decf80', a: 'B:吴昕' },
-  { q: 'e5421dda894e4b43863aad4fd524fd9f', a: 'C:杨迪' }
+  { q: 'e5421dda894e4b43863aad4fd524fd9f', a: 'B:娄艺潇' }
 ]
 if ($.isNode()) {
   Object.keys(jdCookieNode).forEach((item) => {
