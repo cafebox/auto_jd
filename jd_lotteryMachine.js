@@ -18,7 +18,7 @@ const STRSPLIT = "|";
 const needSum = false;            //是否需要显示汇总
 const printDetail = false;        //是否显示出参详情
 const appIdArr = ['1EFRRxA','1EFRQwA','1EFRTyg','1EFRSyw','1EFRXxg','1EFRWyg','1EFRWyw','1EFRZwA','1EFRZwQ','1EFRZxg','1EFRZxw','1EFRZxQ']
-const shareCodeArr = ['P04z54XCjVWmIaW5m9cZ2f433tIlJz4FjX2kfk','P04z54XCjVXnIaW5m9cZ2f433tIlLKXiUijZw4','P04z54XCjVUloaW5m9cZ2f433tIlNDtvQURO58','T0225KkcRx4b8lbWJU72wvZZcwCjVVl4aW5kRrbA','T0225KkcRx4b8lbWJU72wvZZcwCjVQmoaT5kRrbA','T0225KkcRx4b8lbWJU72wvZZcwCjVRloaW5kRrbA','T0225KkcRx4b8lbWJU72wvZZcwCjVRl4aW5kRrbA','T0225KkcRx4b8lbWJU72wvZZcwCjVenIaW5kRrbA','T0225KkcRx4b8lbWJU72wvZZcwCjVenYaW5kRrbA','T0225KkcRx4b8lbWJU72wvZZcwCjVemoaW5kRrbA','T0225KkcRx4b8lbWJU72wvZZcwCjVem4aW5kRrbA','T0225KkcRx4b8lbWJU72wvZZcwCjVemYaW5kRrbA']
+const shareCodeArr = ['']
 const homeDataFunPrefixArr = ['interact_template','interact_template','','','','','','','','','','','','','','','','','interact_template','interact_template','']
 const collectScoreFunPrefixArr = ['','','','','','','','','','','','','','','','','','','interact_template','interact_template','','']
 const lotteryResultFunPrefixArr = ['','','','','','','','','','','','','','','','','','','','interact_template','interact_template','','']
@@ -103,7 +103,7 @@ function interact_template_getHomeData(timeout = 0) {
           'Cookie' : cookie,
           'Connection' : `keep-alive`,
           'Accept' : `application/json, text/plain, */*`,
-          'Referer' : `https://h5.m.jd.com/babelDiy/Zeus/2WBcKYkn8viyxv7MoKKgfzmu7Dss/index.html`,
+          'Referer' : `https://h5.m.jd.com/babelDiy/Zeus/2WBcKYkn8viyxv7MoKKgfzmu7Dss/index.html?cu=true&utm_source=kong&utm_medium=jingfen&utm_campaign=t_2009753434_&utm_term=00f25ccddc0846a2b600c7185651ca36`,
           'Host' : `api.m.jd.com`,
           'Accept-Encoding' : `gzip, deflate, br`,
           'Accept-Language' : `zh-cn`
@@ -201,7 +201,7 @@ function harmony_collectScore(taskToken,taskId,itemId = "",actionType = 0,timeou
           'Cookie' : cookie,
           'Connection' : `keep-alive`,
           'Accept' : `application/json, text/plain, */*`,
-          'Referer' : `https://h5.m.jd.com/babelDiy/Zeus/2WBcKYkn8viyxv7MoKKgfzmu7Dss/index.html`,//?inviteId=P225KkcRx4b8lbWJU72wvZZcwCjVXmYaS5jQ P225KkcRx4b8lbWJU72wvZZcwCjVXmYaS5jQ?inviteId=${shareCode}
+          'Referer' : `https://h5.m.jd.com/babelDiy/Zeus/2WBcKYkn8viyxv7MoKKgfzmu7Dss/index.html?cu=true&utm_source=kong&utm_medium=jingfen&utm_campaign=t_2009753434_&utm_term=00f25ccddc0846a2b600c7185651ca36`,//?inviteId=P225KkcRx4b8lbWJU72wvZZcwCjVXmYaS5jQ P225KkcRx4b8lbWJU72wvZZcwCjVXmYaS5jQ?inviteId=${shareCode}
           'Host' : `api.m.jd.com`,
           'Accept-Encoding' : `gzip, deflate, br`,
           'Accept-Language' : `zh-cn`
@@ -238,7 +238,7 @@ function interact_template_getLotteryResult(taskId,timeout = 0) {
           'Cookie' : cookie,
           'Connection' : `keep-alive`,
           'Accept' : `application/json, text/plain, */*`,
-          'Referer' : `https://h5.m.jd.com/babelDiy/Zeus/2WBcKYkn8viyxv7MoKKgfzmu7Dss/index.html?inviteId=P04z54XCjVXmYaW5m9cZ2f433tIlGBj3JnLHD0`,//?inviteId=P225KkcRx4b8lbWJU72wvZZcwCjVXmYaS5jQ P225KkcRx4b8lbWJU72wvZZcwCjVXmYaS5jQ
+          'Referer' : `https://h5.m.jd.com/babelDiy/Zeus/2WBcKYkn8viyxv7MoKKgfzmu7Dss/index.html?cu=true&utm_source=kong&utm_medium=jingfen&utm_campaign=t_2009753434_&utm_term=00f25ccddc0846a2b600c7185651ca36`,//?inviteId=P225KkcRx4b8lbWJU72wvZZcwCjVXmYaS5jQ P225KkcRx4b8lbWJU72wvZZcwCjVXmYaS5jQ
           'Host' : `api.m.jd.com`,
           'Accept-Encoding' : `gzip, deflate, br`,
           'Accept-Language' : `zh-cn`
