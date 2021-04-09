@@ -37,7 +37,7 @@ jobs:
       - name: 'jxcfdtx'
         run: |
           sleep 1
-          Curl https://raw.githubusercontent.com/hajiuhajiu/jdsign1112/master/jx_cfdtx.js -o jx_cfdtx.js
+          curl https://raw.githubusercontent.com/hajiuhajiu/jdsign1112/master/jx_cfdtx.js -o jx_cfdtx.js
           node jx_cfdtx.js
         env:
           JD_COOKIE: ${{ secrets.JD_COOKIE }}
