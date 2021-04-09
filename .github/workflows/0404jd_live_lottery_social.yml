@@ -43,7 +43,7 @@ jobs:
               python3 wait24.py 0.1 0.1 29
       - name: 'lottery'
         run: |
-          curl https://raw.githubusercontent.com/2657576194/tt/master/jd_live_lottery_social.js -o jd_live_lottery_social.js
+          curl https://raw.githubusercontent.com/hajiuhajiu/jdsign1112/master/jd_live_lottery_social.js -o jd_live_lottery_social.js
           node jd_live_lottery_social.js
         env:
           JD_COOKIE: ${{ secrets.JD_COOKIE }}
