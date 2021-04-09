@@ -226,7 +226,7 @@ function queryexpirejingdou() {
         "Connection": "keep-alive",
         "Cookie": cookie,
         "Host": "wq.jd.com",
-        "Referer": "https://wqs.jd.com/promote/201801/bean/mybean.html",
+        "Referer": 'https://st.jingxi.com/my/redpacket.shtml?newPg=App&jxsid=16178634353215523301',
         "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 14_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.1 Mobile/15E148 Safari/604.1"
       }
     }
@@ -270,7 +270,7 @@ function redPacket() {
         'Accept': '*/*',
         'Connection': 'keep-alive',
         'Accept-Language': 'zh-cn',
-        'Referer': 'https://wqs.jd.com/my/redpacket.shtml',
+        'Referer': 'https://st.jingxi.com/my/redpacket.shtml?newPg=App&jxsid=16178634353215523301',
         'Accept-Encoding': 'gzip, deflate, br',
         "Cookie": cookie,
         'User-Agent': $.isNode() ? (process.env.JD_USER_AGENT ? process.env.JD_USER_AGENT : (require('./USER_AGENTS').USER_AGENT)) : ($.getdata('JDUA') ? $.getdata('JDUA') : "jdapp;iPhone;9.2.2;14.2;%E4%BA%AC%E4%B8%9C/9.2.2 CFNetwork/1206 Darwin/20.1.0")
