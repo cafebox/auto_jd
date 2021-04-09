@@ -6,7 +6,7 @@ name: jd_jxfactory京喜工厂
 on:
   workflow_dispatch:
   schedule:
-    - cron: '21 0-23/1 * * *'
+    - cron: '57 0-23/1 * * *'
   repository_dispatch:
     types: jd_jxfactory
 jobs:
