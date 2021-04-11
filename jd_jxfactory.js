@@ -1558,14 +1558,15 @@ function decrypt(time, stk, type, url) {
     // const random = '9c66+/6i1jjP';
     // const token = `tk01wc7621cbea8nQmVZSmlhZi94FdUu+YM8dL1NZhoyQSy2c0po7rgY+nXdXBWRaUzOoLBqlpqOccJ56KHSjVil7Q7w`;
     // const fingerprint = 2964628087631161;
-    // const appId = 10001;
+    // const appId = 10001; hash1 = $.CryptoJS.SHA512(str, $.token).toString($.CryptoJS.enc.Hex);
     const random = 'cNlpbJCwIFx/';
     let token = `tk01wc7951ceea8nVzY0UlBvK3QvPAfwG6UuVMo3YIwnuyPtwgIZr9BSCkJT96NMHRqNWCO5x0zbNsEA2bkjst3tYymV`;
     let fingerprint = 6318883301648161;
     const appId = 10001;
     const timestamp = new Date(time).Format("yyyyMMddhhmmssSSS");
     const str = `${token}${fingerprint}${timestamp}${appId}${random}`;
-    const hash1 = $.CryptoJS.HmacSHA512(str, token).toString($.CryptoJS.enc.Hex);
+    const  hash1 = $.CryptoJS.SHA512(str, $.token).toString($.CryptoJS.enc.Hex);
+    //const hash1 = $.CryptoJS.HmacSHA512(str, token).toString($.CryptoJS.enc.Hex);
     let st = '';
     stk.split(',').map((item, index) => {
       // sts += `${item}:${item === '_time' ? time : item === 'zone' ? 'dream_factory' : item === 'type' ? type || '1' : item}${index === stk.split(',').length -1 ? '' : '&'}`;
