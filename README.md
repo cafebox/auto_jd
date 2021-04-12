@@ -21,6 +21,7 @@
 填写secrets 的参数JD_COOKIE及其它助力码即可。
 前面完成之后，点击一下右上角的 star（fork 左边那个），让 workflow 运行一次，后续脚本会按workflow默认的时间每天自动运行，需要定期更新cookie。
 该方法需要手动替换或更新脚本，不会同步上游，但方法简单，可以自行选择需要运行的脚本，自己定义运行时间。
+
 [获取京东Cookies教程](https://github.com/hajiuhajiu/code/blob/main/doc/GetJdCookie.md)
 
 环境变量合集（Secrets）配置[点击查看](https://github.com/hajiuhajiu/code/blob/main/doc/githubAction.md)
