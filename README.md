@@ -13,7 +13,7 @@
 ### 一丶Github Action 使用教程
 手动复制方法：
 1.自行注册github账号 
-2.### 创建新仓库
+2.创建新仓库
 [点击创建自己的仓库](https://github.com/new)
 
 填入`Repository name`后点击最下方的`Create repository` 点下面Import a repository.
