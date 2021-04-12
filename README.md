@@ -17,7 +17,7 @@
 2.导入新仓库
 [点击导入仓库](https://github.com/new/import)
 
-然后在于Your old repository’s clone URL 填入 https://github.com/hajiuhajiu/jdsign1112 ，然后填入导入后自己的repository名称，其它按默认，
+Your old repository’s clone URL 填入 https://github.com/hajiuhajiu/jdsign1112 ，填写导入后自己的repository名称，其它按默认，
 点击Begin import，等待导入完成。
 导入完成后打开新导入的repository，在屏幕右上角找到
 Settings的按钮并点击，然后左侧找到secrets点击，点右侧的new repository secrets，输入secrets 名字JD_COOKIE，value 里填写获得的cookie
