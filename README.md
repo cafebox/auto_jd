@@ -20,7 +20,7 @@
 Your old repository’s clone URL 填入 https://github.com/hajiuhajiu/jdsign1112 ，填写导入后自己的repository名称，其它按默认，
 点击Begin import，等待导入完成。
 导入完成后打开新导入的repository，在屏幕右上角找到
-Settings的按钮并点击，然后左侧找到secrets点击，点右侧的new repository secrets，输入secrets 名字JD_COOKIE，value 里填写获得的cookie
+Settings的按钮并点击，然后左侧找到secrets点击，点右侧的new repository secrets，输入secrets name: JD_COOKIE，value 里填写获得的cookie
 
 前面完成之后，点击一下右上角的 star（fork 左边那个），让 workflow 运行一次，后续脚本会按workflow默认的时间每天自动运行，需要定期更新cookie。
 该方法需要手动替换或更新脚本，不会同步上游，但方法简单，可以自行选择需要运行的脚本，自己定义运行时间。
