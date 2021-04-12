@@ -15,13 +15,13 @@
 
 ### 一丶Github Action 使用教程
 手动复制方法：
-### 创建新仓库
-
+1.自行注册github账号 
+2.### 创建新仓库
 [点击创建自己的仓库](https://github.com/new)
 
 填入`Repository name`后点击最下方的`Create repository` 点下面Import a repository.
 然后在于Your old repository’s clone URL 填入 https://github.com/hajiuhajiu/jdsign1112 按提示完成复制后
-填写secrets 的cookie及其它参数即可。
+填写secrets 的参数JD_COOKIE及其它助力码即可。
 该方法需要自行定期替换或更新脚本，不会同步，但方法简单
 获取cookie步骤：  
 浏览器获取京东cookie教程   
