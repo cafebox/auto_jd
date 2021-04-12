@@ -39,7 +39,7 @@
 喜马拉雅极速版专属环境变量[点击查看](backup/xmly/xmly.md)
 lxk0301-环境变量合集（Secrets）配置[点击查看](https://gitee.com/lxk0301/jd_scripts/blob/master/githubAction.md)
 
-> 具体如何取 cookie可以运行getcookie脚本，按build里面运行提示扫码登陆，脚本会获得cookie，然后将脚本获得的cookie 放在secrets即可,运行后一定要删除运行记录,防盗!!!!!!
+>可以运行获取getcookie脚本的脚本，必须先配置微信推送后按github action：build里面运行提示用手机京东扫码登陆，脚本会自动获得cookie，然后推送到微信的消息，放在secrets即可。
 >  如何配置,可参考 > [获取京东Cookies教程](https://github.com/hajiuhajiu/jdsign1112/blob/master/backUp/GetJdCookie2.md)
 >
 > 
