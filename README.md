@@ -14,10 +14,9 @@
 方法一：
 
 1.注册github账号 
-2.创建新仓库
-[点击创建自己的仓库](https://github.com/new)
+2.导入新仓库
+[点击导入仓库](https://github.com/new/import)
 
-填入`Repository name`后点击最下方的`Create repository` 点下面Import a repository.
 然后在于Your old repository’s clone URL 填入 https://github.com/hajiuhajiu/jdsign1112 按提示完成复制后打开刚才新建repository的，在屏幕右上角找到
 Settings的按钮并打开，左侧找到secrets点击，然后点右侧的new repository secrets，输入secrets 名字JD_COOKIE，value 里填写获得的cookie
 
