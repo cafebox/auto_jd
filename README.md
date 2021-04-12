@@ -23,6 +23,8 @@
 然后在于Your old repository’s clone URL 填入 https://github.com/hajiuhajiu/jdsign1112 按提示完成复制后
 填写secrets 的参数JD_COOKIE及其它助力码即可。
 该方法需要自行定期替换或更新脚本，不会同步，但方法简单
+如何配置,可参考 > [获取京东Cookies教程](https://github.com/hajiuhajiu/code/blob/main/doc/GetJdCookie.md)
+
 获取cookie步骤：  
 浏览器获取京东cookie教程   
 以下浏览器都行    Chrome浏览器   新版Edge浏览器  国产360，QQ浏览器切换到极速模式
