@@ -1,13 +1,10 @@
 
 ## 特别声明及操作步骤: 
-本脚本取下列大佬 @NobyDa @lxk0301 @i-chenzhe @wuzhi01 
+本脚本取下列大佬 @NobyDa @lxk0301 @i-chenzhe @wuzhi03
 不保证完全可用， 部分脚本带助力部分可以自行修改， 加密脚本无法更改，请自行斟酌使用。
 尽量保留非加密版本
-
-1.目前宠汪汪无法助力
-2.后续增加脚本大部分为加密脚本,内置主力码,自行斟酌使用 
-3.保护好cookie 使用github action的一定要存在secrets里
-4.不要fork 复制过去自己设置就好 
+1.新增脚本大部分为加密脚本,内置主力码,自行斟酌使用 
+2.保护好cookie 使用github action的一定要存在secrets里
 
  **您必须在下载后的24小时内从计算机或手机中完全删除以上内容.**  </br>
  ***您使用或者复制了本仓库或本人制作的任何脚本，则视为`已接受`此声明，请仔细阅读*** 
@@ -22,28 +19,10 @@
 填入`Repository name`后点击最下方的`Create repository` 点下面Import a repository.
 然后在于Your old repository’s clone URL 填入 https://github.com/hajiuhajiu/jdsign1112 按提示完成复制后
 填写secrets 的参数JD_COOKIE及其它助力码即可。
-该方法需要自行定期替换或更新脚本，不会同步，但方法简单
-如何配置,可参考 > [获取京东Cookies教程](https://github.com/hajiuhajiu/code/blob/main/doc/GetJdCookie.md)
-
-获取cookie步骤：  
-浏览器获取京东cookie教程   
-以下浏览器都行    Chrome浏览器   新版Edge浏览器  国产360，QQ浏览器切换到极速模式
-操作步骤
-电脑浏览器打开京东网址 https://m.jd.com/
-
-按键盘F12键打开开发者工具，然后点下图中的图标 切换到手机模式
-此时是未登录状态(使用手机短信验证码登录)，如已登录请忽略此步骤
-使用手机短信验证码登录(此方式cookie有效时长大概31天，其他登录方式比较短)
-登录后，选择Network,有很多链接的话点箭头这里清空下 清空
-然后再点我的，链接就变少了 再次点击京东我的
-点第一个链接(log.gif)进去，找到cookie，复制出来，新建一个TXT文本临时保存一下，下面需要用到 寻找log.gi
-第六步复制出来的cookie比较长，我们只需要pt_pin=xxxx;和 pt_key=xxxx;部分的内容即可(注:英文引号;是必要的)。可以用下面的脚本，在Chrome浏览器按F12，console里面输入下面脚本按enter回车键
-
-var CV = '单引号里面放第六步拿到的cookie';
-var CookieValue = CV.match(/pt_key=.+?;/) + CV.match(/pt_pin=.+?;/);
-copy(CookieValue);
-这样子整理出关键的的cookie已经在你的剪贴板上， 可直接粘贴
-
+前面完成之后，点击一下右上角的 star（fork 左边那个），让 workflow 运行一次，后续脚本会按workflow默认的时间每天自动运行，需要定期更新cookie。
+该方法需要手动替换或更新脚本，不会同步上游，但方法简单，可以自行选择需要运行的脚本，自己定义运行时间。
+[获取京东Cookies教程](https://github.com/hajiuhajiu/code/blob/main/doc/GetJdCookie.md)
+环境变量合集（Secrets）配置[点击查看](https://github.com/hajiuhajiu/code/blob/main/doc/githubAction.md)
 如果需获取第二个京东账号的cookie,不要在刚才的浏览器上面退出登录账号一(否则刚才获取的cookie会失效),需另外换一个浏览器(Chrome浏览器 ctr+shift+n 打开无痕模式也行),然后继续按上面步骤操作即可
 
 自动同步教程：
