@@ -23,11 +23,31 @@
 然后在于Your old repository’s clone URL 填入 https://github.com/hajiuhajiu/jdsign1112 按提示完成复制后
 填写secrets 的cookie及其它参数即可。
 该方法需要自行定期替换或更新脚本，不会同步，但方法简单
+获取cookie步骤：  
+浏览器获取京东cookie教程   
+以下浏览器都行    Chrome浏览器   新版Edge浏览器  国产360，QQ浏览器切换到极速模式
+操作步骤
+电脑浏览器打开京东网址 https://m.jd.com/
+
+按键盘F12键打开开发者工具，然后点下图中的图标 切换到手机模式
+此时是未登录状态(使用手机短信验证码登录)，如已登录请忽略此步骤
+使用手机短信验证码登录(此方式cookie有效时长大概31天，其他登录方式比较短)
+登录后，选择Network,有很多链接的话点箭头这里清空下 清空
+然后再点我的，链接就变少了 再次点击京东我的
+点第一个链接(log.gif)进去，找到cookie，复制出来，新建一个TXT文本临时保存一下，下面需要用到 寻找log.gi
+第六步复制出来的cookie比较长，我们只需要pt_pin=xxxx;和 pt_key=xxxx;部分的内容即可(注:英文引号;是必要的)。可以用下面的脚本，在Chrome浏览器按F12，console里面输入下面脚本按enter回车键
+
+var CV = '单引号里面放第六步拿到的cookie';
+var CookieValue = CV.match(/pt_key=.+?;/) + CV.match(/pt_pin=.+?;/);
+copy(CookieValue);
+这样子整理出关键的的cookie已经在你的剪贴板上， 可直接粘贴
+
+如果需获取第二个京东账号的cookie,不要在刚才的浏览器上面退出登录账号一(否则刚才获取的cookie会失效),需另外换一个浏览器(Chrome浏览器 ctr+shift+n 打开无痕模式也行),然后继续按上面步骤操作即可
 
 自动同步教程：
 1. [按照这个教程进行 reposync](backup/reposync.md)
 2. 再在`Settings`-`Secrets`里面添加`JD_COOKIE`
-3. 多条 cookie 用`&`隔开，支持无数条 cookie
+3. 多条 cookie 用`&`隔开或者分行，支持无数条 cookie，cookie格式pt_key=xxx;pt_pin=;,需要保证两个都有，
 4. 前三步之后，点击一下右上角的 star（fork 左边那个），让 workflow 运行一次。
 5. 互助码自行填写在Secrets里， 填写后先给自己填写的助力码助力，然后给脚本默认的助力码助力，可以自行将脚本内置的助力码去除， 或改变运行时间，自行手动助力完成后再运行脚本，
 运行时间找.github\workflows目录下面对应的 yml后缀文件， 16：00对应北京时间零点。
