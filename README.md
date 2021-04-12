@@ -18,7 +18,7 @@
 2.导入新仓库
 [点击导入仓库](https://github.com/new/import)
 
-Your old repository’s clone URL 填入 https://github.com/hajiuhajiu/jdsign1112 ，填写导入后自己的repository名称，其它按默认，
+Your old repository’s clone URL 填入 https://github.com/hajiuhajiu/jdsign1112 ，Your new repository details处填写导入后自己的repository名称，其它按默认，
 点击Begin import，等待导入完成。
 
 3.填写Cookie及互助码:导入完成后打开新导入的repository，在屏幕右上角找到
