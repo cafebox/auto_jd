@@ -1,9 +1,9 @@
-name: 京东直播
+name: 0414京东直播
 
 on:
     workflow_dispatch:
     schedule:
-        - cron: "30 16-18 * * *"
+        - cron: "10 11-14 * * *"
     watch:
         types: [started]
     repository_dispatch:
@@ -25,7 +25,7 @@ jobs:
                   npm install
             - name: "运行【京东直播】"
               run: |
-                  node onlyOneExecute.js
+                  node jd_live.js
               env:
                   JD_COOKIE: ${{ github.event.client_payload.JD_COOKIE || secrets.JD_COOKIE }}
                   JD_DEBUG: ${{ github.event.client_payload.JD_DEBUG || secrets.JD_DEBUG }}
