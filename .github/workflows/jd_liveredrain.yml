@@ -6,7 +6,7 @@ name: 0414jd_liveredrain
 on:
   workflow_dispatch:
   schedule:
-    - cron: '45 11,12,13  * * *'
+    - cron: '10,45 11,12,13  * * *'
   watch:
     types: started
   repository_dispatch:
@@ -42,7 +42,7 @@ jobs:
       - name: '红包雨'
         run: |
               curl https://raw.githubusercontent.com/hajiuhajiu/jdsign1112/master/accwait.py -o accwait.py
-              python3 accwait.py 0.1 0.1 59
+              python3 accwait.py 0.1 0.1 29
       - name: '运行'
         run: |
           curl https://raw.githubusercontent.com/hajiuhajiu/jdsign1112/master/jd_liveredrain.js -o jd_liveredrain.js
