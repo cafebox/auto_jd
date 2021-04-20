@@ -6,7 +6,7 @@ name: jd_cash
 on:
   workflow_dispatch:
   schedule:
-    - cron: '21 18,15 * * *'
+    - cron: '21 1,15 * * *'
   repository_dispatch:
     types: jd_cash
 jobs:
