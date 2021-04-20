@@ -6,7 +6,7 @@ name: 0420-手机狂欢城
 on:
   workflow_dispatch:
   schedule:
-    - cron: '5 11,1,7 * 3-4 *'
+    - cron: '5 11,1,7 * 3 *'
   repository_dispatch:
     types: 5G超级盲盒
 jobs:
