@@ -218,9 +218,9 @@ function doTask(type,taskInfo) {
     })
   })
 }
-function getReward() {
+function getReward(source = 1) {
   return new Promise((resolve) => {
-    $.get(taskUrl("cash_mob_reward",{"source":1,"rewardNode":""}), (err, resp, data) => {
+    $.get(taskUrl("cash_mob_reward",{"source": Number(source),"rewardNode":""}), (err, resp, data) => {
       try {
         if (err) {
           console.log(`${JSON.stringify(err)}`)
@@ -228,11 +228,12 @@ function getReward() {
         } else {
           if (safeGet(data)) {
             data = JSON.parse(data);
-            if( data.code === 0 && data.data.bizCode === 0 ){
+            if (data.code === 0 && data.data.bizCode === 0) {
               console.log(`领奖成功，${data.data.result.shareRewardTip}【${data.data.result.shareRewardAmount}】`)
+              message += `领奖成功，${data.data.result.shareRewardTip}【${data.data.result.shareRewardAmount}元】\n`;
               // console.log(data.data.result.taskInfos)
-            }else{
-              console.log(`领奖失败，${data.data.bizMsg}`)
+            } else {
+              // console.log(`领奖失败，${data.data.bizMsg}`)
             }
           }
         }
