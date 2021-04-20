@@ -1,4 +1,3 @@
-# File: .github/workflows/repo-sync.yml
 name: 同步
 on:
   schedule:
@@ -12,7 +11,7 @@ jobs:
   repo-sync:
     env:
       PAT: ${{ github.event.client_payload.PAT || secrets.PAT }} #此处PAT需要申请，教程详见：https://www.jianshu.com/p/bb82b3ad1d11
-      
+
     runs-on: ubuntu-latest
     if: github.event.repository.owner.id == github.event.sender.id
     steps:
