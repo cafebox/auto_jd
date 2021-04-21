@@ -27,26 +27,21 @@ jobs:
           npm install
       - name: '运行'
         run: |
-          node jd_health.js
+          node jd_health.js 
+          
+          
         env:
           JD_COOKIE: ${{ secrets.JD_COOKIE }}
+          JD_USER_AGENT: ${{ secrets.JD_USER_AGENT }}
           JD_DEBUG: ${{ secrets.JD_DEBUG }}
           PUSH_KEY: ${{ secrets.PUSH_KEY }}
+          QQ_SKEY: ${{ secrets.QQ_SKEY }}
+          QQ_MODE: ${{ secrets.QQ_MODE }}
           BARK_PUSH: ${{ secrets.BARK_PUSH }}
-          FRUITSHARECODES: ${{ secrets.FRUITSHARECODES }}
-          FRUIT_BEAN_CARD: ${{ secrets.FRUIT_BEAN_CARD }}
           TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
           TG_USER_ID: ${{ secrets.TG_USER_ID }}
-          FRUIT_NOTIFY_CONTROL: ${{ secrets.FRUIT_NOTIFY_CONTROL }}
           BARK_SOUND: ${{ secrets.BARK_SOUND }}
           DD_BOT_TOKEN: ${{ secrets.DD_BOT_TOKEN }}
           DD_BOT_SECRET: ${{ secrets.DD_BOT_SECRET }}
           IGOT_PUSH_KEY: ${{ secrets.IGOT_PUSH_KEY }}
-          JD_USER_AGENT: ${{ secrets.JD_USER_AGENT }}
-          QQ_SKEY: ${{ secrets.QQ_SKEY }}
-          QQ_MODE: ${{ secrets.QQ_MODE }}
-          QYWX_KEY: ${{ secrets.QYWX_KEY }}
-          QYWX_AM: ${{ secrets.QYWX_AM }}
-          PUSH_PLUS_TOKEN: ${{ secrets.PUSH_PLUS_TOKEN }}
-          PUSH_PLUS_USER: ${{ secrets.PUSH_PLUS_USER }}
-          #JDHEALTH_SHARECODES: ${{ secrets.JDHEALTH_SHARECODES }}    
+          JDHEALTH_SHARECODES: ${{ secrets.JDHEALTH_SHARECODES }}    
