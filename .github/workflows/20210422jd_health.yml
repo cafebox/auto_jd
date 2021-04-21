@@ -7,19 +7,16 @@ on:
   workflow_dispatch:
   schedule:
     - cron: '10 0-23/4 * * *'
-  watch:
-    types: started
   repository_dispatch:
-    types: jd_health
+    types: health
 jobs:
   build:
 
     runs-on: ubuntu-latest
     if: github.event.repository.owner.id == github.event.sender.id
     steps:
-      - uses: actions/checkout@v1
-      - name: Use Node.js 10.x
-        uses: actions/setup-node@v1
+      - name: Checkout
+        uses: actions/checkout@v2
         with:
           repository: hajiuhajiu/jdsign1112
           ref: master
@@ -39,9 +36,7 @@ jobs:
           npm install
       - name: '运行'
         run: |
-          node jd_health.js 
-          
-          
+          node node jd_health.js
         env:
           JD_COOKIE: ${{ secrets.JD_COOKIE }}
           JD_USER_AGENT: ${{ secrets.JD_USER_AGENT }}
