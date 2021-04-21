@@ -49,4 +49,4 @@ jobs:
           QYWX_AM: ${{ secrets.QYWX_AM }}
           PUSH_PLUS_TOKEN: ${{ secrets.PUSH_PLUS_TOKEN }}
           PUSH_PLUS_USER: ${{ secrets.PUSH_PLUS_USER }}
-          JDHEALTH_SHARECODES: ${{ secrets.JDHEALTH_SHARECODES }}    
+          #JDHEALTH_SHARECODES: ${{ secrets.JDHEALTH_SHARECODES }}    
