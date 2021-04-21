@@ -37,7 +37,7 @@ jobs:
 
       - name: '运行'
         run: |
-          node jd_lotteryMachineo.js
+          node jd_health.js
          
           
         env:
