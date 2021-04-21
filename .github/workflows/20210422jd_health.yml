@@ -27,7 +27,7 @@ jobs:
           npm install
       - name: '运行'
         run: |
-          #curl https://raw.g
+         
           node jd_health.js
         env:
           JD_COOKIE: ${{ secrets.JD_COOKIE }}
@@ -43,12 +43,12 @@ jobs:
           DD_BOT_TOKEN: ${{ secrets.DD_BOT_TOKEN }}
           DD_BOT_SECRET: ${{ secrets.DD_BOT_SECRET }}
           IGOT_PUSH_KEY: ${{ secrets.IGOT_PUSH_KEY }}
-          JD_USER_AGENT: ${{secrets.JD_USER_AGENT }}
-          QQ_SKEY: ${{secrets.QQ_SKEY }}
-          QQ_MODE: ${{secrets.QQ_MODE }}
-          QYWX_KEY: ${{secrets.QYWX_KEY }}
-          QYWX_AM: ${{secrets.QYWX_AM }}
-          PUSH_PLUS_TOKEN: ${{secrets.PUSH_PLUS_TOKEN }}
-          PUSH_PLUS_USER: ${{secrets.PUSH_PLUS_USER }}
-          JDHEALTH_SHARECODES: ${{secrets.JDHEALTH_SHARECODES }}
+          JD_USER_AGENT: ${{ secrets.JD_USER_AGENT }}
+          QQ_SKEY: ${{ secrets.QQ_SKEY }}
+          QQ_MODE: ${{ secrets.QQ_MODE }}
+          QYWX_KEY: ${{ secrets.QYWX_KEY }}
+          QYWX_AM: ${{ secrets.QYWX_AM }}
+          PUSH_PLUS_TOKEN: ${{ secrets.PUSH_PLUS_TOKEN }}
+          PUSH_PLUS_USER: ${{ secrets.PUSH_PLUS_USER }}
+          JDHEALTH_SHARECODES: ${{ secrets.JDHEALTH_SHARECODES }}
           
