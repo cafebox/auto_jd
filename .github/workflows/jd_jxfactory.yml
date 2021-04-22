@@ -18,7 +18,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         with:
-          repository: hajiuhajiu/jdsign1112
+          repository: hajiuhajiu/jdsign1112b
           ref: master
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
@@ -36,7 +36,7 @@ jobs:
           npm install
       - name: 'jd_jxfactory'
         run: |
-          curl https://raw.githubusercontent.com/hajiuhajiu/jdsign1112/master/jd_jxfactory.js -o jd_jxfactory.js
+          
           node jd_jxfactory.js
         env:
           JD_COOKIE: ${{ secrets.JD_COOKIE }}
