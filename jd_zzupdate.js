@@ -29,7 +29,7 @@ const JD_API_HOST = 'https://api.m.jd.com/client.action';
     return;
   }
   //for (let i = 0; i < cookiesArr.length; i++) {
-  for (let i = 0; i < 5; i++) { 
+  for (let i = 0; i < 9; i++) { 
     if (cookiesArr[i]) {
       cookie = cookiesArr[i];
       $.UserName = decodeURIComponent(cookie.match(/pt_pin=(.+?);/) && cookie.match(/pt_pin=(.+?);/)[1])
