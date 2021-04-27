@@ -45,8 +45,7 @@ jobs:
       - name: '运行 【京东排行榜】'
         run: |
           node jd_rankingList.js
-          node jd_shop.js 
-          node jd_syj.js
+          node jd_shop.js          
           node jd_bean_home.js
           node jd_kd.js
           node jd_shake.js
