@@ -2,7 +2,7 @@ name: 删除历史运行日志
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 0 1 * *'
+    - cron: '0 0 * * *'
 # Run monthly, at 00:00 on the 1st day of month.
 
 jobs:
