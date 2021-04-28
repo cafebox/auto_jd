@@ -13,14 +13,12 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    if: github.event.repository.owner.id == github.event.sender.id
    
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-        with:
-          repository: hajiuhajiu/jdsign1112b
-          ref: master
-      - name: Use Node.js ${{ matrix.node-version }}
+       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
@@ -46,6 +44,7 @@ jobs:
           QQ_SKEY: ${{ secrets.QQ_SKEY }}
           QQ_MODE: ${{ secrets.QQ_MODE }}
           BARK_PUSH: ${{ secrets.BARK_PUSH }}
+          QYWX_KEY: ${{ secrets.QYWX_KEY }}
           TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
           TG_USER_ID: ${{ secrets.TG_USER_ID }}
           BARK_SOUND: ${{ secrets.BARK_SOUND }}
