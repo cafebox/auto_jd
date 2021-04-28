@@ -3,7 +3,7 @@ name: jd_zzupdate1
 on:
   workflow_dispatch:
   schedule:
-    - cron: '59,19 21,12,13,14, * * *'
+    - cron: '59,19 12,13,14, * * *'
 jobs:
   build:
     runs-on: ubuntu-latest
