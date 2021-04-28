@@ -1,6 +1,6 @@
 /*
 东东萌宠 更新地址： https://gitee.com/lxk0301/jd_scripts/raw/master/jd_pet.js
-更新时间：2021-01-19  20210416 放入
+更新时间：2021-01-19
 活动入口：京东APP我的-更多工具-东东萌宠
 已支持IOS双京东账号,Node.js支持N个京东账号
 脚本兼容:QuantumultX,Surge,Loon,JSBox,Node.js
@@ -30,8 +30,10 @@ let cookiesArr = [], cookie = '', jdPetShareArr = [], isBox = false, notify, new
 //此此内容是IOS用户下载脚本到本地使用，填写互助码的地方，同一京东账号的好友互助码请使用@符号隔开。
 //下面给出两个账号的填写示例（iOS只支持2个京东账号）
 let shareCodes = [ // IOS本地脚本用户这个列表填入你要助力的好友的shareCode
-   //账号一的好友shareCode,不同好友的shareCode中间用@符号隔开//'MTE1TU=@MTE',
-   //账号二的好友shareCode,不同好友的shareCode中间用@符号隔开  //'MTE1TU=@MTE',
+   //账号一的好友shareCode,不同好友的shareCode中间用@符号隔开
+  '',
+  //账号二的好友shareCode,不同好友的shareCode中间用@符号隔开
+  '',
 ]
 let message = '', subTitle = '', option = {};
 let jdNotify = false;//是否关闭通知，false打开通知推送，true关闭通知推送
@@ -448,7 +450,7 @@ async function showMsg() {
 function readShareCode() {
   console.log(`开始`)
   return new Promise(async resolve => {
-    $.get({url: "https://gitee.com/xr2021/share/raw/master/jd_pet.json",headers:{
+    $.get({url: "https://gitee.com/xr2021/share/blob/master/jd_pet.json",headers:{
         "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1 Edg/87.0.4280.88"
       }}, async (err, resp, data) => {
       try {
@@ -456,7 +458,7 @@ function readShareCode() {
           console.log(`${JSON.stringify(err)}`)
           console.log(`${$.name} API请求失败，将切换为备用API`)
           console.log(`随机取助力码放到您固定的互助码后面(不影响已有固定互助)`)
-          $.get({url: `https://raw.githubusercontent.com/hajiuhajiu/jdsign1112/master/backUp/total/jd_pet.json`, 'timeout': 10000},(err, resp, data)=>{
+          $.get({url: `https://gitee.com/xr2021/share/blob/master/jd_pet.json`, 'timeout': 10000},(err, resp, data)=>{
           data = JSON.parse(data);})
         } else {
           if (data) {
@@ -591,7 +593,7 @@ function TotalBean() {
               return
             }
             if (data['retcode'] === 0) {
-              $.nickName = (data['base'] && data['base'].nickname) || $.UserName;
+              $.nickName = data['base'].nickname;
             } else {
               $.nickName = $.UserName
             }
