@@ -15,20 +15,20 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event.repository.owner.id == github.event.sender.id
    
-  steps:
+    steps:
      - uses: actions/checkout@v1
      - name: Use Node.js 15.x
        uses: actions/setup-node@v1
        with:
-           node-version: 15.x  - name: npm install
+           node-version: 15.x 
      - name: npm install
        run: |
           npm install
-      - name: 'jd_jxfactory'
-        run: |
+     - name: 'jd_jxfactory'
+       run: |
           
           node jd_jxfactory.js
-        env:
+       env:
           JD_COOKIE: ${{ secrets.JD_COOKIE }}
           JD_USER_AGENT: ${{ secrets.JD_USER_AGENT }}
           JD_DEBUG: ${{ secrets.JD_DEBUG }}
