@@ -6,7 +6,7 @@ name: 宠汪汪助力全部
 on:
   workflow_dispatch:
   schedule:
-    - cron: '30 12 * * *'
+    - cron: '22 12 * * *'
   watch:
     types: started
   repository_dispatch:
