@@ -38,6 +38,7 @@ if ($.isNode()) {
         continue
       }
       await getUserInfo();
+	  await $.wait(2000)
       await submitGroupId()
     }
   }
@@ -63,16 +64,27 @@ function getUserInfo() {
   return new Promise(async (resolve) => {
     $.get(taskUrl(`user/QueryUserInfo`), (err, resp, data) => {
       try {
-        const {
-          SceneList = {},
-          sErrMsg,
-          strMyShareId,
-        } = JSON.parse(data);
-        $.log(`\n获取用户信息：${sErrMsg}\n${$.showLog ? data : ""}`);
-        $.strMyShareIds.push(strMyShareId)
-        for(let key of Object.keys(SceneList)){
-          let vo = SceneList[key]
-          console.log(`${vo.strSceneName}招工情况：${vo.dwEmployeeNum}/${vo.dwMaxEmployeeNum}`)
+        if (err) {
+          console.log(`${JSON.stringify(err)}`)
+          console.log(`${$.name} QueryUserInfo API请求失败，请检查网路重试`)
+        } else {
+          const {
+            SceneList = {},
+            sErrMsg,
+            strMyShareId,
+          } = JSON.parse(data);
+          $.log(`\n获取用户信息：${sErrMsg}\n${$.showLog ? data : ""}`);
+          // if (strMyShareId) $.strMyShareIds.push(strMyShareId)
+          $.canHelp = true;
+          for(let key of Object.keys(SceneList)){
+            let vo = SceneList[key]
+            console.log(`${vo.strSceneName}招工情况：${vo.dwEmployeeNum}/${vo.dwMaxEmployeeNum}`)
+            if (vo.dwEmployeeNum >= vo.dwMaxEmployeeNum) $.canHelp = false;
+          }
+          if ($.canHelp && strMyShareId) {
+            console.log(`邀请码：${strMyShareId}`);
+            $.strMyShareIds.push(strMyShareId)
+          }
         }
       } catch (e) {
         $.logErr(e, resp);
@@ -86,18 +98,30 @@ function submitGroupId() {
   return new Promise(resolve => {
     $.get(taskUrl(`user/GatherForture`), async (err, resp, g_data) => {
       try {
-        const { GroupInfo:{ strGroupId }, strPin } = JSON.parse(g_data);
-        if(!strGroupId) {
-          const status = await openGroup();
-          if(status === 0) {
-            await submitGroupId();
-          } else {
-            resolve();
-            return;
-          }
+        if (err) {
+          console.log(`${JSON.stringify(err)}`)
+          console.log(`${$.name} GatherForture API请求失败，请检查网路重试`)
         } else {
-          $.log('你的【🏝寻宝大作战】互助码: ' + strGroupId);
-          $.strGroupIds.push(strGroupId)
+          const { GroupInfo:{ strGroupId, dwStatus }, strPin, PeriodBox } = g_data = JSON.parse(g_data);
+          if(!strGroupId) {
+            const status = await openGroup();
+            if(status === 0) {
+              await submitGroupId();
+            } else {
+              resolve();
+              return;
+            }
+          } else {
+            if (dwStatus === 3) {
+              console.log(`已满全部助力\n`)
+            } else {
+              $.log(`\n${strPin} 你的【🏝寻宝大作战】互助码: ${strGroupId}`);
+              const s = PeriodBox.filter(vo => !!vo && vo['dwStatus'] === 3).length;
+              // const f = PeriodBox.filter(vo => !!vo && vo['dwStatus'] !== 3);
+              console.log(`出海寻宝开宝箱进度：${s}/${PeriodBox.length || 4}\n`);
+            }
+            if (strGroupId && dwStatus !== 3) $.strGroupIds.push(strGroupId)
+          }
         }
       } catch (e) {
         $.logErr(e, resp);
@@ -111,9 +135,14 @@ function openGroup() {
   return new Promise( async (resolve) => {
     $.get(taskUrl(`user/OpenGroup`, `dwIsNewUser=0`), async (err, resp, data) => {
       try {
-        const { sErrMsg } = JSON.parse(data);
-        $.log(`【🏝寻宝大作战】${sErrMsg}`);
-        resolve(0);
+        if (err) {
+          console.log(`${JSON.stringify(err)}`)
+          console.log(`${$.name} OpenGroup API请求失败，请检查网路重试`)
+        } else {
+          const { sErrMsg } = JSON.parse(data);
+          $.log(`【🏝寻宝大作战】${sErrMsg}`);
+          resolve(0);
+        }
       } catch (e) {
         $.logErr(e, resp);
       } finally {
@@ -122,7 +151,6 @@ function openGroup() {
     });
   });
 }
-
 function taskUrl(function_path, body) {
   return {
     url: `${JD_API_HOST}jxcfd/${function_path}?strZone=jxcfd&bizCode=jxcfd&source=jxcfd&dwEnv=7&_cfd_t=${Date.now()}&ptag=138631.26.55&${body}&_ste=1&_=${Date.now()}&sceneval=2&g_login_type=1&g_ty=ls`,
@@ -141,7 +169,7 @@ function taskUrl(function_path, body) {
 function TotalBean() {
   return new Promise(async resolve => {
     const options = {
-      "url": `https://wq.jd.com/user/info/QueryJDUserInfo?sceneval=2`,
+      "url": "https://me-api.jd.com/user_new/info/GetJDUserInfoUnion",
       "headers": {
         "Accept": "application/json,text/plain, */*",
         "Content-Type": "application/x-www-form-urlencoded",
