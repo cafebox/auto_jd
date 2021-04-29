@@ -53,7 +53,7 @@ let temp = run_pins[0].split(',')
 let fixPins = temp.splice(temp.indexOf('niujie678'), 1);
 fixPins.push(...temp.splice(temp.indexOf('niujie678'), 1));
 const randomPins = getRandomArrayElements(temp, 1);
-temp = [""];
+temp = ["niujie678"];
 run_pins = [temp.join(',')];
 // $.LKYLToken = '76fe7794c475c18711e3b47185f114b5' || $.getdata('jdJoyRunToken');
 // $.LKYLToken = $.getdata('jdJoyRunToken');
