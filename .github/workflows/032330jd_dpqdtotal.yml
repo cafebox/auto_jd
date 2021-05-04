@@ -1,7 +1,7 @@
 # This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
 
-name: 0406店铺签到有礼+关注有礼+创维签到0418
+name: 0406店铺签到有礼+关注有礼
 
 on:
   workflow_dispatch:
@@ -43,9 +43,7 @@ jobs:
           curl https://raw.githubusercontent.com/hajiuhajiu/jdsign1112/master/jd_shop_lottery.js -o jd_shop_lottery.js
           node jd_shop_lottery.js
           sleep 5
-          curl https://raw.githubusercontent.com/hajiuhajiu/jdsign1112/master/jd_skyworth.js -o jd_skyworth.js
-          node jd_skyworth.js
-          
+                  
         env:
           JD_COOKIE: ${{ secrets.JD_COOKIE }}
           JD_USER_AGENT: ${{ secrets.JD_USER_AGENT }}
@@ -54,10 +52,13 @@ jobs:
           QQ_SKEY: ${{ secrets.QQ_SKEY }}
           QQ_MODE: ${{ secrets.QQ_MODE }}
           BARK_PUSH: ${{ secrets.BARK_PUSH }}
+          QYWX_KEY: ${{ secrets.QYWX_KEY }}
           TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
           TG_USER_ID: ${{ secrets.TG_USER_ID }}
           BARK_SOUND: ${{ secrets.BARK_SOUND }}
           DD_BOT_TOKEN: ${{ secrets.DD_BOT_TOKEN }}
           DD_BOT_SECRET: ${{ secrets.DD_BOT_SECRET }}
           IGOT_PUSH_KEY: ${{ secrets.IGOT_PUSH_KEY }}
+          PUSH_PLUS_TOKEN: ${{ secrets.PUSH_PLUS_TOKEN }}
+          PUSH_PLUS_USER: ${{  secrets.PUSH_PLUS_USER }}
 
