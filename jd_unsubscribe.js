@@ -67,7 +67,9 @@ const JD_API_HOST = 'https://wq.jd.com/fav';
         continue
       }
       await requireConfig();
+	  console.log(`reqireconfig`);
       await jdUnsubscribe();
+	  console.log(`jfff`);
       await showMsg();
     }
   }
