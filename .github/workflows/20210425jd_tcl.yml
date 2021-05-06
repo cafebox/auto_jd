@@ -34,6 +34,11 @@ jobs:
       - name: '运行'
         run: |
           node jd_unsubscribe.js 
+          sleep 5m
+          node jd_unsubscribe.js 
+          sleep 5m
+          node jd_unsubscribe.js 
+          
           
           
         env:
