@@ -206,6 +206,7 @@ function unsubscribeShops() {
             }
           }
           $.unsubscribeShopsCount = count;
+          console.log(count);
           resolve(count)
         } else {
           resolve(count)
