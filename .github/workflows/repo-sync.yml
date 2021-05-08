@@ -1,7 +1,7 @@
 name: 同步
 on:
   schedule:
-    - cron: '0 1 * * 1'
+    - cron: '0 1 * * 1,4'
   workflow_dispatch:
   watch:
     types: started
