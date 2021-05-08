@@ -69,7 +69,7 @@ let allMessage = '';
         continue
       }
       if(helpAuthor){
-        await jdbean()
+       
       }
       await jdCash()
     }
