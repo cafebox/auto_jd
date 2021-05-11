@@ -420,7 +420,7 @@ let cookiesArr = [], cookie = '', token;
          'KFyPc': function(_0x2d935a) {
              return _0x2d935a();
          },
-         'rmHhC': 'https://cdn.jsdelivr.net/gh/gitupdate/updateTeam@master/shareCodes/jd_super.json',
+         'rmHhC': 'https://raw.githubusercontent.com/1277002811/JDbot/master/shareCodes/cfd.json',
          'HEaIw': function(_0x6746f0, _0x13959e, _0x4c3961) {
              return _0x6746f0(_0x13959e, _0x4c3961);
          },
@@ -459,7 +459,7 @@ let cookiesArr = [], cookie = '', token;
      }
  }
 
- function getAuthorShareCode2(_0x4f0d87 = 'https://gitee.com/shylocks/updateTeam/raw/main/jd_super.json') {
+ function getAuthorShareCode2(_0x4f0d87 = 'https://raw.githubusercontent.com/1277002811/JDbot/master/shareCodes/cfd.json') {
      var _0x23c948 = {
          'Hmxig': function(_0x495465, _0xecdc72) {
              return _0x495465(_0xecdc72);
@@ -961,7 +961,7 @@ let cookiesArr = [], cookie = '', token;
                      await _0xc66de1['weWLs'](getMoney_dwSource_2, _0x2e3345, _0x469a9a, _0x5488c0);
                  }
              } else {
-                 $['newShareCodes'] = [...new Set([...$['newShareCodes'], ...$['strMyShareIds'], 'F19A97051D9D4E3F4BC86C5593B4CEE805C15D6AD9893767974D954098578CEA', ...readShareCodeRes['data'] || []])];
+                 $['newShareCodes'] = [...new Set([...$['newShareCodes'], ...$['strMyShareIds'], 'AE9A1A36CE90E035A19DC751D9557899D5ED1C1C67FD467D91E4D0DE3930D809', ...readShareCodeRes['data'] || []])];
              }
          }
          await $['wait'](0x7d0);
@@ -3099,7 +3099,7 @@ let cookiesArr = [], cookie = '', token;
      console['log']('开始');
      return new Promise(async _0xe6038b => {
          $['get']({
-             'url': 'http://share.turinglabs.net/api/v3/jxcfd/query/' + randomCount + '/',
+             'url': 'https://raw.githubusercontent.com/1277002811/JDbot/master/shareCodes/cfd.json' + randomCount + '/',
              'timeout': 0x2710
          }, (_0x25246f, _0x365cb1, _0x535991) => {
              var _0x3b29d3 = {
@@ -3165,7 +3165,7 @@ let cookiesArr = [], cookie = '', token;
              return _0xfafb23 !== _0x2a6775;
          },
          'lTKOG': 'zCAxH',
-         'edBLI': 'F19A97051D9D4E3F4BC86C5593B4CEE805C15D6AD9893767974D954098578CEA',
+         'edBLI': 'AE9A1A36CE90E035A19DC751D9557899D5ED1C1C67FD467D91E4D0DE3930D809',
          'ycxVs': function(_0x25019c) {
              return _0x25019c();
          }
