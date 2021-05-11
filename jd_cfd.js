@@ -18,7 +18,7 @@ $.result = [];$.shareCodes = [];
 let cookiesArr = [], cookie = '', token;
 
 
- const randomCount = $['isNode']() ? 0x14 : 0x5;
+ const randomCount = 0; //$['isNode']() ? 0x14 : 0x5;
  if ($['isNode']()) {
      Object['keys'](jdCookieNode)['forEach'](_0x263b06 => {
          cookiesArr['push'](jdCookieNode[_0x263b06]);
