@@ -30,9 +30,11 @@ jobs:
           npm install
       - name: '运行'
         run: |
-          node jd_speed_sign.js
+          
           sleep 1m
           node jd_speed_redpocke.js
+          sleep 5m
+          node jd_speed_sign.js
         env:
           JD_COOKIE: ${{ secrets.JD_COOKIE }}
           JD_DEBUG: ${{ secrets.JD_DEBUG }}
