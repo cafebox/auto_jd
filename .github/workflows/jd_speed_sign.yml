@@ -1,4 +1,4 @@
-name: jd_speed_sign急速版签到及红包
+name: jd_speed_red急速版红包
 
 on:
   workflow_dispatch:
@@ -30,8 +30,6 @@ jobs:
           npm install
       - name: '运行'
         run: |
-          
-          sleep 1m
           node jd_speed_redpocke.js
           sleep 5m
           node jd_speed_sign.js
@@ -46,3 +44,6 @@ jobs:
           DD_BOT_TOKEN: ${{ secrets.DD_BOT_TOKEN }}
           DD_BOT_SECRET: ${{ secrets.DD_BOT_SECRET }}
           IGOT_PUSH_KEY: ${{ secrets.IGOT_PUSH_KEY }}
+          QYWX_KEY: ${{ github.event.client_payload.QYWX_KEY || secrets.QYWX_KEY }}
+          PUSH_PLUS_TOKEN: ${{ github.event.client_payload.PUSH_PLUS_TOKEN || secrets.PUSH_PLUS_TOKEN }}
+          PUSH_PLUS_USER: ${{ github.event.client_payload.PUSH_PLUS_USER || secrets.PUSH_PLUS_USER }}
