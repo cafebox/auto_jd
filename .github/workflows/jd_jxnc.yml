@@ -6,7 +6,7 @@ name: jd_jxnc农场
 on:
   workflow_dispatch:
   schedule:
-    - cron: '57 15,21,6 * * *'
+    - cron: '57 17,1,6 * * *'
   repository_dispatch:
     types: jd_jxnc
 jobs:
@@ -54,4 +54,3 @@ jobs:
           IGOT_PUSH_KEY: ${{ secrets.IGOT_PUSH_KEY }}
           PUSH_PLUS_TOKEN: ${{ secrets.PUSH_PLUS_TOKEN }}
           PUSH_PLUS_USER: ${{  secrets.PUSH_PLUS_USER }}
-
