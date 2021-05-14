@@ -75,7 +75,7 @@ const JD_API_HOST = 'https://api.m.jd.com/';
       console.log(`${$.UserName}去帮助下一个人`)
       cookie = cookiesArr[i];
       if ($.newShareCodes.length > 1) {
-        let code = $.newShareCodes[(i + 1) % $.newShareCodes.length]
+        let code = $.newShareCodes[(0) % $.newShareCodes.length]
         await help(code[0], code[1])
       }
       if (helpAuthor && $.authorCode) {
@@ -166,7 +166,7 @@ function doTask2() {
 
 function getAuthorShareCode() {
   return new Promise(resolve => {
-    $.get({url: "https://github.com/1277002811/JDbot/blob/master/shareCodes/jd_updateBeanHome.json",headers:{
+    $.get({url: "https://raw.githubusercontent.com/1277002811/JDbot/master/shareCodes/jd_updateBeanHome.json",headers:{
         "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1 Edg/87.0.4280.88"
       }}, async (err, resp, data) => {
       try {
@@ -182,6 +182,7 @@ function getAuthorShareCode() {
     })
   })
 }
+
 function getAuthorShareCode2() {
   return new Promise(resolve => {
     $.get({url: "https://github.com/1277002811/JDbot/blob/master/shareCodes/jd_updateBeanHome.json",headers:{
