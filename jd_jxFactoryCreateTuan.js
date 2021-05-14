@@ -1,29 +1,29 @@
 /*
 京东京喜工厂自动开团
  */
-const exec = require('child_process').execSync
 const $ = new Env('京东京喜工厂自动开团');
+const tuanActiveId = `mNGPTrOPluOSeZcupPI40w==`;
 const JD_API_HOST = 'https://m.jingxi.com';
 const fs = require('fs');
 const notify = $.isNode() ? require('./sendNotify') : '';
-let jdNotify = true;//是否关闭通知，false打开通知推送，true关闭通知推送
-const tuanActiveId = `mNGPTrOPluOSeZcupPI40w==`;
 let cookiesArr = [], cookie = '', message = '';
 const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
 Object.keys(jdCookieNode).forEach((item) => {
   cookiesArr.push(jdCookieNode[item])
 })
+$.appId = 10001;
 //cookiesArr = cookiesArr.splice(0, 10);
 if (process.env.JD_DEBUG && process.env.JD_DEBUG === 'false') console.log = () => {};
 !(async () => {
+  $.CryptoJS = require('crypto-js');
   if (!cookiesArr[0]) {
     $.msg($.name, '【提示】请先获取京东账号一cookie\n直接使用NobyDa的京东签到获取', 'https://bean.m.jd.com/', {"open-url": "https://bean.m.jd.com/"});
     return;
   }
   $.tuanIds = [];
   // await readFile();
-  // for (let i = 0; i < cookiesArr.length; i++) {
-  for (let i = 0; i < 5; i++) {
+  await requestAlgo();
+  for (let i = 0; i < cookiesArr.length; i++) {
     if (cookiesArr[i]) {
       cookie = cookiesArr[i];
       $.UserName = decodeURIComponent(cookie.match(/pt_pin=(.+?);/) && cookie.match(/pt_pin=(.+?);/)[1])
@@ -72,6 +72,7 @@ async function writeFile() {
   info.tuanIds = [...new Set(tuanIds)];
   if (!fs.existsSync(`./shareCodes`)) fs.mkdirSync(`./shareCodes`);
   await fs.writeFileSync(`./shareCodes/jd_updateFactoryTuanId.json`, JSON.stringify(info));
+  console.log(`\n\n${JSON.stringify(info)}\n\n`);
   console.log(`文件写入成功，已经替换`);
 }
 // 初始化个人信息
@@ -96,20 +97,13 @@ function userInfo() {
                 $.productionId = production.productionId;//商品ID
                 $.commodityDimId = production.commodityDimId;
                 $.encryptPin = data.user.encryptPin;
-                console.log(`当前电力：${data.user.electric}`)
-                console.log(`当前等级：${data.user.currentLevel}`)
-                console.log(`分享码: ${data.user.encryptPin}`);
-                console.log(`生产进度：${((production.investedElectric / production.needElectric) * 100).toFixed(2)}%`);
-                message += `【京东账号${$.index}】${$.nickName}\n`
-                message += `【当前等级】${data.user.userIdentity} ${data.user.currentLevel}\n`;
-                message += `【生产进度】${((production.investedElectric / production.needElectric) * 100).toFixed(2)}%\n`;
               } else {
                 $.unActive = false;//标记是否开启了京喜活动或者选购了商品进行生产
                 if (!data.factoryList) {
-                  console.log('【提示】此账号京喜工厂活动未开始\n请手动去京东APP->游戏与互动->查看更多->京喜工厂 开启活动\n');
+                  // console.log('【提示】此账号京喜工厂活动未开始\n请手动去京东APP->游戏与互动->查看更多->京喜工厂 开启活动\n');
                   $.msg($.name, '【提示】', `京东账号${$.index}[${$.nickName}]京喜工厂活动未开始\n请手动去京东APP->游戏与互动->查看更多->京喜工厂 开启活动`);
                 } else if (data.factoryList && !data.productionList) {
-                  console.log(`【提示】此账号京喜工厂未选购商品\n请手动去京东APP->游戏与互动->查看更多->京喜工厂 选购\n`)
+                  // console.log(`【提示】此账号京喜工厂未选购商品\n请手动去京东APP->游戏与互动->查看更多->京喜工厂 选购\n`)
                   $.msg($.name, '【提示】', `京东账号${$.index}[${$.nickName}]京喜工厂未选择商品\n请手动去京东APP->游戏与互动->查看更多->京喜工厂 选择商品`);
                 }
               }
@@ -142,17 +136,23 @@ async function tuanActivity() {
       const QueryTuanRes = await QueryTuan(activeId, tuanId);
       if (QueryTuanRes && QueryTuanRes.ret === 0) {
         const { tuanInfo } = QueryTuanRes.data;
+        if ((tuanInfo && tuanInfo[0]['endTime']) <= QueryTuanRes['nowTime'] && surplusOpenTuanNum > 0) {
+          $.log(`之前的团已过期，准备重新开团\n`)
+          await CreateTuan();
+        }
         for (let item of tuanInfo) {
           const { realTuanNum, tuanNum, userInfo } = item;
+          $.tuanNum = tuanNum || 0;
           $.log(`\n开团情况:${realTuanNum}/${tuanNum}\n`);
           if (realTuanNum === tuanNum) {
             for (let user of userInfo) {
               if (user.encryptPin === $.encryptPin) {
                 if (user.receiveElectric && user.receiveElectric > 0) {
                   console.log(`您在${new Date(user.joinTime * 1000).toLocaleString()}开团奖励已经领取成功\n`)
-                  // if ($.surplusOpenTuanNum > 0) await CreateTuan();
+                  if ($.surplusOpenTuanNum > 0) await CreateTuan();
                 } else {
-                  $.log(`已成团，可领取奖励`);
+                  $.log(`已成团，可以【领取开团奖励】了`);
+                  await tuanAward(item.tuanActiveId, item.tuanId);//isTuanLeader
                 }
               }
             }
@@ -169,20 +169,9 @@ async function tuanActivity() {
 //如果团ID不为空，则查询QueryTuan()
 function QueryActiveConfig() {
   return new Promise((resolve) => {
-    const options = {
-      'url': `https://m.jingxi.com/dreamfactory/tuan/QueryActiveConfig?activeId=${escape(tuanActiveId)}&_time=${Date.now()}&_=${Date.now()}&sceneval=2&g_login_type=1`,
-      "headers": {
-        "Accept": "*/*",
-        "Accept-Encoding": "gzip, deflate, br",
-        "Accept-Language": "zh-cn",
-        "Connection": "keep-alive",
-        "Cookie": cookie,
-        "Host": "m.jingxi.com",
-        "Referer": "https://st.jingxi.com/pingou/dream_factory/divide.html",
-        "User-Agent": "jdpingou;iPhone;3.15.2;13.5.1;90bab9217f465a83a99c0b554a946b0b0d5c2f7a;network/wifi;model/iPhone12,1;appBuild/100365;ADID/696F8BD2-0820-405C-AFC0-3C6D028040E5;supportApplePay/1;hasUPPay/0;pushNoticeIsOpen/1;hasOCPay/0;supportBestPay/0;session/14;pap/JA2015_311210;brand/apple;supportJDSHWK/1;"
-      }
-    }
-    $.get(options, (err, resp, data) => {
+    const body = `activeId=${escape(tuanActiveId)}`;
+    const options = taskTuanUrl(`QueryActiveConfig`, body, `_time,activeId,tuanId`)
+    $.get(options, async (err, resp, data) => {
       try {
         if (err) {
           console.log(`${JSON.stringify(err)}`)
@@ -209,20 +198,9 @@ function QueryActiveConfig() {
 }
 function QueryTuan(activeId, tuanId) {
   return new Promise((resolve) => {
-    const options = {
-      'url': `https://m.jingxi.com/dreamfactory/tuan/QueryTuan?activeId=${escape(activeId)}&tuanId=${escape(tuanId)}&_time=${Date.now()}&_=${Date.now()}&sceneval=2&g_login_type=1`,
-      "headers": {
-        "Accept": "*/*",
-        "Accept-Encoding": "gzip, deflate, br",
-        "Accept-Language": "zh-cn",
-        "Connection": "keep-alive",
-        "Cookie": cookie,
-        "Host": "m.jingxi.com",
-        "Referer": "https://st.jingxi.com/pingou/dream_factory/divide.html",
-        "User-Agent": "jdpingou;iPhone;3.15.2;13.5.1;90bab9217f465a83a99c0b554a946b0b0d5c2f7a;network/wifi;model/iPhone12,1;appBuild/100365;ADID/696F8BD2-0820-405C-AFC0-3C6D028040E5;supportApplePay/1;hasUPPay/0;pushNoticeIsOpen/1;hasOCPay/0;supportBestPay/0;session/14;pap/JA2015_311210;brand/apple;supportJDSHWK/1;"
-      }
-    }
-    $.get(options, (err, resp, data) => {
+    const body = `activeId=${escape(activeId)}&tuanId=${escape(tuanId)}`;
+    const options = taskTuanUrl(`QueryTuan`, body, `_time,activeId,tuanId`)
+    $.get(options, async (err, resp, data) => {
       try {
         if (err) {
           console.log(`${JSON.stringify(err)}`)
@@ -248,20 +226,9 @@ function QueryTuan(activeId, tuanId) {
 //开团API
 function CreateTuan() {
   return new Promise((resolve) => {
-    const options = {
-      'url': `https://m.jingxi.com/dreamfactory/tuan/CreateTuan?activeId=${escape(tuanActiveId)}&isOpenApp=1&_time=${Date.now()}&_=${Date.now()}&sceneval=2&g_login_type=1`,
-      "headers": {
-        "Accept": "*/*",
-        "Accept-Encoding": "gzip, deflate, br",
-        "Accept-Language": "zh-cn",
-        "Connection": "keep-alive",
-        "Cookie": cookie,
-        "Host": "m.jingxi.com",
-        "Referer": "https://st.jingxi.com/pingou/dream_factory/divide.html",
-        "User-Agent": "jdpingou;iPhone;3.15.2;13.5.1;90bab9217f465a83a99c0b554a946b0b0d5c2f7a;network/wifi;model/iPhone12,1;appBuild/100365;ADID/696F8BD2-0820-405C-AFC0-3C6D028040E5;supportApplePay/1;hasUPPay/0;pushNoticeIsOpen/1;hasOCPay/0;supportBestPay/0;session/14;pap/JA2015_311210;brand/apple;supportJDSHWK/1;"
-      }
-    }
-    $.get(options, (err, resp, data) => {
+    const body =`activeId=${escape(tuanActiveId)}&isOpenApp=1`
+    const options = taskTuanUrl(`CreateTuan`, body, '_time,activeId,isOpenApp')
+    $.get(options, async (err, resp, data) => {
       try {
         if (err) {
           console.log(`${JSON.stringify(err)}`)
@@ -271,6 +238,52 @@ function CreateTuan() {
             data = JSON.parse(data);
             if (data['ret'] === 0) {
               console.log(`开团成功tuanId为\n${data.data['tuanId']}`);
+              $.tuanIds.push(data.data['tuanId']);
+            } else {
+              console.log(`开团异常：${JSON.stringify(data)}`);
+            }
+          }
+        }
+      } catch (e) {
+        $.logErr(e, resp)
+      } finally {
+        resolve();
+      }
+    })
+  })
+}
+//开团人的领取奖励API
+function tuanAward(activeId, tuanId, isTuanLeader = true) {
+  return new Promise((resolve) => {
+    const body = `activeId=${escape(activeId)}&tuanId=${escape(tuanId)}`;
+    const options = taskTuanUrl(`Award`, body, '_time,activeId,tuanId')
+    $.get(options, async (err, resp, data) => {
+      try {
+        if (err) {
+          console.log(`${JSON.stringify(err)}`)
+          console.log(`${$.name} API请求失败，请检查网路重试`);
+        } else {
+          if (safeGet(data)) {
+            data = JSON.parse(data);
+            if (data['ret'] === 0) {
+              if (isTuanLeader) {
+                console.log(`开团奖励(团长)${data.data['electric']}领取成功`);
+                message += `【开团(团长)奖励】${data.data['electric']}领取成功\n`;
+                if ($.surplusOpenTuanNum > 0) {
+                  $.log(`开团奖励(团长)已领取，准备开团`);
+                  await CreateTuan();
+                }
+              } else {
+                console.log(`参团奖励${data.data['electric']}领取成功`);
+                message += `【参团奖励】${data.data['electric']}领取成功\n`;
+              }
+            } else if (data['ret'] === 10212) {
+              console.log(`${JSON.stringify(data)}`);
+
+              if (isTuanLeader && $.surplusOpenTuanNum > 0) {
+                $.log(`团奖励已领取，准备开团`);
+                await CreateTuan();
+              }
             } else {
               console.log(`异常：${JSON.stringify(data)}`);
             }
@@ -284,7 +297,6 @@ function CreateTuan() {
     })
   })
 }
-
 async function showMsg() {
   return new Promise(async resolve => {
     $.log(`\n${message}`);
@@ -295,37 +307,38 @@ async function showMsg() {
 function TotalBean() {
   return new Promise(async resolve => {
     const options = {
-      "url": `https://wq.jd.com/user/info/QueryJDUserInfo?sceneval=2`,
-      "headers": {
-        "Accept": "application/json,text/plain, */*",
-        "Content-Type": "application/x-www-form-urlencoded",
-        "Accept-Encoding": "gzip, deflate, br",
+      url: "https://me-api.jd.com/user_new/info/GetJDUserInfoUnion",
+      headers: {
+        Host: "me-api.jd.com",
+        Accept: "*/*",
+        Connection: "keep-alive",
+        Cookie: cookie,
+        "User-Agent": "jdapp;iPhone;9.4.4;14.3;network/4g;Mozilla/5.0 (iPhone; CPU iPhone OS 14_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148;supportJDSHWK/1",
         "Accept-Language": "zh-cn",
-        "Connection": "keep-alive",
-        "Cookie": cookie,
-        "Referer": "https://wqs.jd.com/my/jingdou/my.shtml?sceneval=2",
-        "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 14_0_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0 Mobile/15E148 Safari/604.1"
+        "Referer": "https://home.m.jd.com/myJd/newhome.action?sceneval=2&ufc=&",
+        "Accept-Encoding": "gzip, deflate, br"
       }
     }
-    $.post(options, (err, resp, data) => {
+    $.get(options, (err, resp, data) => {
       try {
         if (err) {
-          console.log(`${JSON.stringify(err)}`)
-          console.log(`${$.name} API请求失败，请检查网路重试`)
+          $.logErr(err)
         } else {
           if (data) {
             data = JSON.parse(data);
-            if (data['retcode'] === 13) {
+            if (data['retcode'] === "1001") {
               $.isLogin = false; //cookie过期
-              return
+              return;
             }
-            $.nickName = (data['base'] && data['base'].nickname) || $.UserName;
+            if (data['retcode'] === "0" && data.data && data.data.hasOwnProperty("userInfo")) {
+              $.nickName = data.data.userInfo.baseInfo.nickname;
+            }
           } else {
-            console.log(`京东服务器返回空数据`)
+            $.log('京东服务器返回空数据');
           }
         }
       } catch (e) {
-        $.logErr(e, resp)
+        $.logErr(e)
       } finally {
         resolve();
       }
@@ -359,24 +372,175 @@ function taskurl(functionId, body = '') {
     }
   }
 }
-function newtasksysUrl(functionId, taskId) {
-  let url = `${JD_API_HOST}/newtasksys/newtasksys_front/${functionId}?source=dreamfactory&bizCode=dream_factory&sceneval=2&g_login_type=1&_time=${Date.now()}&_=${Date.now()}`;
-  if (taskId) {
-    url += `&taskId=${taskId}`;
+function taskTuanUrl(functionId, body = '', stk) {
+  let url = `https://m.jingxi.com/dreamfactory/tuan/${functionId}?${body}&_time=${Date.now()}&_=${Date.now() + 2}&sceneval=2&g_login_type=1&_ste=1`
+  url += `&h5st=${decrypt(Date.now(), stk || '', '', url)}`
+  if (stk) {
+    url += `&_stk=${encodeURIComponent(stk)}`;
   }
   return {
     url,
-    "headers": {
-      'Cookie': cookie,
-      'Host': 'm.jingxi.com',
-      'Accept': '*/*',
-      'Connection': 'keep-alive',
-      'User-Agent': "jdpingou;iPhone;3.15.2;13.5.1;90bab9217f465a83a99c0b554a946b0b0d5c2f7a;network/wifi;model/iPhone12,1;appBuild/100365;ADID/696F8BD2-0820-405C-AFC0-3C6D028040E5;supportApplePay/1;hasUPPay/0;pushNoticeIsOpen/1;hasOCPay/0;supportBestPay/0;session/14;pap/JA2015_311210;brand/apple;supportJDSHWK/1;",
-      'Accept-Language': 'zh-cn',
-      'Referer': 'https://wqsd.jd.com/pingou/dream_factory/index.html',
-      'Accept-Encoding': 'gzip, deflate, br',
+    headers: {
+      "Accept": "*/*",
+      "Accept-Encoding": "gzip, deflate, br",
+      "Accept-Language": "zh-cn",
+      "Connection": "keep-alive",
+      "Cookie": cookie,
+      "Host": "m.jingxi.com",
+      "Referer": "https://st.jingxi.com/pingou/dream_factory/divide.html",
+      "User-Agent": "jdpingou"
     }
   }
+}
+/*
+修改时间戳转换函数，京喜工厂原版修改
+ */
+Date.prototype.Format = function (fmt) {
+  var e,
+      n = this, d = fmt, l = {
+        "M+": n.getMonth() + 1,
+        "d+": n.getDate(),
+        "D+": n.getDate(),
+        "h+": n.getHours(),
+        "H+": n.getHours(),
+        "m+": n.getMinutes(),
+        "s+": n.getSeconds(),
+        "w+": n.getDay(),
+        "q+": Math.floor((n.getMonth() + 3) / 3),
+        "S+": n.getMilliseconds()
+      };
+  /(y+)/i.test(d) && (d = d.replace(RegExp.$1, "".concat(n.getFullYear()).substr(4 - RegExp.$1.length)));
+  for (var k in l) {
+    if (new RegExp("(".concat(k, ")")).test(d)) {
+      var t, a = "S+" === k ? "000" : "00";
+      d = d.replace(RegExp.$1, 1 == RegExp.$1.length ? l[k] : ("".concat(a) + l[k]).substr("".concat(l[k]).length))
+    }
+  }
+  return d;
+}
+async function requestAlgo() {
+  $.fingerprint = await generateFp();
+  const options = {
+    "url": `https://cactus.jd.com/request_algo?g_ty=ajax`,
+    "headers": {
+      'Authority': 'cactus.jd.com',
+      'Pragma': 'no-cache',
+      'Cache-Control': 'no-cache',
+      'Accept': 'application/json',
+      'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1',
+      'Content-Type': 'application/json',
+      'Origin': 'https://st.jingxi.com',
+      'Sec-Fetch-Site': 'cross-site',
+      'Sec-Fetch-Mode': 'cors',
+      'Sec-Fetch-Dest': 'empty',
+      'Referer': 'https://st.jingxi.com/',
+      'Accept-Language': 'zh-CN,zh;q=0.9,zh-TW;q=0.8,en;q=0.7'
+    },
+    'body': JSON.stringify({
+      "version": "1.0",
+      "fp": $.fingerprint,
+      "appId": $.appId.toString(),
+      "timestamp": Date.now(),
+      "platform": "web",
+      "expandParams": ""
+    })
+  }
+  new Promise(async resolve => {
+    $.post(options, (err, resp, data) => {
+      try {
+        if (err) {
+          console.log(`${JSON.stringify(err)}`)
+          console.log(`request_algo 签名参数API请求失败，请检查网路重试`)
+        } else {
+          if (data) {
+            // console.log(data);
+            data = JSON.parse(data);
+            if (data['status'] === 200) {
+              $.token = data.data.result.tk;
+              let enCryptMethodJDString = data.data.result.algo;
+              if (enCryptMethodJDString) $.enCryptMethodJD = new Function(`return ${enCryptMethodJDString}`)();
+              console.log(`获取签名参数成功！`)
+              console.log(`fp: ${$.fingerprint}`)
+              console.log(`token: ${$.token}`)
+              console.log(`enCryptMethodJD: ${enCryptMethodJDString}`)
+            } else {
+              console.log(`fp: ${$.fingerprint}`)
+              console.log('request_algo 签名参数API请求失败:')
+            }
+          } else {
+            console.log(`京东服务器返回空数据`)
+          }
+        }
+      } catch (e) {
+        $.logErr(e, resp)
+      } finally {
+        resolve();
+      }
+    })
+  })
+}
+function decrypt(time, stk, type, url) {
+  stk = stk || (url ? getUrlData(url, '_stk') : '')
+  if (stk) {
+    const timestamp = new Date(time).Format("yyyyMMddhhmmssSSS");
+    let hash1 = '';
+    if ($.fingerprint && $.token && $.enCryptMethodJD) {
+      hash1 = $.enCryptMethodJD($.token, $.fingerprint.toString(), timestamp.toString(), $.appId.toString(), $.CryptoJS).toString($.CryptoJS.enc.Hex);
+    } else {
+      const random = '5gkjB6SpmC9s';
+      $.token = `tk01wcdf61cb3a8nYUtHcmhSUFFCfddDPRvKvYaMjHkxo6Aj7dhzO+GXGFa9nPXfcgT+mULoF1b1YIS1ghvSlbwhE0Xc`;
+      $.fingerprint = 5287160221454703;
+      const str = `${$.token}${$.fingerprint}${timestamp}${$.appId}${random}`;
+      hash1 = $.CryptoJS.SHA512(str, $.token).toString($.CryptoJS.enc.Hex);
+    }
+    let st = '';
+    stk.split(',').map((item, index) => {
+      st += `${item}:${getUrlData(url, item)}${index === stk.split(',').length -1 ? '' : '&'}`;
+    })
+    const hash2 = $.CryptoJS.HmacSHA256(st, hash1.toString()).toString($.CryptoJS.enc.Hex);
+    // console.log(`\nst:${st}`)
+    // console.log(`h5st:${["".concat(timestamp.toString()), "".concat(fingerprint.toString()), "".concat($.appId.toString()), "".concat(token), "".concat(hash2)].join(";")}\n`)
+    return encodeURIComponent(["".concat(timestamp.toString()), "".concat($.fingerprint.toString()), "".concat($.appId.toString()), "".concat($.token), "".concat(hash2)].join(";"))
+  } else {
+    return '20210318144213808;8277529360925161;10001;tk01w952a1b73a8nU0luMGtBanZTHCgj0KFVwDa4n5pJ95T/5bxO/m54p4MtgVEwKNev1u/BUjrpWAUMZPW0Kz2RWP8v;86054c036fe3bf0991bd9a9da1a8d44dd130c6508602215e50bb1e385326779d'
+  }
+}
+
+/**
+ * 获取url参数值
+ * @param url
+ * @param name
+ * @returns {string}
+ */
+function getUrlData(url, name) {
+  if (typeof URL !== "undefined") {
+    let urls = new URL(url);
+    let data = urls.searchParams.get(name);
+    return data ? data : '';
+  } else {
+    const query = url.match(/\?.*/)[0].substring(1)
+    const vars = query.split('&')
+    for (let i = 0; i < vars.length; i++) {
+      const pair = vars[i].split('=')
+      if (pair[0] === name) {
+        // return pair[1];
+        return vars[i].substr(vars[i].indexOf('=') + 1);
+      }
+    }
+    return ''
+  }
+}
+/**
+ * 模拟生成 fingerprint
+ * @returns {string}
+ */
+function generateFp() {
+  let e = "0123456789";
+  let a = 13;
+  let i = '';
+  for (; a--; )
+    i += e[Math.random() * e.length | 0];
+  return (i + Date.now()).slice(0,16)
 }
 
 // prettier-ignore
