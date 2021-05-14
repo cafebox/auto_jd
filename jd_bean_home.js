@@ -77,10 +77,10 @@ const JD_API_HOST = 'https://api.m.jd.com/';
         await help(code[0], code[1])
       }
       if (helpAuthor && $.authorCode) {
-        console.log(`去帮助收集人`)
+        console.log(`去帮助收集人1`)
         const helpRes = await help(code.shareCode, code.groupCode)
         if (helpRes && helpRes.data.respCode === 'SG209') {
-          console.log(`助力次数已耗尽，跳出助力`)
+          console.log(`助力次数已耗尽，跳出助力22`)
           break;
         }
       }
@@ -104,7 +104,7 @@ const JD_API_HOST = 'https://api.m.jd.com/';
   })
 
 async function jdBeanHome() {
-  await shuye72()
+  
   $.doneState = false
   // for (let i = 0; i < 3; ++i) {
   //   await doTask2()
