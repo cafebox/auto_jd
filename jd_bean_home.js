@@ -27,7 +27,8 @@ const notify = $.isNode() ? require('./sendNotify') : '';
 const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
 let jdNotify = true;//是否关闭通知，false打开通知推送，true关闭通知推送
 //IOS等用户直接用NobyDa的jd cookie
-let helpAuthor = true
+let helpAuthor = false
+let helpAuthor1 = true
 let cookiesArr = [], cookie = '', message;
 if ($.isNode()) {
   Object.keys(jdCookieNode).forEach((item) => {
@@ -77,7 +78,7 @@ const JD_API_HOST = 'https://api.m.jd.com/';
         let code = $.newShareCodes[(i + 1) % $.newShareCodes.length]
         await help(code[0], code[1])
       }
-      if (helpAuthor && $.authorCode) {
+      if (helpAuthor1 && $.authorCode) {
         console.log(`去帮助收集人1`)
         const helpRes = await help(code.shareCode, code.groupCode)
         if (helpRes && helpRes.data.respCode === 'SG209') {
@@ -85,7 +86,7 @@ const JD_API_HOST = 'https://api.m.jd.com/';
           break;
         }
       }
-      if (helpAuthor && $.authorCode2) {
+      if (helpAuthor1 && $.authorCode2) {
         for (let code of $.authorCode2) {
           const helpRes = await help(code.shareCode, code.groupCode);
           if (helpRes && helpRes.data.respCode === 'SG209') {
