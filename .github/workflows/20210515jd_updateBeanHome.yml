@@ -33,7 +33,7 @@ jobs:
           npm install
       - name: '运行'
         run: |
-          node jd_updateBeanHome.js 
+          node jd_BeanHome.js 
           
           
         env:
