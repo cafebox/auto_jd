@@ -37,7 +37,7 @@ jobs:
 
       - name: '运行'
         run: |
-          node jd_jxnc.js
+          node jd_liveredrain.js
          
           
         env:
