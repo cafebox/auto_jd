@@ -6,7 +6,7 @@ name: 20210508jd_daily_lottery京东抽奖
 on:
   workflow_dispatch:
   schedule:
-    - cron: '10 22,11,5 * * *'
+    - cron: '10 17,11,5 * * *'
   repository_dispatch:
     types: jd_daily_lottery.js
 jobs:
