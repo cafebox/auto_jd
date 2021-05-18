@@ -30,6 +30,10 @@ jobs:
           node jd_dpqd.js
           curl https://raw.githubusercontent.com/hajiuhajiu/jdsign1112/master/jd_ShopSign.js -o jd_ShopSign.js
           node jd_ShopSign.js
+          curl https://raw.githubusercontent.com/hajiuhajiu/jdsign1112/master/jd_dpqd2.js -o jd_dpqd2.js
+          node jd_dpqd2.js
+          
+          
        env:
           JD_COOKIE: ${{ secrets.JD_COOKIE }}
           JD_USER_AGENT: ${{ secrets.JD_USER_AGENT }}
