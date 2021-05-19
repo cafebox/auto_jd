@@ -5,7 +5,7 @@ name: 母婴跳一跳
 on:
   workflow_dispatch:
   schedule:
-    - cron: '30 15,13 * * *'
+    - cron: '5 0,6,14 19-25 5 *'
   repository_dispatch:
     types: d_jump_jump.js
 jobs:
