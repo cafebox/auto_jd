@@ -163,7 +163,7 @@ async function sendNotify(text, desp, params = {}, author = '') {
   await Promise.all([
     serverNotify(text, desp),//微信server酱
     pushPlusNotify(text, desp), //pushplus(推送加)
-    qmsgNotify(text+'\n'+desp)
+   // qmsgNotify(text+'\n'+desp)
   ])
   //由于上述两种微信通知需点击进去才能查看到详情，故text(标题内容)携带了账号序号以及昵称信息，方便不点击也可知道是哪个京东哪个活动
   text = text.match(/.*?(?=\s?-)/g) ? text.match(/.*?(?=\s?-)/g)[0] : text;
