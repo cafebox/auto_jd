@@ -38,24 +38,26 @@ if ($.isNode()) {
 }
 
 !(async () => {
-	if (!cookiesArr[0]) {
+	await requireConfig()
+	if (!$.cookiesArr[0]) {
 		$.msg($.name, '【提示】请先获取京东账号一cookie\n直接使用NobyDa的京东签到获取', 'https://bean.m.jd.com/', {
 			"open-url": "https://bean.m.jd.com/"
 		})
 		return
 	}
-	for (let i = 0; i < cookiesArr.length; i++) {
-		if (cookiesArr[i]) {
-			cookie = cookiesArr[i]
-			$.UserName = decodeURIComponent(cookie.match(/pt_pin=(.+?);/) && cookie.match(/pt_pin=(.+?);/)[1])
+	for (let i = 0; i < $.cookiesArr.length; i++) {
+		if ($.cookiesArr[i]) {
+			$.cookie = $.cookiesArr[i]
+			$.UserName = decodeURIComponent($.cookie.match(/pt_pin=(.+?);/) && $.cookie.match(/pt_pin=(.+?);/)[1])
 			$.index = i + 1
-			$.isLogin = false
+			$.isLogin = true
 			$.nickName = ''
-			await TotalBean();
+			await totalBean();
 			if (!$.isLogin) {
 				$.msg($.name, `【提示】cookie已失效`, `京东账号${$.index} ${$.nickName || $.UserName}\n请重新登录获取\nhttps://bean.m.jd.com/`, {
 					"open-url": "https://bean.m.jd.com/"
 				})
+				await $.notify.sendNotify(`${$.name}cookie已失效 - ${$.UserName}`, `京东账号${$.index} ${$.UserName}\n请重新登录获取cookie`);
 				continue
 			}
 			console.log(`\n***********开始【京东账号${$.index}】${$.nickName || $.UserName}********\n`);
@@ -73,19 +75,19 @@ if ($.isNode()) {
 			await getHyperParams()
 			console.log($.HyperParam)
 
-			console.log(`💥 获取所有价格保护列表，排除附件商品`)
+			console.log(`🧾 获取所有价格保护列表，排除附件商品`)
 			for (let page = 1; $.hasNext; page++) {
 				await getApplyData(page)
 			}
 
-			console.log(`💥 删除不符合订单`)
+			console.log(`🗑 删除不符合订单`)
 			let taskList = []
 			for (let order of $.orderList) {
 				taskList.push(HistoryResultQuery(order))
 			}
 			await Promise.all(taskList)
 
-			console.log(`💥 ${$.orderList.length}个商品即将申请价格保护！`)
+			console.log(`📊 ${$.orderList.length}个商品即将申请价格保护！`)
 			for (let order of $.orderList) {
 				await skuApply(order)
 				await $.wait(200)
@@ -99,14 +101,37 @@ if ($.isNode()) {
 				}
 			}
 
-			showMsg()
+			await showMsg()
 		}
 	}
 })()
 .catch((e) => {
 	console.log(`❗️ ${$.name} 运行错误！\n${e}`)
-	if (eval(jdDebug)) $.msg($.name, ``, `${e}`)
 }).finally(() => $.done())
+
+function requireConfig() {
+	return new Promise(resolve => {
+		console.log('开始获取配置文件\n')
+		$.notify = $.isNode() ? require('./sendNotify') : {sendNotify:async () => {}}
+		//获取 Cookies
+		$.cookiesArr = []
+		if ($.isNode()) {
+			//Node.js用户请在jdCookie.js处填写京东ck;
+			const jdCookieNode = require('./jdCookie.js');
+			Object.keys(jdCookieNode).forEach((item) => {
+				if (jdCookieNode[item]) {
+					$.cookiesArr.push(jdCookieNode[item])
+				}
+			})
+			if (process.env.JD_DEBUG && process.env.JD_DEBUG === 'false') console.log = () => {};
+		} else {
+			//IOS等用户直接用NobyDa的jd $.cookie
+			$.cookiesArr = [$.getdata('CookieJD'), $.getdata('CookieJD2'), ...jsonParse($.getdata('CookiesJD') || "[]").map(item => item.cookie)].filter(item => !!item);
+		}
+		console.log(`共${$.cookiesArr.length}个京东账号\n`)
+		resolve()
+	})
+}
 
 const getValueById = function (text, id) {
 	try {
@@ -126,7 +151,7 @@ function getHyperParams() {
 				'Host': 'msitepp-fm.jd.com',
 				'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
 				'Connection': 'keep-alive',
-				'Cookie': cookie,
+				'Cookie': $.cookie,
 				'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 14_0_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0 Mobile/15E148 Safari/604.1',
 				'Accept-Language': 'zh-cn',
 				'Referer': 'https://ihelp.jd.com/',
@@ -234,7 +259,7 @@ function skuApply(order) {
 		paramObj.token = $.token
 		paramObj.feSt = $.feSt
 
-		console.log(`🚀 ${order.title} 正在价格保护...`)
+		console.log(`🈸 ${order.title} 正在价格保护...`)
 		$.post(taskurl('siteppM_proApply', paramObj), (err, resp, data) => {
 			try {
 				if (err) {
@@ -301,8 +326,9 @@ function getApplyResult() {
 			delete $.applyMap[proSkuApplyId]
 			if (ajaxResultObj.applyResultVo.proApplyStatus == 'ApplySuccess') { //价保成功
 				$.refundtotalamount += ajaxResultObj.applyResultVo.refundtotalamount
+				console.log(`📋 ${order.title} \n🟢 申请成功：￥${$.refundtotalamount}`);
 			} else {
-				console.log(`💢 ${order.title} 申请失败：${ajaxResultObj.applyResultVo.failTypeStr} 失败类型:${ajaxResultObj.applyResultVo.failType}`)
+				console.log(`📋 ${order.title} \n🔴 申请失败：${ajaxResultObj.applyResultVo.failTypeStr} \n🔴 失败类型:${ajaxResultObj.applyResultVo.failType}`);
 			}
 		}
 	}
@@ -335,7 +361,7 @@ function getApplyResult() {
 }
 
 function taskurl(functionid, body) {
-	let urlStr = selfdomain + "rest/priceprophone/priceskusPull"
+	let urlStr = selfDomain + "rest/priceprophone/priceskusPull"
 	if ($.HyperParam.useColorApi == "true") {
 		urlStr = unifiedGatewayName + "api?appid=siteppM&functionId=" + functionid + "&forcebot=" + $.HyperParam.forcebot + "&t=" + new Date().getTime()
 	}
@@ -351,23 +377,25 @@ function taskurl(functionid, body) {
 			'Connection': 'keep-alive',
 			'Referer': 'https://msitepp-fm.jd.com/rest/priceprophone/priceProPhoneMenu',
 			"User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 14_0_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0 Mobile/15E148 Safari/604.1",
-			"Cookie": cookie
+			"Cookie": $.cookie
 		},
 		"body": body ? `body=${JSON.stringify(body)}` : undefined
 	}
 }
 
-function showMsg() {
-	console.log(`🎉 本次价格保护金额：${$.refundtotalamount}💰`)
-	if ($.refundtotalamount && !eval(jdNotifyControl)) {
-		$.msg($.name, ``, `京东账号${$.index} ${$.nickName || $.UserName}\n🎉 本次价格保护金额：${$.refundtotalamount}💰`, {
+async function showMsg() {
+	const message = `京东账号${$.index} ${$.nickName || $.UserName}\n🎉 本次价格保护金额：${$.refundtotalamount}💰`
+	console.log(message)
+	if ($.refundtotalamount) {
+		$.msg($.name, ``, message, {
 			"open-url": "https://msitepp-fm.jd.com/rest/priceprophone/priceProPhoneMenu"
 		});
+		await $.notify.sendNotify($.name, message)
 	}
 }
 
-function TotalBean() {
-	return new Promise(resolve => {
+function totalBean() {
+	return new Promise(async resolve => {
 		const options = {
 			"url": `https://wq.jd.com/user/info/QueryJDUserInfo?sceneval=2`,
 			"headers": {
@@ -376,10 +404,11 @@ function TotalBean() {
 				"Accept-Encoding": "gzip, deflate, br",
 				"Accept-Language": "zh-cn",
 				"Connection": "keep-alive",
-				"Cookie": cookie,
+				"Cookie": $.cookie,
 				"Referer": "https://wqs.jd.com/my/jingdou/my.shtml?sceneval=2",
-				"User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 14_0_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0 Mobile/15E148 Safari/604.1"
-			}
+				"User-Agent": $.isNode() ? (process.env.JD_USER_AGENT ? process.env.JD_USER_AGENT : (require('./USER_AGENTS').USER_AGENT)) : ($.getdata('JDUA') ? $.getdata('JDUA') : "jdapp;iPhone;9.4.4;14.3;network/4g;Mozilla/5.0 (iPhone; CPU iPhone OS 14_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148;supportJDSHWK/1")
+			},
+			"timeout": 10000,
 		}
 		$.post(options, (err, resp, data) => {
 			try {
@@ -390,10 +419,14 @@ function TotalBean() {
 					if (data) {
 						data = JSON.parse(data);
 						if (data['retcode'] === 13) {
+							$.isLogin = false; //cookie过期
 							return
 						}
-						$.isLogin = true
-						$.nickName = data['base'].nickname;
+						if (data['retcode'] === 0) {
+							$.nickName = (data['base'] && data['base'].nickname) || $.UserName;
+						} else {
+							$.nickName = $.UserName
+						}
 					} else {
 						console.log(`京东服务器返回空数据`)
 					}
