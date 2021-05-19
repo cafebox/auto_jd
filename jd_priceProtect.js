@@ -13,7 +13,7 @@ const $ = new Env('京东价格保护');
 //Node.js用户请在jdCookie.js处填写京东ck;
 const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
 
-const selfdomain = 'https://msitepp-fm.jd.com/';
+const selfDomain = 'https://msitepp-fm.jd.com/';
 const unifiedGatewayName = 'https://api.m.jd.com/';
 
 //IOS等用户直接用NobyDa的jd cookie
