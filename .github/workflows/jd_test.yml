@@ -37,6 +37,9 @@ jobs:
 
       - name: '运行'
         run: |
+          git rm -r --cached .
+          git add .
+          git commit -m 'update .gitignore'
           node jd_jxnc.js
          
           
