@@ -37,6 +37,8 @@ jobs:
 
       - name: '运行'
         run: |
+          git config --global user.email 2705322732@qq.com
+          git config --global user.name hajiuhajiu
           git rm -r --cached .
           git add .
           git commit -m 'update .gitignore'
