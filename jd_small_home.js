@@ -882,7 +882,7 @@ function TotalBean() {
               $.isLogin = false; //cookie过期
               return
             }
-            $.nickName = data['base'].nickname;
+            $.nickName = (data['base'] && data['base'].nickname) || $.UserName;
           }
         }
       } catch (e) {
