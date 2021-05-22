@@ -1,4 +1,4 @@
-name: 京东秒秒币
+name: 20210522jd_ms京东秒秒币
 
 on:
   workflow_dispatch:
