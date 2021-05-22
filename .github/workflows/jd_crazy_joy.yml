@@ -6,7 +6,7 @@ name: jd_crazy_joy
 on:
   workflow_dispatch:
   schedule:
-    - cron: '08 16,6 * * *'
+    - cron: '10 16,6 * * *'
   watch:
     types: started
   repository_dispatch:
@@ -59,3 +59,4 @@ jobs:
           DD_BOT_TOKEN: ${{ secrets.DD_BOT_TOKEN }}
           DD_BOT_SECRET: ${{ secrets.DD_BOT_SECRET }}
           IGOT_PUSH_KEY: ${{ secrets.IGOT_PUSH_KEY }}
+          QYWX_KEY: ${{ secrets.QYWX_KEY }}
