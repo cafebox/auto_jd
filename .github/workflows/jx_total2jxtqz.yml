@@ -43,7 +43,7 @@ jobs:
       - name: '运行'
         run: |
           node jx_sign.js
-          node jdczf.js
+          sleep 5
           node jdtqz.js
           
           
