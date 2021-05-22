@@ -6,7 +6,7 @@ name: 小超换豆jd_blueCoin(1K-20)
 on:
   workflow_dispatch:
   schedule:
-    - cron: '45 15 * * *'
+    - cron: '35 15 * * *'
   watch:
     types: started
   repository_dispatch:
@@ -62,3 +62,5 @@ jobs:
           DD_BOT_TOKEN: ${{ secrets.DD_BOT_TOKEN }}
           DD_BOT_SECRET: ${{ secrets.DD_BOT_SECRET }}
           IGOT_PUSH_KEY: ${{ secrets.IGOT_PUSH_KEY }}
+          QYWX_KEY: ${{ secrets.QYWX_KEY }}
+          
