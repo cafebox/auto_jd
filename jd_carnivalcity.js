@@ -53,7 +53,7 @@ if ($.isNode()) {
 }
 let inviteCodes = [];
 const JD_API_HOST = 'https://carnivalcity.m.jd.com';
-const activeEndTime = '2021/4/21 00:00:00+08:00';
+const activeEndTime = '2021/6/5 00:00:00+08:00';
 !(async () => {
   if (!cookiesArr[0]) {
     $.msg($.name, '【提示】请先获取京东账号一cookie\n直接使用NobyDa的京东签到获取', 'https://bean.m.jd.com/bean/signIndex.action', {"open-url": "https://bean.m.jd.com/bean/signIndex.action"});
@@ -242,21 +242,21 @@ function brandTaskInfo(brandId) {
               console.log(`\n开始做 品牌手机 【${data['data']['brandName']}】 任务`)
               console.log(`开始浏览 1-F 单品区 任务 ${sku['name']}`);
               await doBrowse(sku['id'], brandId, "brand", "presell", "browseSku");
-              await $.wait(2000);
+              await $.wait(12000);
               if ($.browseId) await getBrowsePrize($.browseId, brandId);
             }
             for (let sku of $.shopTask.filter(vo => !!vo && vo['status'] !== '4')){
               console.log(`\n开始做 品牌手机 【${data['data']['brandName']}】 任务`)
               console.log(`开始浏览 2-F 专柜区 任务 ${sku['name']}，需等待10秒`);
               await doBrowse(sku['id'], brandId, "brand", "follow", "browseShop");
-              await $.wait(10100);
+              await $.wait(14100);
               if ($.browseId) await getBrowsePrize($.browseId, brandId);
             }
             for (let sku of $.meetingTask.filter(vo => !!vo && vo['status'] !== '4')){
               console.log(`\n开始做 品牌手机 【${data['data']['brandName']}】 任务`)
               console.log(`开始浏览 3-F 综合区 任务 ${sku['name']}，需等待10秒`);
               await doBrowse(sku['id'], brandId, "brand", "meeting", "browseVenue");
-              await $.wait(10500);
+              await $.wait(14500);
               if ($.browseId) await getBrowsePrize($.browseId, brandId);
             }
             if ($.questionTask.hasOwnProperty('id') && $.questionTask['result'] === '0') {
@@ -314,7 +314,7 @@ async function doBrowseshopTask() {
   if ($.browseshopList && $.browseshopList.length) console.log(`\n开始 【逛好货街，做任务】，需等待10秒`)
   for (let shop of $.browseshopList) {
     await doBrowse(shop['id'], "", "browseShop", "browse", "browseShop");
-    await $.wait(10000);
+    await $.wait(14000);
     if ($.browseId) {
       await getBrowsePrize($.browseId)
     }
