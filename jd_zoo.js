@@ -34,8 +34,7 @@ inviteIdList = [
   'ZXTKT019-aksBmRfkjSreH-R1YQFjRWn6-7zx55awQ',
   'ZXTKT019-aklCFpFgSm_WEil7LIFjRWn6-7zx55awQ',
   'ZXTKT0195qwpGVtBpA6OZRj0kvAFjRWn6-7zx55awQ',
-  'ZXTKT0195qwpGVtBpA6OZRjzl_QFjRWn6-7zx55awQ'
-  
+  'ZXTKT0195qwpGVtBpA6OZRjzl_QFjRWn6-7zx55awQ'  
   
 ];
 if ($.isNode()) {
