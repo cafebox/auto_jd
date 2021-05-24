@@ -403,7 +403,7 @@ function TotalBean() {
               $.isLogin = false; //cookie过期
               return
             }
-            $.nickName = data['base'].nickname;
+            $.nickName = (data['base'] && data['base'].nickname) || $.UserName;
           } else {
             console.log(`京东服务器返回空数据`)
           }
@@ -491,7 +491,7 @@ function readShareCode() {
   console.log(`开始`)
   return new Promise(async resolve => {
     $.get({
-      url: `http://jd.turinglabs.net/api/v2/jd/festival/read/${randomCount}/`,
+      url: `https://raw.githubusercontent.com/1277002811/JDbot/master/shareCodes/superbox.json`,
       'timeout': 10000
     }, (err, resp, data) => {
       try {
