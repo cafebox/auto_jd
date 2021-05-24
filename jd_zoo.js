@@ -20,21 +20,21 @@ const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
 let cookiesArr = [], cookie = '',secretp = '',
 //商圈码
 shareCodeList = [
-  'sSKNX-MpqKONvfHiwM7fA9mpCx9lkkUan20wnBHJt3qa',
-  'sSKNX-MpqKOUsPPF48iscyr8LHvtnk4qMWJACbDxfOAOVNlVeSrPACUD9Q',
-  'sSKNX-MpqKOUsOv-492-ZMCCB3o8lW4Uu5-Go6fskI31i6RZ2fAaquNIxg',
+  'sSKNX-MpqKONvfHiwM7fA9mpCx9lkkUan20wnBHJt3qb',
+  'sSKNX-MpqKOUsPPF48iscyr8LHvtnk4qMWJACbDxfOAOVNlVeSrPACUD9A',
+  'sSKNX-MpqKOUsOv-492-ZMCCB3o8lW4Uu5-Go6fskI31i6RZ2fAaquNIxw',
   'sSKNX-MpqKOUsOLw3ceteZABBWhg6J2v5Md7jasXskpfu8Ceomd4e016pA',
   'sSKNX-MpqKOLte7h3MOIXiWT8OdWoR_nJEGQIbnn1wNJA9stvoPO0PRHpw',
   'sSKNX-MpqKOLte7h3MOIXiWT8OBTpR_nJEGQIbnn1wM_xvI0p-8LTpWWow'
 ];
 //个人码
 inviteIdList = [
-  'ZXTKT019-aklCFpFgSm_WEil7LIFjRWn6-7zx55awQ',
+  'ZXTKT019-aklCFpFgSm_WEil7LIFjRWn6-7zx55awQ','ZXTKT0124KQ2GkdM81PfFjRWn6-7zx55awQ',
   'ZXTKT019-ak0PWRKgCO3W02JyLYFjRWn6-7zx55awQ',
   'ZXTKT019-aksBmRfkjSreH-R1YQFjRWn6-7zx55awQ',
   'ZXTKT019-aklCFpFgSm_WEil7LIFjRWn6-7zx55awQ',
   'ZXTKT0195qwpGVtBpA6OZRj0kvAFjRWn6-7zx55awQ',
-  'ZXTKT0195qwpGVtBpA6OZRjzl_QFjRWn6-7zx55awQ'  
+  'ZXTKT0195qwpGVtBpA6OZRjzl_QFjRWn6-7zx55awQ','ZXTKT018v_V6QxcR91DWIx6b1AFjRWn6-7zx55awQ' 
   
 ];
 if ($.isNode()) {
