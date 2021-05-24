@@ -6,7 +6,7 @@ name: 20210525jd_jbczy金榜创造营
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 0,4,10 * * *'
+    - cron: '0 16,0,4,10 * * *'
   repository_dispatch:
     types: jd_jbczy
 jobs:
