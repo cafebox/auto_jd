@@ -242,7 +242,7 @@ function brandTaskInfo(brandId) {
               console.log(`\n开始做 品牌手机 【${data['data']['brandName']}】 任务`)
               console.log(`开始浏览 1-F 单品区 任务 ${sku['name']}`);
               await doBrowse(sku['id'], brandId, "brand", "presell", "browseSku");
-              await $.wait(200);
+              await $.wait(2000);
               if ($.browseId) await getBrowsePrize($.browseId, brandId);
             }
             for (let sku of $.shopTask.filter(vo => !!vo && vo['status'] !== '4')){
@@ -381,7 +381,7 @@ function myRank() {
                   } else {
                     console.log(`往期奖励领取失败：${JSON.stringify(res)}`);
                   }
-                  await $.wait(500);
+                  await $.wait(6500);
                 } else if (data.data[i].status === '3') {
                   console.log(`${data.data[i]['date']}日 【${data.data[i]['prizeName']}】往期京豆奖励已领取~`)
                 } else {
