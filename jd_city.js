@@ -81,6 +81,9 @@ let inviteCodes = ['']
           // 助力次数耗尽 || 黑号
           break
         }
+        if (res['data']['result']['toasts'] && res['data']['result']['toasts'][0]) {
+            console.log(`助力 【${$.newShareCodes[i]}】:${res.data.result.toasts[0].msg}`)
+        }
       }
       await getInviteInfo();//雇佣
       if (exchangeFlag) {
@@ -138,7 +141,7 @@ function getInfo(inviteId, flag = false) {
           console.log(`${$.name} API请求失败，请检查网路重试`)
         } else {
           if (safeGet(data)) {
-            if (inviteId) $.log(`助力结果:\n${data}\n`)
+            //if (inviteId) $.log(`助力结果:\n${data}\n`)
             data = JSON.parse(data);
             if (data.data && !data.data.result.userActBaseInfo.inviteId) {
               console.log(`账号已黑，看不到邀请码`);
