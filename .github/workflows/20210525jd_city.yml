@@ -8,7 +8,7 @@ on:
   schedule:
     - cron: '10 0,4,10 * * *'
   repository_dispatch:
-    types: 人头马x博朗
+    types: 城城分现金
 jobs:
   build:
 
