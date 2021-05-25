@@ -225,8 +225,9 @@ async function zoo() {
     await $.wait(1000);
     await takePostRequest('zoo_pk_getTaskDetail');
     let skillList = $.pkHomeData.result.groupInfo.skillList || [];
-    //activityStatus === 1未开始，2 已开始
-    for (let i = 0; i < skillList.length && $.pkHomeData.result.activityStatus === 2; i++) {
+   	let Hours = new Date(new Date().getTime() + new Date().getTimezoneOffset()*60*1000 + 8*60*60*1000).getHours();
+     //activityStatus === 1未开始，2 已开始，18点后使用技能
+    for (let i = 0; i < skillList.length && $.pkHomeData.result.activityStatus === 2 && (Hours < 18); i++) {
       if (Number(skillList[i].num) > 0) {
         $.skillCode = skillList[i].code;
         for (let j = 0; j < Number(skillList[i].num); j++) {
