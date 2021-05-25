@@ -23,9 +23,7 @@ shareCodeList = [
   'sSKNX-MpqKONvfHiwM7fA9mpCx9lkkUan20wnBHJt3qb',
   'sSKNX-MpqKOUsPPF48iscyr8LHvtnk4qMWJACbDxfOAOVNlVeSrPACUD9A',
   'sSKNX-MpqKOUsOv-492-ZMCCB3o8lW4Uu5-Go6fskI31i6RZ2fAaquNIxw',
-  'sSKNX-MpqKOUsOLw3ceteZABBWhg6J2v5Md7jasXskpfu8Ceomd4e016pA',
-  'sSKNX-MpqKOLte7h3MOIXiWT8OdWoR_nJEGQIbnn1wNJA9stvoPO0PRHpw',
-  'sSKNX-MpqKOLte7h3MOIXiWT8OBTpR_nJEGQIbnn1wM_xvI0p-8LTpWWow'
+
 ];
 //个人码
 inviteIdList = [
