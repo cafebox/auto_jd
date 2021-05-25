@@ -6,7 +6,7 @@ name: 20210525jd_carnivalcity手机818
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 16,0,5,11 * * *'
+    - cron: '0 16,23,5,11 * * *'
   repository_dispatch:
     types: jd_carnivalcity
 jobs:
