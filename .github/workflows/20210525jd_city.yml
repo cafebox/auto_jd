@@ -30,6 +30,7 @@ jobs:
           
        env:
           JD_COOKIE: ${{ secrets.JD_COOKIE }}
+          CITY_SHARECODES: ${{ secrets.CITY_SHARECODES }}
           JD_USER_AGENT: ${{ secrets.JD_USER_AGENT }}
           JD_DEBUG: ${{ secrets.JD_DEBUG }}
           PUSH_KEY: ${{ secrets.PUSH_KEY }}
