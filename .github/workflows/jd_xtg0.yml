@@ -6,7 +6,7 @@ name: 20210527xtg星推官定时
 on:
   workflow_dispatch:
   schedule:
-    - cron: '20 15 * * *'
+    - cron: '20 15 * 5,6 *'
   watch:
     types: started
   repository_dispatch:
