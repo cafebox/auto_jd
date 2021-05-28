@@ -6,7 +6,7 @@ name: 0406店铺签到有礼+关注有礼
 on:
   workflow_dispatch:
   schedule:
-    - cron: '57 15,12 * * *'
+    - cron: '57 18,12 * * *'
   repository_dispatch:
     types: 店铺签到相关
 jobs:
