@@ -21,7 +21,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         with:
-          repository: hajiuhajiu/jdsign1112b
+          repository: hajiuhajiu/jdsign1112
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
