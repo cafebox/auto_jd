@@ -6,7 +6,7 @@ name: 0404jd_live_lottery_social
 on:
   workflow_dispatch:
   schedule:
-    - cron: '56 0,6,12 * * *'
+    - cron: '56 6,12 * * *'
   repository_dispatch:
     types: jd_live_lottery_social
 jobs:
