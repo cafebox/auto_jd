@@ -32,7 +32,7 @@ jobs:
              node jd_beauty.js
         env:
           JD_COOKIE: ${{ secrets.JD_COOKIE }}
-          #JD_USER_AGENT: ${{ secrets.USER_AGENT }}
+          JD_USER_AGENT: ${{ secrets.agent }}
           JD_DEBUG: ${{ secrets.JD_DEBUG }}
           PUSH_KEY: ${{ secrets.PUSH_KEY }}
           QQ_SKEY: ${{ secrets.QQ_SKEY }}
