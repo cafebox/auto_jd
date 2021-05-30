@@ -28,7 +28,7 @@ jobs:
       - name: npm install
         run: |
                    npm install
-                   npm install ws
+                   #npm install ws
 
       - name: '运行'
         run: |
